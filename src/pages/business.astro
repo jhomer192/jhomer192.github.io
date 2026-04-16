@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+
+const services = [
+  {
+    title: 'Website build',
+    description: 'Clean, fast, easy to update. No templates you have to fight with.',
+    icon: '🖥️',
+  },
+  {
+    title: 'Google review auto-reply',
+    description: 'Friendly responses on your behalf, every review. Never leave a review unanswered again.',
+    icon: '⭐',
+  },
+  {
+    title: 'Business email',
+    description: 'Your domain, your inbox, zero setup on your end.',
+    icon: '✉️',
+  },
+  {
+    title: 'Domain + hosting',
+    description: 'We buy it, we renew it, we point it at your site.',
+    icon: '🌐',
+  },
+];
+---
+
+<Base
+  title="Small Business Services - Jack Homer"
+  description="Web presence and tools for local businesses - websites, Google review management, business email, and domain hosting."
+>
+  <div class="mx-auto max-w-5xl px-6 py-16">
+    <h1 class="text-4xl font-bold text-slate-100 mb-4">Small business, big internet.</h1>
+    <p class="text-slate-400 max-w-2xl leading-relaxed mb-14">
+      For local businesses that do not want to manage their own website, email, reviews, and domain.
+      We handle the parts you do not want to.
+    </p>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-16">
+      {services.map((service) => (
+        <div class="rounded-2xl border border-white/10 bg-ink-800 p-6">
+          <div class="mb-3 text-2xl">{service.icon}</div>
+          <h2 class="text-lg font-semibold text-slate-100 mb-2">{service.title}</h2>
+          <p class="text-sm text-slate-400 leading-relaxed">{service.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="rounded-2xl border border-accent-600/30 bg-ink-800 p-8 text-center">
+      <h2 class="text-2xl font-semibold text-slate-100 mb-3">Get in touch</h2>
+      <p class="text-slate-400 mb-6">
+        Tell me a bit about your business and what you need. I will get back to you quickly.
+      </p>
+      <a
+        href="mailto:jack@homerfamily.com?subject=Small%20business%20kit%20inquiry"
+        class="inline-block rounded-xl bg-accent-600 px-8 py-3 text-sm font-semibold text-white hover:bg-accent-500 transition-colors"
+      >
+        Email jack@homerfamily.com
+      </a>
+    </div>
+
+    <p class="mt-8 text-center text-sm italic text-slate-600">Brand and pricing coming soon.</p>
+  </div>
+</Base>

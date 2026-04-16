@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+
+const projects = [
+  {
+    title: 'Wikipedia Game Solver',
+    description: 'TF-IDF + cosine greedy walk through Wikipedia article links.',
+    live: 'https://jhomer192.github.io/wikipedia-game-solver/',
+    repo: 'https://github.com/jhomer192/wikipedia-game-solver',
+  },
+  {
+    title: "Conway's Game of Life",
+    description: 'Interactive React cellular automaton.',
+    live: 'https://jhomer192.github.io/game-of-life/',
+    repo: 'https://github.com/jhomer192/game-of-life',
+  },
+  {
+    title: 'Birthday Paradox Simulator',
+    description: 'Interactive probability visualizer.',
+    live: 'https://jhomer192.github.io/birthday-paradox/',
+    repo: 'https://github.com/jhomer192/birthday-paradox',
+  },
+  {
+    title: 'Python Wikipedia Game',
+    description: 'Original scikit-learn CLI version of the solver.',
+    live: null,
+    repo: 'https://github.com/jhomer192/WikipediaGame',
+  },
+];
+---
+
+<Base title="Side Projects - Jack Homer" description="Jack Homer's side projects - Wikipedia game solver, Game of Life, birthday paradox, and more.">
+  <div class="mx-auto max-w-5xl px-6 py-16">
+    <h1 class="text-4xl font-bold text-slate-100 mb-12">Side projects</h1>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {projects.map((project) => (
+        <div class="flex flex-col rounded-2xl border border-white/10 bg-ink-800 p-6">
+          <h2 class="text-lg font-semibold text-slate-100 mb-2">{project.title}</h2>
+          <p class="text-sm text-slate-400 leading-relaxed flex-1">{project.description}</p>
+          <div class="mt-5 flex flex-wrap gap-4 text-sm">
+            {project.live && (
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-accent-400 hover:text-accent-300 transition-colors"
+              >
+                Live &rarr;
+              </a>
+            )}
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-slate-400 hover:text-accent-400 transition-colors"
+            >
+              Repo &rarr;
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Base>

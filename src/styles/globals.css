@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink-700: #1f2937;
+  --color-ink-800: #111827;
+  --color-ink-900: #0b0f19;
+  --color-accent-400: #7dd3fc;
+  --color-accent-500: #38bdf8;
+  --color-accent-600: #0284c7;
+}
+
+body {
+  background-color: var(--color-ink-900);
+  color: #e2e8f0;
+  min-height: 100vh;
+  font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+}

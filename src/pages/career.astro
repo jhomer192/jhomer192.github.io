@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+
+const entries = [
+  {
+    role: 'Solution Engineer',
+    org: 'C3 AI',
+    location: 'Redwood City, CA',
+    dates: 'May 2025 - present',
+    note: 'Promoted from Associate Solution Engineer. Most day-to-day work is proprietary.',
+    dotClass: 'bg-accent-500',
+    cardClass: 'border-white/10 bg-ink-800',
+  },
+  {
+    role: 'Teaching Assistant',
+    org: 'Virginia Tech',
+    location: 'Blacksburg, VA',
+    dates: 'Spring 2023',
+    note: 'Supported undergraduate CS coursework.',
+    dotClass: 'bg-accent-500',
+    cardClass: 'border-white/10 bg-ink-800',
+  },
+  {
+    role: 'Software Engineer Intern',
+    org: 'The Action Network',
+    location: 'Remote',
+    dates: 'Summer 2021',
+    note: 'Full-stack engineering internship.',
+    dotClass: 'bg-accent-500',
+    cardClass: 'border-white/10 bg-ink-800',
+  },
+  {
+    role: 'BS Computer Science',
+    org: 'Virginia Tech',
+    location: 'Blacksburg, VA',
+    dates: '2019 - 2023',
+    note: 'Graduated with a degree in Computer Science.',
+    dotClass: 'bg-violet-500',
+    cardClass: 'border-violet-500/20 bg-ink-800/60',
+  },
+];
+---
+
+<Base title="Career - Jack Homer" description="Jack Homer's career timeline - C3 AI, Virginia Tech, The Action Network.">
+  <div class="mx-auto max-w-3xl px-6 py-16">
+    <h1 class="text-4xl font-bold text-slate-100 mb-12">Career</h1>
+
+    <ol class="relative border-l-2 border-accent-600/40 space-y-10">
+      {entries.map((entry) => (
+        <li class="ml-6">
+          <span class={`absolute -left-[9px] flex h-4 w-4 items-center justify-center rounded-full ring-2 ring-ink-900 ${entry.dotClass}`}></span>
+          <div class={`rounded-xl border p-5 ${entry.cardClass}`}>
+            <p class="text-xs text-slate-500 mb-1">{entry.dates}</p>
+            <h2 class="text-lg font-semibold text-slate-100">{entry.role}</h2>
+            <p class="text-sm text-accent-400 mb-2">
+              {entry.org} &middot; {entry.location}
+            </p>
+            <p class="text-sm text-slate-400">{entry.note}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</Base>

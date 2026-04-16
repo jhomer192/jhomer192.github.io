@@ -1,0 +1,39 @@
+---
+const pathname = Astro.url.pathname;
+
+const links = [
+  { href: '/career', label: 'Career' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/business', label: 'Business' },
+  { href: 'mailto:jack@homerfamily.com', label: 'Contact' },
+];
+
+function isActive(href: string) {
+  if (href.startsWith('mailto')) return false;
+  return pathname === href || pathname === href + '/';
+}
+---
+
+<nav class="sticky top-0 z-50 w-full border-b border-white/10 bg-ink-900/90 backdrop-blur">
+  <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-4">
+    <a href="/" class="text-lg font-semibold text-slate-100 hover:text-accent-400 transition-colors">
+      Jack Homer
+    </a>
+    <ul class="flex flex-wrap items-center gap-6 text-sm">
+      {links.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class={`transition-colors hover:text-accent-400 ${
+              isActive(href)
+                ? 'text-accent-400 font-medium'
+                : 'text-slate-400'
+            }`}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
