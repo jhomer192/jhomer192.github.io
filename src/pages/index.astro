@@ -1,11 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+import GameOfLife from '../components/GameOfLife.astro';
 import ShatterHero from '../components/ShatterHero';
 ---
 
 <Base title="Jack Homer" description="Jack Homer - Projects, career, and small business services. Forward Deployed Engineer at C3 AI based in Menlo Park.">
   <!-- Hero with letter-physics background -->
   <section class="relative mx-auto max-w-5xl px-6 pt-20 pb-16 overflow-hidden">
+    <GameOfLife />
     <ShatterHero client:load />
     <div class="relative z-10 mt-4">
       <p class="mt-4 text-xl text-slate-300 max-w-xl">

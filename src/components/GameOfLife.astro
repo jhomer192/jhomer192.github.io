@@ -1,0 +1,138 @@
+---
+// Conway's Game of Life canvas background for the home hero
+// Vanilla canvas, no deps. Respects prefers-reduced-motion. Pauses on hidden tab.
+---
+
+<canvas id="gol-canvas" aria-hidden="true"></canvas>
+
+<style>
+  #gol-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    /* Radial gradient mask: visible center, fades to transparent at edges */
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  (function () {
+    const canvas = document.getElementById('gol-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const CELL = 12;
+    const FPS = 8;
+    const INTERVAL = 1000 / FPS;
+    // accent-500 sky blue #38bdf8 at ~10% opacity (subtle texture behind letter physics)
+    const LIVE_COLOR = 'rgba(56, 189, 248, 0.10)';
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let cols: number, rows: number;
+    let grid: Uint8Array, next: Uint8Array;
+    let lastTime = 0;
+    let rafId: number;
+    let running = true;
+
+    function resize() {
+      const rect = canvas.parentElement!.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      cols = Math.ceil(canvas.width / CELL);
+      rows = Math.ceil(canvas.height / CELL);
+      seed();
+    }
+
+    function seed() {
+      grid = new Uint8Array(cols * rows);
+      next = new Uint8Array(cols * rows);
+      for (let i = 0; i < grid.length; i++) {
+        grid[i] = Math.random() < 0.3 ? 1 : 0;
+      }
+    }
+
+    function idx(c: number, r: number) {
+      // wraparound
+      return ((r + rows) % rows) * cols + ((c + cols) % cols);
+    }
+
+    function step() {
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const alive = grid[idx(c, r)];
+          const n =
+            grid[idx(c - 1, r - 1)] + grid[idx(c, r - 1)] + grid[idx(c + 1, r - 1)] +
+            grid[idx(c - 1, r)] +                             grid[idx(c + 1, r)] +
+            grid[idx(c - 1, r + 1)] + grid[idx(c, r + 1)] + grid[idx(c + 1, r + 1)];
+          if (alive) {
+            next[idx(c, r)] = (n === 2 || n === 3) ? 1 : 0;
+          } else {
+            next[idx(c, r)] = n === 3 ? 1 : 0;
+          }
+        }
+      }
+      const tmp = grid;
+      grid = next;
+      next = tmp;
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = LIVE_COLOR;
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          if (grid[idx(c, r)]) {
+            ctx.fillRect(c * CELL, r * CELL, CELL - 1, CELL - 1);
+          }
+        }
+      }
+    }
+
+    function loop(ts: number) {
+      if (!running) return;
+      if (ts - lastTime >= INTERVAL) {
+        step();
+        draw();
+        lastTime = ts;
+      }
+      rafId = requestAnimationFrame(loop);
+    }
+
+    // Init
+    resize();
+    draw(); // draw initial frame immediately
+
+    if (!prefersReduced) {
+      // Pause when tab hidden
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          running = false;
+          cancelAnimationFrame(rafId);
+        } else {
+          running = true;
+          lastTime = 0;
+          rafId = requestAnimationFrame(loop);
+        }
+      });
+
+      // Handle resize
+      let resizeTimer: ReturnType<typeof setTimeout>;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          resize();
+          draw();
+        }, 150);
+      });
+
+      rafId = requestAnimationFrame(loop);
+    }
+    // If prefers-reduced-motion, we already drew one static generation above — done.
+  })();
+</script>
