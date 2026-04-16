@@ -1,64 +1,91 @@
 ---
 import Base from '../layouts/Base.astro';
 
-const entries = [
+const projects = [
   {
-    role: 'Solution Engineer',
-    org: 'C3 AI',
-    location: 'Redwood City, CA',
-    dates: 'May 2025 - present',
-    note: 'Promoted from Associate Solution Engineer. Most day-to-day work is proprietary.',
-    dotClass: 'bg-accent-500',
-    cardClass: 'border-white/10 bg-ink-800',
+    title: 'US Marine Corps: Workforce Management Suite',
+    description:
+      'Led multiple applications across the Marine Corps workforce ecosystem, including automated tasking, HR management, and housing optimization. Served as workstream lead on multiple phases, architecting reusable packages shared across the portfolio so each new project inherits tested, production-ready code from prior engagements.',
   },
   {
-    role: 'Teaching Assistant',
-    org: 'Virginia Tech',
-    location: 'Blacksburg, VA',
-    dates: 'Spring 2023',
-    note: 'Supported undergraduate CS coursework.',
-    dotClass: 'bg-accent-500',
-    cardClass: 'border-white/10 bg-ink-800',
+    title: 'US Marine Corps: MEF Workforce Planning',
+    description:
+      'Led end-to-end delivery of a workforce planning application for a Marine Expeditionary Force, working from a 108-page product specification. Designed the integration pipeline between data science optimization models and the application layer, including scheduling views and readiness dashboards used by commanders. Led on-site workshops with Marine Corps stakeholders across multiple command levels. Delivered on schedule, resulting in a follow-on engagement at expanded scope.',
   },
   {
-    role: 'Software Engineer Intern',
-    org: 'The Action Network',
-    location: 'Remote',
-    dates: 'Summer 2021',
-    note: 'Full-stack engineering internship.',
-    dotClass: 'bg-accent-500',
-    cardClass: 'border-white/10 bg-ink-800',
+    title: 'Data Asset Management Framework',
+    description:
+      'Designed a data ingestion framework that reduces the effort to connect an external data source to a C3 application to roughly half a day of developer time, driven by a natural language prompt. The UI is fully dynamic, requiring minimal backend work per new data source. Built as a reusable package so any project can adopt it with no frontend changes.',
   },
   {
-    role: 'BS Computer Science',
-    org: 'Virginia Tech',
-    location: 'Blacksburg, VA',
-    dates: '2019 - 2023',
-    note: 'Graduated with a degree in Computer Science.',
-    dotClass: 'bg-violet-500',
-    cardClass: 'border-violet-500/20 bg-ink-800/60',
+    title: 'AI-Powered Legal Document Translation',
+    description:
+      'Built an automated document translation system for high-stakes legal use under a hard deadline. Uses a multi-agent adversarial architecture: a neural machine translation first pass, a critic agent that scores output across five quality dimensions, and an arbiter agent that merges results with full provenance tracking. Replaced what would have required significant spend on outside professional services with an in-house solution meeting the same quality bar.',
   },
+  {
+    title: 'Enterprise AI Agent Suite',
+    description:
+      'Built a suite of production AI agents now used across sales, legal, and finance functions. Includes a pre-proposal qualification agent that maps AI applications across verticals to help sales teams assess fit before pitching, a proposal generation agent, and an expense analysis agent for finance teams. Authored the original vision document for AI-assisted development tooling that preceded and shaped the formal initiative.',
+  },
+  {
+    title: 'Platform Reliability',
+    description:
+      'Organized field team contribution to a company-wide platform stability initiative. Built a script to trace system actions preceding crash events, identifying the patterns driving instability. Published internal guides on crash triage methodology. Contributed to taking daily crash frequency across the internal developer community down 94%.',
+  },
+];
+
+const prior = [
+  { label: 'Software Engineer Intern, The Action Network', detail: 'Summer 2021' },
+  { label: 'Teaching Assistant, Virginia Tech', detail: 'Spring 2023' },
+  { label: 'BS Computer Science, Virginia Tech', detail: '2019 to 2023' },
 ];
 ---
 
-<Base title="Career - Jack Homer" description="Jack Homer's career timeline - C3 AI, Virginia Tech, The Action Network.">
-  <div class="mx-auto max-w-3xl px-6 py-16">
-    <h1 class="text-4xl font-bold text-slate-100 mb-12">Career</h1>
+<Base title="Career - Jack Homer" description="Jack Homer's career at C3 AI - solution engineering, federal and enterprise delivery, and platform work.">
+  <div class="mx-auto max-w-4xl px-6 py-16">
 
-    <ol class="relative border-l-2 border-accent-600/40 space-y-10">
-      {entries.map((entry) => (
-        <li class="ml-6">
-          <span class={`absolute -left-[9px] flex h-4 w-4 items-center justify-center rounded-full ring-2 ring-ink-900 ${entry.dotClass}`}></span>
-          <div class={`rounded-xl border p-5 ${entry.cardClass}`}>
-            <p class="text-xs text-slate-500 mb-1">{entry.dates}</p>
-            <h2 class="text-lg font-semibold text-slate-100">{entry.role}</h2>
-            <p class="text-sm text-accent-400 mb-2">
-              {entry.org} &middot; {entry.location}
-            </p>
-            <p class="text-sm text-slate-400">{entry.note}</p>
+    <div class="mb-14">
+      <h1 class="text-4xl font-bold text-slate-100 mb-3">
+        Full Stack Solution Engineer at{' '}
+        <a
+          href="https://c3.ai"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-accent-400 hover:text-accent-300 underline underline-offset-4 decoration-accent-600 transition-colors"
+        >C3 AI</a>
+      </h1>
+      <p class="text-slate-400 text-base mb-5">
+        Redwood City, California. Promoted from Associate Solution Engineer in May 2025.
+      </p>
+      <p class="text-slate-300 text-base leading-relaxed max-w-2xl">
+        Jack leads end-to-end delivery of applications on C3's platform for federal and enterprise customers.
+        He builds reusable packages adopted across the portfolio, so each new engagement ships faster on a tested foundation.
+      </p>
+    </div>
+
+    <section class="mb-16">
+      <h2 class="text-2xl font-semibold text-slate-100 mb-8">Selected Projects</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {projects.map((project) => (
+          <div class="rounded-xl border border-white/10 bg-ink-800 p-6 flex flex-col gap-3">
+            <h3 class="text-base font-semibold text-slate-100">{project.title}</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">{project.description}</p>
           </div>
-        </li>
-      ))}
-    </ol>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-4">Prior</h2>
+      <ul class="flex flex-col gap-2">
+        {prior.map((item) => (
+          <li class="flex items-baseline gap-3 text-sm text-slate-500">
+            <span class="text-slate-400">{item.label}</span>
+            <span class="text-slate-600">{item.detail}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
   </div>
 </Base>
