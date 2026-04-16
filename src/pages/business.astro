@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import StorefrontPreview from '../components/StorefrontPreview';
 
 const services = [
   {
@@ -30,8 +31,16 @@ const services = [
   description="Web presence and tools for local businesses - websites, Google review management, business email, and domain hosting."
 >
   <div class="mx-auto max-w-5xl px-6 py-16">
-    <h1 class="text-4xl font-bold text-slate-100 mb-4">Small business, big internet.</h1>
-    <p class="text-slate-400 max-w-2xl leading-relaxed mb-14">
+    <h1 class="text-4xl font-bold text-slate-100 mb-4">See what your website could look like.</h1>
+    <p class="text-slate-400 max-w-2xl leading-relaxed mb-10">
+      Upload a photo of your business, type your name and tagline, and see a live mockup in seconds.
+      No signup needed.
+    </p>
+
+    <StorefrontPreview client:only="react" />
+
+    <h2 class="text-2xl font-semibold text-slate-100 mb-4">What you get</h2>
+    <p class="text-slate-400 max-w-2xl leading-relaxed mb-10">
       For local businesses that do not want to manage their own website, email, reviews, and domain.
       We handle the parts you do not want to.
     </p>
