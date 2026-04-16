@@ -9,6 +9,10 @@
   --color-accent-600: #0284c7;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--color-ink-900);
   color: #e2e8f0;
