@@ -1,19 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
 import GameOfLife from '../components/GameOfLife.astro';
-import ShatterHero from '../components/ShatterHero';
 ---
 
 <Base title="Jack Homer" description="Jack Homer - Projects, career, and small business services. Forward Deployed Engineer at C3 AI based in Menlo Park.">
-  <!-- Hero with letter-physics background -->
+  <!-- Hero with Game of Life background -->
   <section class="relative mx-auto max-w-5xl px-6 pt-20 pb-16 overflow-hidden">
     <GameOfLife />
-    <ShatterHero client:load />
-    <div class="relative z-10 mt-4">
-      <p class="mt-4 text-xl text-slate-300 max-w-xl">
+    <div class="relative z-10">
+      <h1 class="text-5xl font-bold bg-gradient-to-r from-[var(--accent)] via-[var(--accent-2)] to-[var(--accent-3)] bg-clip-text text-transparent">
+        Jack Homer
+      </h1>
+      <p class="mt-4 text-xl text-text-muted max-w-xl">
         Forward Deployed Engineer at C3 AI. Building software, building businesses.
       </p>
-      <p class="mt-4 text-slate-400 max-w-2xl leading-relaxed">
+      <p class="mt-4 text-text-dim max-w-2xl leading-relaxed">
         Based in Menlo Park, CA. CS grad from Virginia Tech (2023). I do full-stack
         work professionally and build side projects for fun - plus a small local
         business venture on the side.
@@ -25,48 +26,48 @@ import ShatterHero from '../components/ShatterHero';
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
       <a
         href="/projects"
-        class="group rounded-2xl border border-accent-500/50 bg-ink-800 p-6 transition-all duration-200 hover:bg-ink-700 hover:-translate-y-1 shadow-lg shadow-accent-500/10 hover:shadow-xl hover:shadow-accent-500/20"
+        class="group rounded-2xl border border-accent/50 bg-surface p-6 transition-all duration-200 hover:bg-surface-hover hover:-translate-y-1 shadow-lg shadow-accent/10 hover:shadow-xl hover:shadow-accent/20"
       >
         <div class="mb-3 text-2xl">&#x2692;&#xFE0F;</div>
-        <h2 class="mb-2 text-xl font-bold text-slate-100 group-hover:text-accent-400 transition-colors">
+        <h2 class="mb-2 text-xl font-bold text-text group-hover:text-accent transition-colors">
           Side projects
         </h2>
-        <p class="text-sm text-slate-400 leading-relaxed">
+        <p class="text-sm text-text-muted leading-relaxed">
           Wikipedia game solvers, Conway's Game of Life, birthday paradox visualizers, and more.
         </p>
-        <span class="mt-4 inline-block text-xs text-accent-500 group-hover:text-accent-400">
+        <span class="mt-4 inline-block text-xs text-accent group-hover:text-accent-hover">
           Browse projects &rarr;
         </span>
       </a>
 
       <a
         href="/career"
-        class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition-all duration-200 hover:border-accent-500/50 hover:bg-ink-700 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent-500/10"
+        class="group rounded-2xl border border-border bg-surface p-6 transition-all duration-200 hover:border-accent/50 hover:bg-surface-hover hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/10"
       >
         <div class="mb-3 text-2xl">&#x1F4BC;</div>
-        <h2 class="mb-2 text-lg font-semibold text-slate-100 group-hover:text-accent-400 transition-colors">
+        <h2 class="mb-2 text-lg font-semibold text-text group-hover:text-accent transition-colors">
           Career
         </h2>
-        <p class="text-sm text-slate-400 leading-relaxed">
+        <p class="text-sm text-text-muted leading-relaxed">
           Forward Deployed Engineer at C3 AI, Virginia Tech CS alum, and past intern at The Action Network.
         </p>
-        <span class="mt-4 inline-block text-xs text-accent-500 group-hover:text-accent-400">
+        <span class="mt-4 inline-block text-xs text-accent group-hover:text-accent-hover">
           View timeline &rarr;
         </span>
       </a>
 
       <a
         href="/business"
-        class="group rounded-2xl border border-white/10 bg-ink-800 p-6 transition-all duration-200 hover:border-accent-500/50 hover:bg-ink-700 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent-500/10"
+        class="group rounded-2xl border border-border bg-surface p-6 transition-all duration-200 hover:border-accent/50 hover:bg-surface-hover hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/10"
       >
         <div class="mb-3 text-2xl">&#x1F3EA;</div>
-        <h2 class="mb-2 text-lg font-semibold text-slate-100 group-hover:text-accent-400 transition-colors">
+        <h2 class="mb-2 text-lg font-semibold text-text group-hover:text-accent transition-colors">
           Business
         </h2>
-        <p class="text-sm text-slate-400 leading-relaxed">
+        <p class="text-sm text-text-muted leading-relaxed">
           Helping local businesses get online fast - websites, email, Google reviews, and domain management.
         </p>
-        <span class="mt-4 inline-block text-xs text-accent-500 group-hover:text-accent-400">
+        <span class="mt-4 inline-block text-xs text-accent group-hover:text-accent-hover">
           Learn more &rarr;
         </span>
       </a>
