@@ -28,11 +28,11 @@ const projects = [
 
 <Base title="Side Projects - Jack Homer" description="Jack Homer's side projects - Wikipedia game solver, Game of Life, birthday paradox, and more.">
   <div class="mx-auto max-w-5xl px-6 py-16">
-    <h1 class="text-4xl font-bold mb-12 bg-gradient-to-r from-sky-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent">Side projects</h1>
+    <h1 class="text-4xl font-bold mb-12 bg-gradient-to-r from-[var(--accent)] via-[var(--accent-2)] to-[var(--accent-3)] bg-clip-text text-transparent">Side projects</h1>
 
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
       {projects.map((project) => (
-        <div class="flex flex-col rounded-2xl border border-white/10 bg-ink-800 overflow-hidden transition-all duration-200 hover:border-accent-500/50 hover:bg-ink-700 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent-500/10">
+        <div class="flex flex-col rounded-2xl border border-border bg-surface overflow-hidden transition-all duration-200 hover:border-accent/50 hover:bg-surface-hover hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/10">
           {project.screenshot ? (
             <a href={project.live ?? project.repo} target="_blank" rel="noopener noreferrer" class="block overflow-hidden">
               <img
@@ -43,20 +43,20 @@ const projects = [
               />
             </a>
           ) : (
-            <div class="w-full aspect-[16/10] bg-ink-700 rounded-t-2xl flex items-center justify-center text-slate-600 select-none">
+            <div class="w-full aspect-[16/10] bg-surface-hover rounded-t-2xl flex items-center justify-center text-text-dim select-none">
               <span class="font-mono text-4xl opacity-40">&gt;_</span>
             </div>
           )}
           <div class="flex flex-col flex-1 p-6">
-            <h2 class="text-lg font-semibold text-slate-100 mb-2">{project.title}</h2>
-            <p class="text-sm text-slate-400 leading-relaxed flex-1">{project.description}</p>
+            <h2 class="text-lg font-semibold text-text mb-2">{project.title}</h2>
+            <p class="text-sm text-text-muted leading-relaxed flex-1">{project.description}</p>
             <div class="mt-5 flex flex-wrap gap-4 text-sm">
               {project.live && (
                 <a
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-accent-400 hover:text-accent-300 transition-colors"
+                  class="text-accent hover:text-accent-hover transition-colors"
                 >
                   Live &rarr;
                 </a>
@@ -65,7 +65,7 @@ const projects = [
                 href={project.repo}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-slate-400 hover:text-accent-400 transition-colors"
+                class="text-text-muted hover:text-accent transition-colors"
               >
                 Repo &rarr;
               </a>

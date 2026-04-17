@@ -29,8 +29,9 @@
     const CELL = 12;
     const FPS = 8;
     const INTERVAL = 1000 / FPS;
-    // accent-500 sky blue #38bdf8 at ~10% opacity (subtle texture behind letter physics)
-    const LIVE_COLOR = 'rgba(56, 189, 248, 0.10)';
+    // Read accent color from CSS variable for theme-awareness; append hex alpha 1a (~10% opacity)
+    const accentHex = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#cba6f7';
+    const LIVE_COLOR = accentHex + '1a';
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

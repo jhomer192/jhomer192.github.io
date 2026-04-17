@@ -14,26 +14,81 @@ function isActive(href: string) {
 }
 ---
 
-<nav class="sticky top-0 z-50 w-full border-b border-white/10 bg-ink-900/90 backdrop-blur">
+<nav class="sticky top-0 z-50 w-full border-b border-border bg-bg/90 backdrop-blur">
   <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-4">
-    <a href="/" class="text-lg font-semibold text-slate-100 hover:text-accent-400 transition-colors">
+    <a href="/" class="text-lg font-semibold text-text hover:text-accent transition-colors">
       Jack Homer
     </a>
-    <ul class="flex flex-wrap items-center gap-6 text-sm">
-      {links.map(({ href, label }) => (
-        <li>
-          <a
-            href={href}
-            class={`transition-colors hover:text-accent-400 ${
-              isActive(href)
-                ? 'text-accent-400 font-medium'
-                : 'text-slate-400'
-            }`}
-          >
-            {label}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div class="flex flex-wrap items-center gap-6">
+      <ul class="flex flex-wrap items-center gap-6 text-sm">
+        {links.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              class={`transition-colors hover:text-accent ${
+                isActive(href)
+                  ? 'text-accent font-medium'
+                  : 'text-text-muted'
+              }`}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div id="theme-picker" class="flex items-center gap-2">
+        <button
+          data-theme="mocha"
+          aria-label="Switch to Mocha theme"
+          class="theme-btn w-5 h-5 rounded-full transition-all hover:scale-110 focus:outline-none"
+          style="background: #cba6f7;"
+        ></button>
+        <button
+          data-theme="tokyo-night"
+          aria-label="Switch to Tokyo Night theme"
+          class="theme-btn w-5 h-5 rounded-full transition-all hover:scale-110 focus:outline-none"
+          style="background: #7aa2f7;"
+        ></button>
+        <button
+          data-theme="dracula"
+          aria-label="Switch to Dracula theme"
+          class="theme-btn w-5 h-5 rounded-full transition-all hover:scale-110 focus:outline-none"
+          style="background: #bd93f9;"
+        ></button>
+        <button
+          data-theme="nord"
+          aria-label="Switch to Nord theme"
+          class="theme-btn w-5 h-5 rounded-full transition-all hover:scale-110 focus:outline-none"
+          style="background: #88c0d0;"
+        ></button>
+      </div>
+    </div>
   </div>
 </nav>
+
+<script is:inline>
+  (function () {
+    function updateRings(active) {
+      document.querySelectorAll('.theme-btn').forEach(function (btn) {
+        if (btn.dataset.theme === active) {
+          btn.style.outline = '2px solid white';
+          btn.style.outlineOffset = '2px';
+        } else {
+          btn.style.outline = 'none';
+        }
+      });
+    }
+
+    var current = document.documentElement.getAttribute('data-theme') || 'mocha';
+    updateRings(current);
+
+    document.getElementById('theme-picker').addEventListener('click', function (e) {
+      var btn = e.target.closest('.theme-btn');
+      if (!btn) return;
+      var theme = btn.dataset.theme;
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('site-theme', theme);
+      updateRings(theme);
+    });
+  })();
+</script>
