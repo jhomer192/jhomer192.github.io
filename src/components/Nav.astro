@@ -38,28 +38,22 @@ function isActive(href: string) {
       </ul>
       <div id="theme-picker" class="flex items-center gap-2">
         <button
-          data-theme="mocha"
-          aria-label="Switch to Mocha theme"
+          data-theme="tokyo"
+          aria-label="Tokyo Night"
           class="theme-btn w-5 h-5 rounded-full transition-all hover:scale-110 focus:outline-none"
-          style="background: #cba6f7;"
-        ></button>
-        <button
-          data-theme="tokyo-night"
-          aria-label="Switch to Tokyo Night theme"
-          class="theme-btn w-5 h-5 rounded-full transition-all hover:scale-110 focus:outline-none"
-          style="background: #7aa2f7;"
+          style="background: #73daca;"
         ></button>
         <button
           data-theme="miami"
-          aria-label="Switch to Miami theme"
+          aria-label="Miami"
           class="theme-btn w-5 h-5 rounded-full transition-all hover:scale-110 focus:outline-none"
           style="background: #ff2d95;"
         ></button>
         <button
-          data-theme="forest"
-          aria-label="Switch to Forest theme"
+          data-theme="matcha"
+          aria-label="Matcha"
           class="theme-btn w-5 h-5 rounded-full transition-all hover:scale-110 focus:outline-none"
-          style="background: #8fbc6a;"
+          style="background: #8db660;"
         ></button>
       </div>
     </div>
@@ -79,7 +73,7 @@ function isActive(href: string) {
       });
     }
 
-    var current = document.documentElement.getAttribute('data-theme') || 'mocha';
+    var current = document.documentElement.getAttribute('data-theme') || 'tokyo';
     updateRings(current);
 
     document.getElementById('theme-picker').addEventListener('click', function (e) {

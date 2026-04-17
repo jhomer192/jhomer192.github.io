@@ -19,7 +19,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script is:inline>
       (function () {
-        var theme = localStorage.getItem('site-theme') || 'mocha';
+        var old = ['mocha', 'tokyo-night', 'dracula', 'nord', 'forest'];
+        var stored = localStorage.getItem('site-theme');
+        var theme = (stored && old.indexOf(stored) === -1) ? stored : 'tokyo';
         document.documentElement.setAttribute('data-theme', theme);
       })();
     </script>
