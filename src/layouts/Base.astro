@@ -8,7 +8,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Jack Homer - Solution Engineer, developer, and entrepreneur based in Menlo Park.' } = Astro.props;
+const { title, description = 'Jack Homer - Forward Deployed Engineer at C3 AI, software developer, and entrepreneur based in Menlo Park, CA.' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -42,6 +42,53 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:description" content={description} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Structured Data: Person -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Jack Homer",
+      "url": "https://jhomer192.github.io",
+      "jobTitle": "Forward Deployed Engineer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "C3 AI",
+        "url": "https://c3.ai"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Virginia Tech",
+        "url": "https://vt.edu"
+      },
+      "sameAs": [
+        "https://github.com/jhomer192",
+        "https://linkedin.com/in/jack-homer"
+      ],
+      "knowsAbout": ["Software Engineering", "AI", "Full-Stack Development", "TypeScript", "React", "Python"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Menlo Park",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      }
+    })} />
+
+    <!-- Structured Data: WebSite (enables sitelinks search) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Jack Homer",
+      "url": "https://jhomer192.github.io",
+      "author": {
+        "@type": "Person",
+        "name": "Jack Homer"
+      }
+    })} />
+
+    <!-- Additional SEO -->
+    <meta name="author" content="Jack Homer" />
+    <meta name="robots" content="index, follow" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
   </head>
   <body>
     <Nav />
