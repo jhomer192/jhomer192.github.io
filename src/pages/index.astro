@@ -1,25 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
-import GameOfLife from '../components/GameOfLife.astro';
+import ShatterHero from '../components/ShatterHero';
 ---
 
 <Base title="Jack Homer - Software Engineer" description="Jack Homer - Software Engineer at C3 AI, Virginia Tech CS grad. Building software and side projects in Menlo Park, CA.">
-  <!-- Hero with Game of Life background -->
-  <section class="relative mx-auto max-w-5xl px-6 pt-20 pb-16 overflow-hidden">
-    <GameOfLife />
-    <div class="relative z-10">
-      <h1 class="text-5xl font-bold bg-gradient-to-r from-[var(--accent)] via-[var(--accent-2)] to-[var(--accent-3)] bg-clip-text text-transparent">
-        Jack Homer
-      </h1>
-      <p class="mt-4 text-xl text-text-muted max-w-xl">
-        Forward Deployed Engineer at C3 AI. Building software, building businesses.
-      </p>
-      <p class="mt-4 text-text-dim max-w-2xl leading-relaxed">
-        Based in Menlo Park, CA. CS grad from Virginia Tech (2023). I do full-stack
-        work professionally and build side projects for fun - plus a small local
-        business venture on the side.
-      </p>
-    </div>
+  <!-- Hero with interactive letter-physics -->
+  <section class="relative mx-auto max-w-5xl px-6 pt-20 pb-8 overflow-hidden">
+    <ShatterHero client:load />
+    <p class="mt-4 text-xl text-text-muted max-w-xl">
+      Forward Deployed Engineer at C3 AI. Building software, building businesses.
+    </p>
+    <p class="mt-4 text-text-dim max-w-2xl leading-relaxed">
+      Based in Menlo Park, CA. CS grad from Virginia Tech (2023). I do full-stack
+      work professionally and build side projects for fun - plus a small local
+      business venture on the side.
+    </p>
   </section>
 
   <section class="mx-auto max-w-5xl px-6 pb-24">
