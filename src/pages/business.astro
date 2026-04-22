@@ -2,67 +2,183 @@
 import Base from '../layouts/Base.astro';
 import StorefrontPreview from '../components/StorefrontPreview';
 
-const services = [
+// Stripe payment links. Regenerate with setup-stripe.ts in the tableside repo.
+const LINKS = {
+  siteBuild: 'https://buy.stripe.com/test_eVq4gBewY5WbefPdyo2Ji00',
+  siteBuildBundle: 'https://buy.stripe.com/test_4gM4gBewYbgvgnXeCs2Ji01',
+  hostingOnly: 'https://buy.stripe.com/test_dRm8wR4WofwLgnXdyo2Ji02',
+  reviewAutoreply: 'https://buy.stripe.com/test_fZudRb74wgAP8Vv51S2Ji03',
+  fullBundle: 'https://buy.stripe.com/test_bJe5kF3Sk70fgnX3XO2Ji04',
+};
+
+const plans = [
   {
-    title: 'Website build',
-    description: 'Clean, fast, easy to update. No templates you have to fight with.',
-    icon: '🖥️',
+    tier: 'Everything bundle',
+    highlight: true,
+    price: '$30',
+    cadence: '/mo',
+    setup: '+ $50 build',
+    summary: 'Hosting on your domain, Google review auto-reply, and a business email address — all included. Best value if you want the whole thing off your plate.',
+    includes: [
+      'Custom website on your domain',
+      'Cloudflare hosting + SSL + CDN',
+      'Google review auto-reply (AI drafts, you approve or let us post)',
+      'Business email: yourname@yourdomain.com',
+    ],
+    cta: { label: 'Subscribe — $30/mo', href: LINKS.fullBundle },
+    footnote: 'One-time $50 to build the site. After that, one bill a month.',
   },
   {
-    title: 'Google review auto-reply',
-    description: 'Friendly responses on your behalf, every review. Never leave a review unanswered again.',
-    icon: '⭐',
+    tier: 'Hosting + website',
+    price: '$5',
+    cadence: '/mo',
+    setup: '+ $50 build',
+    summary: 'A fast, mobile-first website on your domain with hosting handled end-to-end. Add review auto-reply or email whenever you want.',
+    includes: [
+      'Custom website on your domain',
+      'Cloudflare hosting + SSL + CDN',
+      'Uptime monitoring',
+    ],
+    cta: { label: 'Subscribe hosting — $5/mo', href: LINKS.hostingOnly },
+    secondary: { label: 'One-time build first — $50', href: LINKS.siteBuildBundle },
   },
   {
-    title: 'Business email',
-    description: 'Your domain, your inbox, zero setup on your end.',
-    icon: '✉️',
+    tier: 'Review auto-reply add-on',
+    price: '$20',
+    cadence: '/mo',
+    summary: 'You run your own site, we handle Google reviews. AI drafts a response to every review, you approve in a tap (or enable auto-post).',
+    includes: [
+      'Responds to every Google review',
+      'Daily digest email so nothing slips',
+      'Dashboard to approve, reject, or edit drafts',
+      'Handles 1-star reviews with care',
+    ],
+    cta: { label: 'Subscribe add-on — $20/mo', href: LINKS.reviewAutoreply },
   },
   {
-    title: 'Domain + hosting',
-    description: 'We buy it, we renew it, we point it at your site.',
-    icon: '🌐',
+    tier: 'Website only — no subscription',
+    price: '$100',
+    cadence: ' one-time',
+    summary: 'I build the site, you host it wherever you want. You own the code.',
+    includes: [
+      'Custom website, yours to keep',
+      'No recurring fee',
+      'No vendor lock-in',
+    ],
+    cta: { label: 'Buy a one-time build — $100', href: LINKS.siteBuild },
   },
 ];
 ---
 
 <Base
-  title="Small Business Services - Jack Homer | Websites & Review Management"
-  description="Affordable websites, AI-powered Google review management, business email, and hosting for local businesses. Built by Jack Homer in Menlo Park, CA."
+  title="Small Business Websites + Google Review Management - Jack Homer"
+  description="For restaurants and plumbers: $100 custom websites, $5/mo hosting, $20/mo Google review auto-reply, $30/mo everything bundle. Built in Menlo Park, CA."
 >
   <div class="mx-auto max-w-5xl px-6 py-16">
-    <h1 class="text-4xl font-bold text-text mb-4">See what your website could look like.</h1>
+    <h1 class="text-4xl font-bold text-text mb-4 bg-gradient-to-r from-[var(--accent)] via-[var(--accent-2)] to-[var(--accent-3)] bg-clip-text text-transparent">
+      A good website. Reviews handled. One bill.
+    </h1>
     <p class="text-text-muted max-w-2xl leading-relaxed mb-10">
+      I build websites and manage Google reviews for local businesses — mainly restaurants and plumbers
+      in the Bay Area. Simple pricing, no long contracts, cancel anytime.
+    </p>
+
+    <h2 class="text-xl font-semibold text-text mb-3">See what your site could look like</h2>
+    <p class="text-sm text-text-muted max-w-2xl leading-relaxed mb-6">
       Upload a photo of your business, type your name and tagline, and see a live mockup in seconds.
       No signup needed.
     </p>
 
     <StorefrontPreview client:only="react" />
 
-    <h2 class="text-2xl font-semibold text-text mb-4">What you get</h2>
-    <p class="text-text-muted max-w-2xl leading-relaxed mb-10">
-      For local businesses that do not want to manage their own website, email, reviews, and domain.
-      We handle the parts you do not want to.
+    <h2 class="text-2xl font-semibold text-text mb-2 mt-4">Pricing</h2>
+    <p class="text-text-muted max-w-2xl leading-relaxed mb-8">
+      Pick what you want. No upsells, no calls, no contracts.
     </p>
 
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-16">
-      {services.map((service) => (
-        <div class="rounded-2xl border border-border bg-surface p-6">
-          <div class="mb-3 text-2xl">{service.icon}</div>
-          <h2 class="text-lg font-semibold text-text mb-2">{service.title}</h2>
-          <p class="text-sm text-text-muted leading-relaxed">{service.description}</p>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-12">
+      {plans.map((plan) => (
+        <div class={`rounded-2xl border ${plan.highlight ? 'border-accent bg-surface-hover shadow-lg shadow-accent/10' : 'border-border bg-surface'} p-6 flex flex-col`}>
+          {plan.highlight && (
+            <div class="inline-block text-xs font-semibold uppercase tracking-wider text-accent mb-3 self-start">
+              Most popular
+            </div>
+          )}
+          <h3 class="text-lg font-semibold text-text mb-1">{plan.tier}</h3>
+          <div class="flex items-baseline gap-1 mb-1">
+            <span class="text-3xl font-bold text-text">{plan.price}</span>
+            <span class="text-sm text-text-muted">{plan.cadence}</span>
+          </div>
+          {plan.setup && (
+            <div class="text-xs text-text-dim mb-3">{plan.setup}</div>
+          )}
+          <p class="text-sm text-text-muted leading-relaxed mb-4">{plan.summary}</p>
+          <ul class="text-sm text-text-muted space-y-1.5 mb-6 flex-1">
+            {plan.includes.map((item) => (
+              <li class="flex gap-2">
+                <span class="text-accent">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={plan.cta.href}
+            class={`block text-center rounded-xl px-6 py-3 text-sm font-semibold transition-colors ${plan.highlight ? 'bg-accent text-bg hover:bg-accent-hover' : 'border border-accent text-accent hover:bg-accent hover:text-bg'}`}
+          >
+            {plan.cta.label}
+          </a>
+          {plan.secondary && (
+            <a
+              href={plan.secondary.href}
+              class="block text-center mt-2 text-xs text-text-muted hover:text-accent transition-colors"
+            >
+              {plan.secondary.label} →
+            </a>
+          )}
+          {plan.footnote && (
+            <div class="text-xs text-text-dim mt-3 text-center">{plan.footnote}</div>
+          )}
         </div>
       ))}
     </div>
 
+    <div class="rounded-2xl border border-border bg-surface p-8 mb-8">
+      <h2 class="text-xl font-semibold text-text mb-4">How it works</h2>
+      <ol class="text-sm text-text-muted space-y-3 list-decimal list-inside">
+        <li><span class="text-text">Pick a plan above.</span> Pay through Stripe — you get a receipt immediately.</li>
+        <li><span class="text-text">I reach out within 24 hours</span> to collect the details (logo, photos, hours, menu or services).</li>
+        <li><span class="text-text">First draft within a week.</span> You tell me what to change. I ship the fix same day.</li>
+        <li><span class="text-text">Site goes live.</span> If you signed up for review auto-reply, we also connect your Google Business Profile (5-min walkthrough).</li>
+        <li><span class="text-text">Cancel anytime.</span> I don't hostage-hold your domain or your site.</li>
+      </ol>
+    </div>
+
+    <div class="rounded-2xl border border-border bg-surface p-8 mb-8">
+      <h2 class="text-xl font-semibold text-text mb-3">About the review auto-reply</h2>
+      <p class="text-sm text-text-muted leading-relaxed mb-3">
+        Every Google review gets a thoughtful, human-sounding response within a few hours.
+        Positive reviews get thanked in your voice. Negative reviews get acknowledged and
+        addressed (no corporate-speak, no legal liability).
+      </p>
+      <p class="text-sm text-text-muted leading-relaxed mb-3">
+        You choose the guardrails: default is <em>we draft, you approve in one tap</em>.
+        You can also enable auto-post for lower-stakes positive reviews.
+      </p>
+      <p class="text-sm text-text-muted leading-relaxed">
+        Reviews are responded to <strong>with your voice</strong>. You fill out a short
+        onboarding form (how you normally talk, what to mention on positive reviews,
+        how to handle 1-stars) and we stick to it.
+      </p>
+    </div>
+
     <div class="rounded-2xl border border-accent/30 bg-surface p-8 text-center">
-      <h2 class="text-2xl font-semibold text-text mb-3">Ready to get started?</h2>
+      <h2 class="text-2xl font-semibold text-text mb-3">Still have questions?</h2>
       <p class="text-text-muted mb-6">
-        Tell me about your business and I will put together a plan for you. Most projects launch within a week.
+        Email me and I'll answer, usually within a few hours.
       </p>
       <a
         href="mailto:jack@homerfamily.com?subject=Small%20business%20kit%20inquiry"
-        class="inline-block rounded-xl bg-accent px-8 py-3 text-sm font-semibold text-bg hover:bg-accent-hover transition-colors"
+        class="inline-block rounded-xl border border-accent px-8 py-3 text-sm font-semibold text-accent hover:bg-accent hover:text-bg transition-colors"
       >
         Email jack@homerfamily.com
       </a>
