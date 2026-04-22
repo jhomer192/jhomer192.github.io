@@ -1,15 +1,8 @@
 import type { TemplateProps } from './types';
 import { sampleContent } from './sampleContent';
+import Stars from './Stars';
 
 const NAV_LINKS = ['Home', 'Menu', 'Gallery', 'About', 'Contact'];
-
-function Stars({ count }: { count: number }) {
-  return (
-    <span style={{ color: '#f59e0b', letterSpacing: 1, fontSize: 12 }}>
-      {'★'.repeat(count)}{'☆'.repeat(5 - count)}
-    </span>
-  );
-}
 
 export default function SidebarNav({ businessName, tagline, heroImage, palette, fontPairing }: TemplateProps) {
   const headingStyle = { fontFamily: `${fontPairing.heading}, serif` };

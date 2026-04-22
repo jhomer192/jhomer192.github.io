@@ -1,13 +1,6 @@
 import type { TemplateProps } from './types';
 import { sampleContent } from './sampleContent';
-
-function Stars({ count }: { count: number }) {
-  return (
-    <span style={{ color: '#f59e0b', letterSpacing: 1, fontSize: 13 }}>
-      {'★'.repeat(count)}{'☆'.repeat(5 - count)}
-    </span>
-  );
-}
+import Stars from './Stars';
 
 const foodImages = [
   'https://picsum.photos/seed/food-1/400/300',

@@ -1,13 +1,6 @@
 import type { TemplateProps } from './types';
 import { sampleContent } from './sampleContent';
-
-function Stars({ count }: { count: number }) {
-  return (
-    <span style={{ color: '#f59e0b', letterSpacing: 1 }}>
-      {'★'.repeat(count)}{'☆'.repeat(5 - count)}
-    </span>
-  );
-}
+import Stars from './Stars';
 
 export default function FullBleedHero({ businessName, tagline, heroImage, palette, fontPairing }: TemplateProps) {
   const headingStyle = { fontFamily: `${fontPairing.heading}, serif` };
