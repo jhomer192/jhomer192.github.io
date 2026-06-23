@@ -171,7 +171,16 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 .sky-svg{display:block;width:100%;height:auto;position:relative;z-index:2;cursor:default}
 .cam{transform-origin:0 0;transition:transform 800ms cubic-bezier(.25,.1,.25,1)}
 @media (prefers-reduced-motion: reduce){
+  /* Honor the OS "reduce motion" setting: drop the camera glide, the plate's
+     develop/precipitate intro, star twinkle, the shooting star, and the modal
+     entrance flourishes. Everything still appears — just without animation.
+     (JS-driven motion — compass needle, shooting-star spawner — is separately
+     gated by a matchMedia('(prefers-reduced-motion: reduce)') check.) */
   .cam{transition:none}
+  .chart,#cam{animation:none}
+  .graticule .bgstar.tw{animation:none}
+  .shooting{animation:none;display:none}
+  .card-overlay.open,.card{animation:none}
 }
 
 .ticks line{stroke:var(--ink);stroke-width:.4;opacity:.35}

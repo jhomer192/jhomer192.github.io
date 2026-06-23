@@ -424,7 +424,15 @@ window.renderSky = function(opts){
   svg.setAttribute('viewBox', `0 0 ${SKY_W} ${SKY_H}`);
   svg.setAttribute('preserveAspectRatio','xMidYMid meet');
   svg.setAttribute('role','img');
-  svg.setAttribute('aria-label','Star chart of Jack Homer\'s projects, career, and business');
+  svg.setAttribute('focusable','false');
+  if(mode==='single' && focus){
+    const fc = CONSTELLATIONS.find(c=>c.id===focus);
+    svg.setAttribute('aria-label', fc
+      ? 'Star chart of '+fc.name+' — '+fc.sub.toLowerCase()+' by Jack Homer'
+      : 'Star chart by Jack Homer');
+  } else {
+    svg.setAttribute('aria-label','Star chart of Jack Homer\'s side projects, career, and business');
+  }
   wrap.appendChild(svg);
 
   renderTicks(svg);
