@@ -3,7 +3,7 @@
 
 const SVGNS = 'http://www.w3.org/2000/svg';
 const GREEK = ['α','β','γ','δ','ε','ζ','η','θ','ι','κ','λ','μ','ν','ξ','ο','π','ρ','σ','τ','υ','φ','χ','ψ','ω'];
-const D = 'https://jhomer192.github.io';
+const D = 'https://jackhomer.com';
 const GH = 'https://github.com/jhomer192';
 
 // CONSTELLATIONS — the data plate
