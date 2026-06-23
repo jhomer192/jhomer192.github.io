@@ -344,6 +344,12 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
   .card{max-width:none;max-height:88vh;border-width:2px 0 0;padding:26px 22px 32px;box-shadow:0 -10px 40px rgba(0,0,0,.3);animation:sheetIn .34s cubic-bezier(.2,.9,.3,1) both}
 }
 @keyframes sheetIn{from{transform:translateY(100%)}to{transform:none}}
+/* The reduce-motion block above is overridden for .card inside the ≤720px
+   query (equal specificity, later source order), so re-assert it here for the
+   mobile sheet — placed after line 344 so it wins for reduce-motion users. */
+@media (prefers-reduced-motion: reduce) and (max-width:720px){
+  .card{animation:none}
+}
 .card .close{position:absolute;top:14px;right:14px;background:none;border:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--ink-soft);cursor:pointer;padding:4px 8px}
 .card .close:hover{color:var(--accent)}
 .card .greek{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:32px;color:var(--accent);float:left;margin:-2px 14px 0 0;line-height:1}
