@@ -119,7 +119,7 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 }
 
 /* sky */
-.sky-wrap{position:relative;margin:6px 56px 22px;border:1px solid var(--ink);background:var(--paper);overflow:hidden;touch-action:manipulation;z-index:4}
+.sky-wrap{position:relative;margin:6px 56px 22px;border:1px solid var(--ink);background:var(--paper);overflow:hidden;touch-action:manipulation;z-index:4;-webkit-user-select:none;user-select:none}
 /* grid + background stars now render inside the SVG cam (see renderGrid) so they
    pan and zoom with the chart instead of staying frozen */
 .graticule .grid-major{stroke:rgba(10,10,10,.045);stroke-width:.5}
