@@ -331,9 +331,9 @@ function buildConstellation(c, cam, onStarClick){
 
     sg.addEventListener('click', e=>{e.stopPropagation(); onStarClick(s, greekOf[i], c);});
     sg.addEventListener('keydown', e=>{
-      if(e.key==='Enter'||e.key===' '){e.preventDefault(); onStarClick(s, greekOf[i], c); return;}
-      if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault(); const n=starNodes[(i+1)%starNodes.length]; n&&n.focus();}
-      if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault(); const n=starNodes[(i-1+starNodes.length)%starNodes.length]; n&&n.focus();}
+      if(e.key==='Enter'||e.key===' '){e.preventDefault(); e.stopPropagation(); onStarClick(s, greekOf[i], c); return;}
+      if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault(); e.stopPropagation(); const n=starNodes[(i+1)%starNodes.length]; n&&n.focus();}
+      if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault(); e.stopPropagation(); const n=starNodes[(i-1+starNodes.length)%starNodes.length]; n&&n.focus();}
     });
     sg.addEventListener('mouseenter', ()=>{
       sg.classList.add('lit');
@@ -387,7 +387,10 @@ function ensureCard(){
   document.body.appendChild(cardOverlay);
   cardOverlay.addEventListener('click', e=>{if(e.target===cardOverlay)closeCard();});
   cardOverlay.querySelector('.close').addEventListener('click', closeCard);
-  document.addEventListener('keydown', e=>{if(e.key==='Escape'&&cardOverlay.classList.contains('open'))closeCard();});
+  // Escape closes the card; stop here so the same keypress doesn't also exit the
+  // constellation zoom (that handler is registered later on document) — one
+  // Escape closes the card, a second Escape leaves the zoom.
+  document.addEventListener('keydown', e=>{if(e.key==='Escape'&&cardOverlay.classList.contains('open')){e.stopImmediatePropagation(); closeCard();}});
   // focus trap: keep Tab within the open dialog
   cardOverlay.addEventListener('keydown', e=>{
     if(e.key!=='Tab') return;
@@ -611,7 +614,7 @@ window.renderSky = function(opts){
 
   // ---- zoom logic (overview mode only) ----
   let currentZoom = null, live = null;
-  function enter(id){
+  function enter(id, moveFocus){
     const c = CONSTELLATIONS.find(x=>x.id===id);
     if(!c) return;
     const [x0,y0,x1,y1] = c.box;
@@ -623,11 +626,12 @@ window.renderSky = function(opts){
     const cxv = (SKY_W - bw*s)/2, cyv = (SKY_H - bh*s)/2;
     cam.style.transform = `translate(${cxv - bx*s}px, ${cyv - by*s}px) scale(${s})`;
     const cmp = wrap.querySelector('.compass'); if(cmp) cmp.style.display='none';
-    // dim other constellations
+    // dim other constellations and make them non-interactive while zoomed, so a
+    // keyboard user can't Tab into the near-invisible off-screen figures
     CONSTELLATIONS.forEach(o=>{
       const n = nodes[o.id]; if(!n) return;
-      if(o.id===id) n.node.classList.add('lit','entered');
-      else { n.node.style.opacity = .12; }
+      if(o.id===id){ n.node.classList.add('lit','entered'); n.node.inert = false; }
+      else { n.node.style.opacity = .12; n.node.inert = true; }
     });
     bc.style.display = 'flex';
     bc.innerHTML = `<span>Sky</span><span>›</span><span class="step">${c.name}</span>` +
@@ -638,20 +642,26 @@ window.renderSky = function(opts){
     document.body.classList.add('zoomed');
     if(live) live.textContent = 'Entered '+c.name+'. Press Escape to return.';
     currentZoom = id;
+    // for keyboard zoom, move focus into the constellation so arrow-cycling works
+    if(moveFocus){ const st = nodes[id] && nodes[id].stars; (st && st[0] ? st[0] : nodes[id].node).focus(); }
   }
-  function exit(){
+  function exit(moveFocus){
+    const prev = currentZoom;
     cam.style.transform = '';
     const cmp = wrap.querySelector('.compass'); if(cmp) cmp.style.display='';
     CONSTELLATIONS.forEach(o=>{
       const n = nodes[o.id]; if(!n) return;
       n.node.classList.remove('lit','entered');
       n.node.style.opacity = '';
+      n.node.inert = false;
     });
     bc.style.display = 'none';
     history.replaceState(null,'','#/');
     document.body.classList.remove('zoomed');
     if(live) live.textContent = 'Back to the full sky.';
     currentZoom = null;
+    // for keyboard exit, return focus to the constellation hub we came from
+    if(moveFocus && prev && nodes[prev]) nodes[prev].node.focus();
   }
 
   if(mode==='overview'){
@@ -665,7 +675,7 @@ window.renderSky = function(opts){
         if(e.key==='Enter'||e.key===' '){
           e.preventDefault();
           const id = n.node.getAttribute('data-id');
-          if(currentZoom===id) exit(); else enter(id);
+          if(currentZoom===id) exit(true); else enter(id, true);
         }
       });
     });
@@ -673,7 +683,10 @@ window.renderSky = function(opts){
       if(e.target===svg) exit();
     });
     document.addEventListener('keydown', e=>{
-      if(e.key==='Escape' && currentZoom){exit();}
+      // don't exit the zoom while a star card is open — let that Escape close the
+      // card first (this handler is registered before the lazily-created card's
+      // own Escape handler, so it must guard against the card itself)
+      if(e.key==='Escape' && currentZoom && !(cardOverlay && cardOverlay.classList.contains('open'))){exit(true);}
     });
     // honor hash on load
     const m = (location.hash||'').match(/^#\/([a-z-]+)/);

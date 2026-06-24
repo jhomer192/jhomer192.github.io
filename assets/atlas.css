@@ -110,6 +110,9 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 .preface .legend .ring{width:8px;height:8px;border-radius:50%;background:var(--paper);box-shadow:0 0 0 1.5px var(--ink);display:inline-block;vertical-align:middle;margin:0 10px 0 3px}
 .preface .legend .dash{display:inline-block;width:16px;border-top:1px dashed var(--accent);margin:0 8px 0 3px;vertical-align:middle}
 .preface .legend .hint{display:block;margin-top:6px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12.5px;letter-spacing:.04em;text-transform:none;color:var(--accent)}
+/* touch-only hint shown directly above the chart on phones (the legend hint is
+   keyboard-worded and reordered below the chart on mobile) */
+.sky-hint{display:none}
 @media (max-width:720px){
   .preface{padding:14px 22px 14px;grid-template-columns:1fr;gap:18px}
   .preface .legend{border-left:0;border-top:1px solid var(--ink);padding-left:0;padding-top:14px}
@@ -169,6 +172,23 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
   .sky-svg .csub{font-size:13px}
   .sky-svg .figure-label{font-size:16px}
   .ticks text{font-size:13px}
+
+  /* Mobile legibility — OVERVIEW only (single-mode plate pages already render
+     zoomed ~2x, so they must not be double-bumped). The overview's job on a
+     phone is to make constellations identifiable and tappable; tapping one
+     zooms in where individual stars become large and easy to read/tap. */
+  .sky-svg:not(.single-mode) .star.m1 .dot,.sky-svg:not(.single-mode) .star.m1 .ring{r:9}
+  .sky-svg:not(.single-mode) .star.m2 .dot,.sky-svg:not(.single-mode) .star.m2 .ring{r:8}
+  .sky-svg:not(.single-mode) .star.m3 .dot,.sky-svg:not(.single-mode) .star.m3 .ring{r:7.5}
+  .sky-svg:not(.single-mode) .star.m4 .dot,.sky-svg:not(.single-mode) .star.m4 .ring{r:6}
+  /* larger invisible tap target (~22px device at 390px); honest, < the 44px
+     ideal — true 44px per-star tapping happens in the zoomed view */
+  .sky-svg:not(.single-mode) .star .hit{r:24}
+  /* declutter: the per-star Greek labels collide with the bigger dots at
+     overview scale (their offset is computed from the base radius, in JS).
+     Hide them on the overview; constellation names stay, and Greek/full names
+     reappear once a constellation is zoomed in. */
+  .sky-svg:not(.single-mode) .cons:not(.entered) .star .glabel{display:none}
 }
 
 .sky-svg{display:block;width:100%;height:auto;position:relative;z-index:2;cursor:default}
@@ -528,11 +548,15 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
      Scoped away from .text-plate (contact/records/writing) which have no chart. */
   main.chart:not(.text-plate){display:flex;flex-direction:column}
   main.chart:not(.text-plate) > .header{order:0}
+  main.chart:not(.text-plate) > .sky-hint{order:1}
   main.chart:not(.text-plate) > #sky-wrap{order:1}
   main.chart:not(.text-plate) > .preface{order:2}
+  /* show the touch hint above the chart; drop the keyboard-worded legend hint */
+  .sky-hint{display:block;order:1;margin:2px 14px 0;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;letter-spacing:.02em;color:var(--accent)}
+  .preface .legend .hint{display:none}
   main.chart:not(.text-plate) > .sr-only,main.chart:not(.text-plate) > noscript{order:3}
   .header{border-bottom:0}
-  #sky-wrap{margin:12px 14px 16px !important;aspect-ratio:auto !important}
+  #sky-wrap{margin:12px 8px 16px !important;aspect-ratio:auto !important}
   .preface{border-bottom:0;border-top:1px solid var(--ink)}
   .preface .legend{border-left:0;padding-left:0;padding-top:10px}
   /* perf: don't run 150 infinite twinkles or the displacement filter on phones */
