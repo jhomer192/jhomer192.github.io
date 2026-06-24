@@ -463,7 +463,19 @@ function ensureHelp(){
   document.body.appendChild(helpOverlay);
   helpOverlay.addEventListener('click', e=>{ if(e.target===helpOverlay) closeHelp(); });
   helpOverlay.querySelector('.close').addEventListener('click', closeHelp);
-  helpOverlay.addEventListener('keydown', e=>{ if(e.key==='Escape'){ e.stopPropagation(); closeHelp(); } });
+  // Escape closes help from anywhere (document-level, like the card) so it works
+  // even if focus has left the dialog; stopImmediatePropagation keeps the same
+  // keypress from also exiting a constellation zoom underneath.
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && helpOverlay && helpOverlay.classList.contains('open')){ e.stopImmediatePropagation(); closeHelp(); } });
+  // trap Tab inside the dialog so focus can't leak to the page behind it
+  helpOverlay.addEventListener('keydown', e=>{
+    if(e.key!=='Tab') return;
+    const f = [...helpOverlay.querySelectorAll('button, a[href]')].filter(el=>el.offsetParent!==null);
+    if(!f.length) return;
+    const first=f[0], last=f[f.length-1];
+    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+  });
   return helpOverlay;
 }
 function openHelp(){
@@ -626,12 +638,16 @@ window.renderSky = function(opts){
     const cxv = (SKY_W - bw*s)/2, cyv = (SKY_H - bh*s)/2;
     cam.style.transform = `translate(${cxv - bx*s}px, ${cyv - by*s}px) scale(${s})`;
     const cmp = wrap.querySelector('.compass'); if(cmp) cmp.style.display='none';
-    // dim other constellations and make them non-interactive while zoomed, so a
-    // keyboard user can't Tab into the near-invisible off-screen figures
+    // dim other constellations and take them out of the Tab order while zoomed,
+    // so a keyboard user can't Tab into the near-invisible off-screen figures.
+    // NB: `inert` is an HTMLElement-only property and is a no-op on SVG <g>, so
+    // we gate focus directly with tabindex on the group and each of its stars.
     CONSTELLATIONS.forEach(o=>{
       const n = nodes[o.id]; if(!n) return;
-      if(o.id===id){ n.node.classList.add('lit','entered'); n.node.inert = false; }
-      else { n.node.style.opacity = .12; n.node.inert = true; }
+      const dim = o.id!==id;
+      if(dim){ n.node.style.opacity = .12; } else { n.node.classList.add('lit','entered'); }
+      n.node.setAttribute('tabindex', dim ? '-1' : '0');
+      n.stars.forEach(st=> st.setAttribute('tabindex', dim ? '-1' : '0'));
     });
     bc.style.display = 'flex';
     bc.innerHTML = `<span>Sky</span><span>›</span><span class="step">${c.name}</span>` +
@@ -683,10 +699,11 @@ window.renderSky = function(opts){
       if(e.target===svg) exit();
     });
     document.addEventListener('keydown', e=>{
-      // don't exit the zoom while a star card is open — let that Escape close the
-      // card first (this handler is registered before the lazily-created card's
-      // own Escape handler, so it must guard against the card itself)
-      if(e.key==='Escape' && currentZoom && !(cardOverlay && cardOverlay.classList.contains('open'))){exit(true);}
+      // don't exit the zoom while a star card OR the help dialog is open — let
+      // that Escape close the overlay first (this handler is registered before
+      // the lazily-created overlays' own Escape handlers, so it must guard here)
+      const overlayOpen = (cardOverlay && cardOverlay.classList.contains('open')) || (helpOverlay && helpOverlay.classList.contains('open'));
+      if(e.key==='Escape' && currentZoom && !overlayOpen){exit(true);}
     });
     // honor hash on load
     const m = (location.hash||'').match(/^#\/([a-z-]+)/);
@@ -702,10 +719,14 @@ window.renderSky = function(opts){
     // screen-reader announcements for enter/exit
     live = document.createElement('div'); live.className = 'sr-only';
     live.setAttribute('aria-live','polite'); wrap.appendChild(live);
-    // sticky "back to the sky" button (shown on mobile while zoomed in)
+    // sticky "back to the sky" button (shown on mobile while zoomed in).
+    // Appended to <body>, NOT the chart: the intro animation leaves main.chart
+    // with an identity transform, which would make it the containing block for
+    // this position:fixed pill — pinning/sizing it to the chart box instead of
+    // the viewport (text wraps, and it scrolls with the chart). Body escapes that.
     const skyback = document.createElement('button');
     skyback.type = 'button'; skyback.className = 'skyback'; skyback.textContent = '★ Back to the sky';
-    skyback.addEventListener('click', exit); wrap.appendChild(skyback);
+    skyback.addEventListener('click', exit); document.body.appendChild(skyback);
     // pause ambient animation when the tab is hidden or the chart is off-screen
     const pause = on => document.body.classList.toggle('anim-paused', on);
     document.addEventListener('visibilitychange', ()=> pause(document.hidden));

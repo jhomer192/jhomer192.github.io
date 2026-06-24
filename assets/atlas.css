@@ -375,9 +375,11 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 @keyframes sheetIn{from{transform:translateY(100%)}to{transform:none}}
 /* Re-assert reduce-motion for the mobile sheet: the .card rule inside the
    <=720px query above (equal specificity, later source order) would otherwise
-   override the global reduce-motion block, so restate it here for those users. */
-@media (prefers-reduced-motion: reduce) and (max-width:720px){
-  .card{animation:none}
+   override the global reduce-motion block. The global block also sits BEFORE
+   the .card animation declaration, so restate the suppression here — after both
+   cardIn and sheetIn — for reduce-motion users at every width. */
+@media (prefers-reduced-motion: reduce){
+  .card-overlay.open,.card{animation:none}
 }
 .card .close{position:absolute;top:8px;right:8px;background:none;border:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--ink-soft);cursor:pointer;padding:10px 12px;min-width:44px;min-height:44px}
 .card .close:hover{color:var(--accent)}
