@@ -3,7 +3,7 @@
 
 const SVGNS = 'http://www.w3.org/2000/svg';
 const GREEK = ['α','β','γ','δ','ε','ζ','η','θ','ι','κ','λ','μ','ν','ξ','ο','π','ρ','σ','τ','υ','φ','χ','ψ','ω'];
-const D = 'https://jhomer192.github.io';
+const D = 'https://jackhomer.com';
 const GH = 'https://github.com/jhomer192';
 
 // CONSTELLATIONS: the data plate
@@ -560,7 +560,15 @@ window.renderSky = function(opts){
   svg.setAttribute('viewBox', `0 0 ${SKY_W} ${SKY_H}`);
   svg.setAttribute('preserveAspectRatio','xMidYMid meet');
   svg.setAttribute('role','img');
-  svg.setAttribute('aria-label','Star chart of Jack Homer\'s projects, career, and business');
+  svg.setAttribute('focusable','false');
+  if(mode==='single' && focus){
+    const fc = CONSTELLATIONS.find(c=>c.id===focus);
+    svg.setAttribute('aria-label', fc
+      ? 'Star chart of '+fc.name+' — '+fc.sub.toLowerCase()+' by Jack Homer'
+      : 'Star chart by Jack Homer');
+  } else {
+    svg.setAttribute('aria-label','Star chart of Jack Homer\'s side projects, career, and business');
+  }
   wrap.appendChild(svg);
 
   renderTicks(svg);

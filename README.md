@@ -1,4 +1,4 @@
-# jhomer192.github.io
+# jackhomer.com
 
 Static site for **Jack Homer · A Sky of One Person** — an engraved
 celestial-atlas personal homepage. Hand-authored HTML/CSS/SVG; no build

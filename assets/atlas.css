@@ -174,7 +174,16 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 .sky-svg{display:block;width:100%;height:auto;position:relative;z-index:2;cursor:default}
 .cam{transform-origin:0 0;transition:transform 800ms cubic-bezier(.25,.1,.25,1)}
 @media (prefers-reduced-motion: reduce){
+  /* Honor the OS "reduce motion" setting: drop the camera glide, the plate's
+     develop/precipitate intro, star twinkle, the shooting star, and the modal
+     entrance flourishes. Everything still appears — just without animation.
+     (JS-driven motion — compass needle, shooting-star spawner — is separately
+     gated by a matchMedia('(prefers-reduced-motion: reduce)') check.) */
   .cam{transition:none}
+  .chart,#cam{animation:none}
+  .graticule .bgstar.tw{animation:none}
+  .shooting{animation:none;display:none}
+  .card-overlay.open,.card{animation:none}
 }
 
 .ticks line{stroke:var(--ink);stroke-width:.4;opacity:.35}
@@ -344,6 +353,12 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
   .card{max-width:none;max-height:88vh;border-width:2px 0 0;padding:26px 22px 32px;box-shadow:0 -10px 40px rgba(0,0,0,.3);animation:sheetIn .34s cubic-bezier(.2,.9,.3,1) both}
 }
 @keyframes sheetIn{from{transform:translateY(100%)}to{transform:none}}
+/* Re-assert reduce-motion for the mobile sheet: the .card rule inside the
+   <=720px query above (equal specificity, later source order) would otherwise
+   override the global reduce-motion block, so restate it here for those users. */
+@media (prefers-reduced-motion: reduce) and (max-width:720px){
+  .card{animation:none}
+}
 .card .close{position:absolute;top:8px;right:8px;background:none;border:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--ink-soft);cursor:pointer;padding:10px 12px;min-width:44px;min-height:44px}
 .card .close:hover{color:var(--accent)}
 .card .greek{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:32px;color:var(--accent);float:left;margin:-2px 14px 0 0;line-height:1}
