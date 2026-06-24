@@ -645,7 +645,13 @@ window.renderSky = function(opts){
     CONSTELLATIONS.forEach(o=>{
       const n = nodes[o.id]; if(!n) return;
       const dim = o.id!==id;
-      if(dim){ n.node.style.opacity = .12; } else { n.node.classList.add('lit','entered'); }
+      // set state symmetrically for BOTH branches so chaining enter()->enter()
+      // (zooming straight from one constellation to another, no exit between)
+      // can't leave the new target dimmed or the old one still 'entered' with
+      // ghost labels — previously only exit() reset this.
+      n.node.style.opacity = dim ? '.12' : '';
+      n.node.classList.toggle('lit', !dim);
+      n.node.classList.toggle('entered', !dim);
       n.node.setAttribute('tabindex', dim ? '-1' : '0');
       n.stars.forEach(st=> st.setAttribute('tabindex', dim ? '-1' : '0'));
     });
@@ -669,7 +675,9 @@ window.renderSky = function(opts){
       const n = nodes[o.id]; if(!n) return;
       n.node.classList.remove('lit','entered');
       n.node.style.opacity = '';
-      n.node.inert = false;
+      // restore Tab order for the constellations dimmed out by enter()
+      n.node.setAttribute('tabindex','0');
+      n.stars.forEach(st=> st.setAttribute('tabindex','0'));
     });
     bc.style.display = 'none';
     history.replaceState(null,'','#/');
@@ -755,6 +763,9 @@ window.renderSky = function(opts){
     if(e.key !== '?') return;
     const t = document.activeElement;
     if(t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+    // don't stack help over an open star card (shared scroll-lock + ambiguous
+    // Escape order); let the card be dealt with first
+    if(cardOverlay && cardOverlay.classList.contains('open')) return;
     e.preventDefault();
     toggleHelp();
   });
