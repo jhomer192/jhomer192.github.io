@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <title>Songrank · Jack Homer</title>
-<meta name="description" content="Songrank — rank your most-played Spotify tracks through head-to-head comparisons, then export the result as a real playlist.">
-<link rel="canonical" href="https://jhomer192.github.io/projects/songrank/">
+<meta name="description" content="Songrank, rank your most-played Spotify tracks through head-to-head comparisons, then export the result as a real playlist.">
+<link rel="canonical" href="https://jackhomer.com/projects/songrank/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Songrank · Jack Homer">
 <meta property="og:description" content="Rank your most-played Spotify tracks through head-to-head comparisons, then export the result as a real playlist.">
-<meta property="og:url" content="https://jhomer192.github.io/projects/songrank/">
+<meta property="og:url" content="https://jackhomer.com/projects/songrank/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:image" content="https://jhomer192.github.io/screenshots/songrank.webp">
+<meta property="og:image" content="https://jackhomer.com/screenshots/songrank.webp">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,33 +60,35 @@
     </figure>
 
     <p>
-      Spotify will hand you a "top songs" list, but it's ordered by play count — which rewards the
+      Spotify will hand you a "top songs" list, but it's ordered by play count, which rewards the
       track that was on in the background, not the one you'd actually defend. The honest ranking lives
       in your head, and the only way to get it out is to make the small decisions one at a time: this
       song or that one.
     </p>
     <p>
       Songrank pulls a slice of your library and walks you through exactly those decisions. You never
-      score anything or drag a list around — you just answer a long series of two-song matchups, and an
+      score anything or drag a list around: you just answer a long series of two-song matchups, and an
       ordered ranking falls out the other side, ready to save back to Spotify.
     </p>
     <p>
       The piece I didn't expect to lean on is the friends mode. Hand someone your finished ranking and
-      let them guess your top 10, and the scoring turns a private list into a small game — you find out
+      let them guess your top 10, and the scoring turns a private list into a small game: you find out
       how well they actually know your taste. It started as a throwaway idea and became the main reason
       people open it twice.
     </p>
 
     <h2>How it works</h2>
     <ul>
-      <li><strong>Pulls a real slice of your listening</strong> — 128 tracks, split between your recent rotation and your all-time favorites, straight from the Spotify API.</li>
-      <li><strong>Ranks by binary insertion</strong> — each new song is placed with a handful of comparisons against songs already ranked, so it takes roughly 370 taps to fully sort 128 tracks instead of comparing every possible pair.</li>
-      <li><strong>Exports the result</strong> — writes your top 10 or 25 back to Spotify as a playlist, with mosaic cover art generated from the album covers.</li>
-      <li><strong>Has a friends mode</strong> — someone else guesses your top 10 and gets scored on how close they came.</li>
+      <li><strong>Pulls a real slice of your listening</strong>: 128 tracks, split between your recent rotation and your all-time favorites, straight from the Spotify API.</li>
+      <li><strong>Ranks by binary insertion</strong>: each new song is placed with a handful of comparisons against songs already ranked, so it takes roughly 370 taps to fully sort 128 tracks instead of comparing every possible pair.</li>
+      <li><strong>Exports the result</strong>: writes your top 10 or 25 back to Spotify as a playlist, with mosaic cover art generated from the album covers.</li>
+      <li><strong>Has a friends mode</strong>: someone else guesses your top 10 and gets scored on how close they came.</li>
     </ul>
 
     <h2>Stack</h2>
     <p class="stack">Next.js · TypeScript · Tailwind. Auth is Spotify PKCE OAuth against your own developer app, so there's no shared rate cap and nothing of yours passes through a server I run.</p>
+
+    <p class="next"><strong>Next</strong> Apple Music and Last.fm imports, so it isn't Spotify-only.</p>
 
     <div class="cta">
       <a href="https://jhomer192.github.io/songrank" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="songrank-demo">Try it live ↗</a>

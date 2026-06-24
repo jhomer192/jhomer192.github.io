@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <title>Contact · Jack Homer</title>
 <meta name="description" content="Send Jack Homer a note. It goes straight to his phone; he usually replies within a few hours.">
-<link rel="canonical" href="https://jhomer192.github.io/contact/">
+<link rel="canonical" href="https://jackhomer.com/contact/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Contact · Jack Homer">
-<meta property="og:url" content="https://jhomer192.github.io/contact/">
+<meta property="og:url" content="https://jackhomer.com/contact/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:image" content="https://jhomer192.github.io/og.png">
+<meta property="og:image" content="https://jackhomer.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,7 +88,7 @@
 
 <div class="colophon">
   Jack Homer · Bay Area<br>
-  <a href="mailto:jack@homerfamily.com">jack@homerfamily.com</a> · <a href="https://github.com/jhomer192">GitHub</a>
+  <a href="mailto:jack@homerfamily.com">jack@homerfamily.com</a> · <a href="https://github.com/jhomer192">GitHub</a> · <a href="https://www.linkedin.com/in/jack-homer">LinkedIn</a>
 </div>
 
 <script>
@@ -117,9 +117,9 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(form);
-    // Honeypot tripped — silently fake success.
+    // Honeypot tripped, silently fake success.
     if (data.get('website')) {
-      setStatus("Sent — thanks! I'll be in touch.", 'success');
+      setStatus("Sent, thanks! I'll be in touch.", 'success');
       form.reset();
       return;
     }
@@ -139,7 +139,7 @@
         const body = await res.text().catch(() => '');
         throw new Error('HTTP ' + res.status + ': ' + (body || 'unknown error'));
       }
-      setStatus("Sent — thanks! I'll be in touch.", 'success');
+      setStatus("Sent, thanks! I'll be in touch.", 'success');
       form.reset();
     } catch (err) {
       console.error(err);

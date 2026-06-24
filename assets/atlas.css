@@ -271,6 +271,12 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 .scroll .lede{font-style:italic;font-size:17px;max-width:780px;margin-bottom:24px}
 .scroll .rule{border:0;border-top:1px solid var(--ink);margin:32px 0 24px;opacity:.4}
 .scroll a{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.scroll .ix-head{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+.proj-index{list-style:none;margin:0;padding:0;columns:2;column-gap:36px;max-width:640px}
+.proj-index li{padding:0 0 9px;break-inside:avoid}
+.proj-index a{font-size:15px}
+.proj-index .g{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+@media (max-width:540px){ .proj-index{columns:1} }
 @media (max-width:720px){
   .scroll{padding:28px 22px 36px}
   .scroll h2{font-size:24px}
@@ -353,6 +359,11 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 .card .links{display:flex;gap:14px;margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
 .card .links a{color:var(--accent);text-decoration:underline}
 .card .kind{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin-top:14px;padding-top:14px;border-top:1px solid rgba(10,10,10,.2)}
+/* keyboard / navigation help overlay (reuses .card-overlay + .card) */
+.help .shortcuts{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin-top:10px;align-items:center}
+.help .shortcuts dt{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--ink);display:flex;gap:4px;flex-wrap:wrap}
+.help .shortcuts dd{margin:0;font-size:14px;line-height:1.4;color:var(--ink-soft)}
+.help kbd{font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1;border:1px solid var(--ink);border-radius:4px;padding:3px 6px;background:var(--paper2);color:var(--ink)}
 
 /* text-plate (opinions/records/contact — no sky chart, just engraved text) */
 .text-plate{padding-bottom:42px}
@@ -385,6 +396,8 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 .proj ul li::before{content:'·';position:absolute;left:2px;top:-1px;color:var(--accent);font-weight:700}
 .proj ul li strong{color:var(--ink);font-weight:600}
 .proj .stack{font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.6;letter-spacing:.03em;color:var(--ink-soft);max-width:660px}
+.proj .next{font-size:14.5px;line-height:1.6;color:var(--ink-soft);max-width:660px;margin:20px 0 0;padding-top:16px;border-top:1px solid rgba(10,10,10,.12)}
+.proj .next strong{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-right:8px}
 .proj .cta{display:flex;gap:18px;flex-wrap:wrap;margin-top:28px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
 .proj .cta a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 @media (max-width:720px){

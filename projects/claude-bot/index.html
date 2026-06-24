@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <title>Claude Bot · Jack Homer</title>
-<meta name="description" content="Claude Bot — a self-hosted relay that wires Telegram to Claude Code, so you can drive a coding agent in a real workspace from your phone.">
-<link rel="canonical" href="https://jhomer192.github.io/projects/claude-bot/">
+<meta name="description" content="Claude Bot, a self-hosted relay that wires Telegram to Claude Code, so you can drive a coding agent in a real workspace from your phone.">
+<link rel="canonical" href="https://jackhomer.com/projects/claude-bot/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Claude Bot · Jack Homer">
 <meta property="og:description" content="A self-hosted relay that wires Telegram to Claude Code, so you can drive a coding agent in a real workspace from your phone.">
-<meta property="og:url" content="https://jhomer192.github.io/projects/claude-bot/">
+<meta property="og:url" content="https://jackhomer.com/projects/claude-bot/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:image" content="https://jhomer192.github.io/og.png">
+<meta property="og:image" content="https://jackhomer.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,7 +52,7 @@
 
   <section class="proj">
     <div class="meta">Side project · 2026</div>
-    <p class="tagline">A self-hosted relay that turns Telegram into a remote terminal for Claude Code — the harness that built most of this sky.</p>
+    <p class="tagline">A self-hosted relay that turns Telegram into a remote terminal for Claude Code, the harness that built most of this sky.</p>
 
     <p>
       Claude Code lives on a machine, and most of the time I'm not sitting in front of it. I'd think of
@@ -63,24 +63,24 @@
     <p>
       So I built a small relay. A Telegram chat becomes the front end: I type a message, a Claude Code
       session picks it up in a real project directory, does the work, and the reply lands back in the
-      same thread. Nothing about it is tied to one project — point it at any workspace and that workspace
+      same thread. Nothing about it is tied to one project; point it at any workspace and that workspace
       is suddenly something I can drive from my phone. The Auto Applier was just the first tenant.
     </p>
 
     <h2>How it works</h2>
     <ul>
-      <li><strong>Listens on the Telegram Bot API</strong> — incoming messages from an allowed chat get handed straight to the relay; everything else is dropped.</li>
-      <li><strong>Spawns Claude Code per message</strong> — each prompt starts a Claude Code process rooted in a configured workspace directory, so the agent has the real files and tools, not a stripped-down sandbox.</li>
-      <li><strong>Routes the reply back</strong> — whatever the session produces is captured and sent to the same chat, so a phone is the only interface I need.</li>
-      <li><strong>Workspace-agnostic</strong> — the target directory is config, not code, so any Claude Code project becomes reachable through the same bot.</li>
-      <li><strong>Self-hosted</strong> — it runs on my own server and deploys over SSH, so the keys and the workspaces never leave hardware I control.</li>
+      <li><strong>Listens on the Telegram Bot API</strong>: incoming messages from an allowed chat get handed straight to the relay; everything else is dropped.</li>
+      <li><strong>Spawns Claude Code per message</strong>: each prompt starts a Claude Code process rooted in a configured workspace directory, so the agent has the real files and tools, not a stripped-down sandbox.</li>
+      <li><strong>Routes the reply back</strong>: whatever the session produces is captured and sent to the same chat, so a phone is the only interface I need.</li>
+      <li><strong>Workspace-agnostic</strong>: the target directory is config, not code, so any Claude Code project becomes reachable through the same bot.</li>
+      <li><strong>Self-hosted</strong>: it runs on my own server and deploys over SSH, so the keys and the workspaces never leave hardware I control.</li>
     </ul>
 
     <h2>Stack</h2>
     <p class="stack">Node · Telegram Bot API · Claude Code. The bot is a thin Node process: it owns the chat connection and the process lifecycle, and leans on Claude Code for all the actual work in the workspace.</p>
 
     <div class="cta">
-      <span class="note" data-umami-event="proj-link" data-umami-event-target="claude-bot-private">Private · self-hosted — no public link.</span>
+      <span class="note" data-umami-event="proj-link" data-umami-event-target="claude-bot-private">Private · self-hosted, no public link.</span>
     </div>
   </section>
 

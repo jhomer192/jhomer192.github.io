@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jhomer192.github.io/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://jhomer192.github.io/projects/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://jhomer192.github.io/projects/songrank/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jhomer192.github.io/projects/wikigame/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jhomer192.github.io/projects/meme-maker/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jhomer192.github.io/projects/clocktower/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jhomer192.github.io/projects/nuzlocke/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jhomer192.github.io/projects/connections-maker/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jhomer192.github.io/projects/game-of-life/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jhomer192.github.io/projects/birthday-paradox/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jhomer192.github.io/projects/auto-applier/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://jhomer192.github.io/projects/claude-bot/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://jhomer192.github.io/projects/grace-style/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://jhomer192.github.io/career/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://jhomer192.github.io/business/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jhomer192.github.io/contact/</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://jackhomer.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://jackhomer.com/projects/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://jackhomer.com/projects/songrank/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jackhomer.com/projects/wikigame/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jackhomer.com/projects/meme-maker/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jackhomer.com/projects/clocktower/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jackhomer.com/projects/nuzlocke/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jackhomer.com/projects/connections-maker/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jackhomer.com/projects/game-of-life/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jackhomer.com/projects/birthday-paradox/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jackhomer.com/projects/auto-applier/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://jackhomer.com/projects/claude-bot/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://jackhomer.com/projects/grace-style/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://jackhomer.com/career/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://jackhomer.com/business/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://jackhomer.com/contact/</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
 </urlset>

@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <title>WikiGame · Jack Homer</title>
-<meta name="description" content="WikiGame — give it any two Wikipedia articles and watch it walk the links from one to the other, scoring each step by how close it gets you to the goal.">
-<link rel="canonical" href="https://jhomer192.github.io/projects/wikigame/">
+<meta name="description" content="WikiGame, give it any two Wikipedia articles and watch it walk the links from one to the other, scoring each step by how close it gets you to the goal.">
+<link rel="canonical" href="https://jackhomer.com/projects/wikigame/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WikiGame · Jack Homer">
 <meta property="og:description" content="Give it any two Wikipedia articles and watch it find a path between them, hopping link to link.">
-<meta property="og:url" content="https://jhomer192.github.io/projects/wikigame/">
+<meta property="og:url" content="https://jackhomer.com/projects/wikigame/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:image" content="https://jhomer192.github.io/screenshots/wikigame.webp">
+<meta property="og:image" content="https://jackhomer.com/screenshots/wikigame.webp">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,8 +61,7 @@
 
     <p>
       The Wikipedia Game is the old browser dare: start on one article, reach another using only the
-      blue links inside each page, in as few clicks as you can. Playing it by hand is half intuition and
-      half luck — you click toward whatever feels closer to the destination and hope the next page opens
+      blue links inside each page, in as few clicks as you can. Playing it by hand is half intuition and half luck: you click toward whatever feels closer to the destination and hope the next page opens
       a better door. I wanted to watch that intuition run as a program, so I built a solver that makes the
       same call at every step and shows you the trail it leaves behind.
     </p>
@@ -71,21 +70,23 @@
       roughly the right way; the solver has to turn that hunch into a number. So at each article it pulls
       the outbound links, reads a little of what each one is about, and measures how much that text
       overlaps with the destination article's text. The link that overlaps the most wins, and the walk
-      moves on. No backtracking, no lookahead — just the best-looking step, taken over and over until it
+      moves on. No backtracking, no lookahead, just the best-looking step, taken over and over until it
       arrives or gives up.
     </p>
 
     <h2>How it works</h2>
     <ul>
-      <li><strong>Greedy similarity walk</strong> — at each page it scores the outbound links by TF-IDF cosine similarity against the target article and jumps to the best unvisited one, repeating until it lands on the goal.</li>
-      <li><strong>Reads before it leaps</strong> — for every step it batch-fetches the intro extract of up to 40 candidate links, builds TF-IDF vectors over those intros plus the target, and ranks them, so the choice is based on what each page is actually about.</li>
-      <li><strong>Knows when to quit</strong> — it caps the run at 30 hops, never revisits a page, and aborts if the best candidate scores below a small threshold, meaning nothing on the page looks meaningfully connected to the target.</li>
-      <li><strong>Runs entirely in the browser</strong> — every request goes straight to the live public MediaWiki API with CORS, so there's no API key, no backend, and nothing to host beyond static files.</li>
-      <li><strong>Shows its reasoning</strong> — the path renders as a chain of cards so you can see each hop the walker chose and how the trail got from start to finish.</li>
+      <li><strong>Greedy similarity walk</strong>: at each page it scores the outbound links by TF-IDF cosine similarity against the target article and jumps to the best unvisited one, repeating until it lands on the goal.</li>
+      <li><strong>Reads before it leaps</strong>: for every step it batch-fetches the intro extract of up to 40 candidate links, builds TF-IDF vectors over those intros plus the target, and ranks them, so the choice is based on what each page is actually about.</li>
+      <li><strong>Knows when to quit</strong>: it caps the run at 30 hops, never revisits a page, and aborts if the best candidate scores below a small threshold, meaning nothing on the page looks meaningfully connected to the target.</li>
+      <li><strong>Runs entirely in the browser</strong>: every request goes straight to the live public MediaWiki API with CORS, so there's no API key, no backend, and nothing to host beyond static files.</li>
+      <li><strong>Shows its reasoning</strong>: the path renders as a chain of cards so you can see each hop the walker chose and how the trail got from start to finish.</li>
     </ul>
 
     <h2>Stack</h2>
     <p class="stack">Vite · React · TypeScript, talking directly to the MediaWiki API. The TF-IDF tokenizer and sparse cosine similarity are hand-rolled, ported from an earlier Python version of the same idea, and the whole thing ships as a static site on GitHub Pages.</p>
+
+    <p class="next"><strong>Next</strong> a bidirectional walk that searches from both articles at once, for shorter paths on the hard pairs.</p>
 
     <div class="cta">
       <a href="https://jhomer192.github.io/wikipedia-game-solver" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="wikigame-demo">Try it live ↗</a>

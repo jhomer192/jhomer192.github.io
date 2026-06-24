@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <title>Auto Applier · Jack Homer</title>
-<meta name="description" content="Auto Applier — text a job link to a Telegram bot and an agent reads the posting, fills out the application, and submits it from a server you never touch.">
-<link rel="canonical" href="https://jhomer192.github.io/projects/auto-applier/">
+<meta name="description" content="Auto Applier, text a job link to a Telegram bot and an agent reads the posting, fills out the application, and submits it from a server you never touch.">
+<link rel="canonical" href="https://jackhomer.com/projects/auto-applier/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Auto Applier · Jack Homer">
 <meta property="og:description" content="Text a job link to a Telegram bot and an agent reads the posting, fills out the application, and submits it from a server you never touch.">
-<meta property="og:url" content="https://jhomer192.github.io/projects/auto-applier/">
+<meta property="og:url" content="https://jackhomer.com/projects/auto-applier/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:image" content="https://jhomer192.github.io/og.png">
+<meta property="og:image" content="https://jackhomer.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,13 +52,12 @@
 
   <section class="proj">
     <div class="meta">Side project · 2026</div>
-    <p class="tagline">Text a job link to a Telegram bot. An agent reads the posting, fills out the application, and submits it — from a server you set up once and never touch again.</p>
+    <p class="tagline">Text a job link to a Telegram bot. An agent reads the posting, fills out the application, and submits it, from a server you set up once and never touch again.</p>
 
     <p>
       Job hunting is mostly retyping the same answers into slightly different forms. Every Greenhouse,
       Lever, and Ashby page wants your work history, your education, the same handful of free-text
-      paragraphs — and the actual decision, "is this one worth my time," takes ten seconds. The grind
-      isn't the judgment, it's the data entry that surrounds it.
+      paragraphs, and the actual decision, "is this one worth my time," takes ten seconds. The grind isn't the judgment; it's the data entry that surrounds it.
     </p>
     <p>
       So I moved the data entry to a machine and kept the judgment for the borderline cases. You paste a
@@ -70,15 +69,17 @@
 
     <h2>How it works</h2>
     <ul>
-      <li><strong>Talk to it in plain text</strong> — send a job URL or "find me jobs" to a Telegram bot; there are no commands or menus, and the companion <a href="https://github.com/jhomer192/claude-bot" target="_blank" rel="noopener">claude-bot</a> relay routes your messages to the agent and replies back.</li>
-      <li><strong>Reads the posting in a real browser</strong> — Playwright opens the page, the agent parses the description, and it weighs the role against your profile the way you would on a first pass.</li>
-      <li><strong>Decides, then acts</strong> — clear fits get filled out and submitted automatically; borderline ones come back to you with a short reason and a Y/N; bad fits and excluded companies get dropped without bothering you.</li>
-      <li><strong>Driven by one profile file</strong> — a <code>profile.yaml</code> holds your history, skills, salary floor, sponsorship needs, and companies to skip; the agent reads it before every application and you can edit it by hand whenever.</li>
-      <li><strong>Knows where to apply</strong> — when a LinkedIn listing points to a direct Greenhouse or Lever form it follows that instead, and it dedupes URLs so you never apply to the same role twice.</li>
+      <li><strong>Talk to it in plain text</strong>: send a job URL or "find me jobs" to a Telegram bot; there are no commands or menus, and the companion <a href="https://github.com/jhomer192/claude-bot" target="_blank" rel="noopener">claude-bot</a> relay routes your messages to the agent and replies back.</li>
+      <li><strong>Reads the posting in a real browser</strong>: Playwright opens the page, the agent parses the description, and it weighs the role against your profile the way you would on a first pass.</li>
+      <li><strong>Decides, then acts</strong>: clear fits get filled out and submitted automatically; borderline ones come back to you with a short reason and a Y/N; bad fits and excluded companies get dropped without bothering you.</li>
+      <li><strong>Driven by one profile file</strong>: a <code>profile.yaml</code> holds your history, skills, salary floor, sponsorship needs, and companies to skip; the agent reads it before every application and you can edit it by hand whenever.</li>
+      <li><strong>Knows where to apply</strong>: when a LinkedIn listing points to a direct Greenhouse or Lever form it follows that instead, and it dedupes URLs so you never apply to the same role twice.</li>
     </ul>
 
     <h2>Stack</h2>
-    <p class="stack">Claude Code · Playwright · Telegram · DigitalOcean. The agent lives in a Claude Code workspace on a ~$6/month droplet, drives forms through a headless browser, and needs a Claude Pro or Max plan as its brain — no demo to click, because it's a server tool, not a web app.</p>
+    <p class="stack">Claude Code · Playwright · Telegram · DigitalOcean. The agent lives in a Claude Code workspace on a ~$6/month droplet, drives forms through a headless browser, and needs a Claude Pro or Max plan as its brain, no demo to click, because it's a server tool, not a web app.</p>
+
+    <p class="next"><strong>Next</strong> support for more application systems beyond Greenhouse, Lever, and Ashby.</p>
 
     <div class="cta">
       <a href="https://github.com/jhomer192/auto-applier" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="auto-applier-src">Source on GitHub ↗</a>

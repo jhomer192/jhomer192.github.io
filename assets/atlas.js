@@ -1,4 +1,4 @@
-// star-chart engine — Jack Homer
+// star-chart engine: Jack Homer
 // Data is the single source of truth. Add a project = one PLATES entry.
 
 const SVGNS = 'http://www.w3.org/2000/svg';
@@ -6,7 +6,7 @@ const GREEK = ['α','β','γ','δ','ε','ζ','η','θ','ι','κ','λ','μ','ν',
 const D = 'https://jhomer192.github.io';
 const GH = 'https://github.com/jhomer192';
 
-// CONSTELLATIONS — the data plate
+// CONSTELLATIONS: the data plate
 // id maps to /<id>/ (URL slug); box is the bounding box for camera zoom + filter
 // figure is T3(c) hairline figure label (one or two per constellation)
 const CONSTELLATIONS = [
@@ -15,87 +15,87 @@ const CONSTELLATIONS = [
     figure:[{label:"The Builder's Loom", x:735, y:200}],
     stars:[
       {nm:'Songrank',           g:'spotify song ranker',  m:1, k:'demo', cx:485, cy:90,  url:D+'/songrank',  src:GH+'/songrank', img:'/screenshots/songrank.webp', page:'/projects/songrank/',
-        d:'Rank your Spotify tracks — recent and all-time — by playing a long game of "this or that," then export the result as a real playlist.',
+        d:'Rank your Spotify tracks, recent and all-time, by playing a long game of "this or that," then export the result as a real playlist.',
         hi:[
-          'Binary-insertion engine — ~370 head-to-head taps sort 128 tracks (64 recent, 64 all-time) into a true ranked order.',
-          'Playlist export — writes your top 10 / 25 back to Spotify with auto-generated mosaic cover art.',
-          'Friends mode — someone guesses your top 10 and gets scored on how close they got.',
+          'Binary-insertion engine: ~370 head-to-head taps sort 128 tracks (64 recent, 64 all-time) into a true ranked order.',
+          'Playlist export: writes your top 10 / 25 back to Spotify with auto-generated mosaic cover art.',
+          'Friends mode: someone guesses your top 10 and gets scored on how close they got.',
         ],
         st:'Next.js · TypeScript · Tailwind · Spotify PKCE OAuth (bring your own dev app, no shared rate cap).'},
       {nm:'WikiGame',           g:'wiki path solver',     m:1, k:'demo', cx:680, cy:55, url:D+'/wikipedia-game-solver', src:GH+'/wikipedia-game-solver', img:'/screenshots/wikigame.webp', page:'/projects/wikigame/',
         d:'Give it any two Wikipedia articles and watch it find a path between them, hopping link to link.',
         hi:[
-          'Greedy TF-IDF walker — at each page it scores outbound links by similarity to the target and takes the best one, up to 30 hops.',
-          'Public API only — runs straight against the live MediaWiki API, no key or backend.',
-          'Route cache — common paths resolve instantly from precomputed results.',
+          'Greedy TF-IDF walker: at each page it scores outbound links by similarity to the target and takes the best one, up to 30 hops.',
+          'Public API only: runs straight against the live MediaWiki API, no key or backend.',
+          'Route cache: common paths resolve instantly from precomputed results.',
         ],
         st:'Vite · React · TypeScript · MediaWiki API.'},
       {nm:'Meme Maker',         g:'browser meme editor',  m:2, k:'demo', cx:885, cy:120, url:D+'/meme-generator', src:GH+'/meme-generator', img:'/screenshots/meme-generator.webp', page:'/projects/meme-maker/',
-        d:'Build a meme in the browser — pick a template or drop in your own image, caption it, and download a clean PNG.',
+        d:'Build a meme in the browser: pick a template or drop in your own image, caption it, and download a clean PNG.',
         hi:[
-          'Canvas renderer — top/bottom captions with font size, color, stroke and shadow controls.',
-          'Your image or a template — start from the built-in library or upload anything.',
-          'No backend — everything renders client-side; no uploads, no watermark.',
+          'Canvas renderer: top/bottom captions with font size, color, stroke and shadow controls.',
+          'Your image or a template: start from the built-in library or upload anything.',
+          'No backend: everything renders client-side; no uploads, no watermark.',
         ],
         st:'React · TypeScript · Vite · HTML Canvas.'},
       {nm:'Auto Applier',       g:'job-apply agent',      m:2, k:'src',  cx:740, cy:160, src:GH+'/auto-applier', page:'/projects/auto-applier/',
         d:'Text a job link to a Telegram bot and an agent reads the posting, fills out the application, and submits it.',
         hi:[
-          'Claude Code + Playwright — parses the posting, completes the form, and auto-submits clear fits.',
-          'Human in the loop — borderline matches come back to you for a quick yes / no.',
-          'Profile-driven — one profile.yaml supplies the answers; runs on a $6/mo droplet.',
+          'Claude Code + Playwright: parses the posting, completes the form, and auto-submits clear fits.',
+          'Human in the loop: borderline matches come back to you for a quick yes / no.',
+          'Profile-driven: one profile.yaml supplies the answers; runs on a $6/mo droplet.',
         ],
         st:'Claude Code · Playwright · Telegram · DigitalOcean. Built on Claude Bot.'},
       {nm:'Clocktower ST',      g:'BotC storyteller tool',m:2, k:'demo', cx:935, cy:210, url:D+'/clocktower', src:GH+'/clocktower', img:'/screenshots/clocktower.webp', page:'/projects/clocktower/',
-        d:"A Storyteller's control panel for Blood on the Clocktower — runs setup, night order, and voting so you can focus on the table.",
+        d:"A Storyteller's control panel for Blood on the Clocktower: it runs setup, night order, and voting so you can focus on the table.",
         hi:[
-          'Full game loop — role assignment, script selection, night reminders, nominations, votes and executions.',
-          'Player board — alive / dead, ghost votes, and private notes at a glance.',
-          'Event log + undo — timestamped history with 20 steps of undo.',
+          'Full game loop: role assignment, script selection, night reminders, nominations, votes and executions.',
+          'Player board: alive / dead, ghost votes, and private notes at a glance.',
+          'Event log + undo: timestamped history with 20 steps of undo.',
         ],
         st:'React · TypeScript · Vite · Zustand. Trouble Brewing, Sects & Violets, Bad Moon Rising + custom scripts.'},
       {nm:'Nuzlocke',           g:'Pokémon run tracker',  m:3, k:'demo', cx:515, cy:265, url:D+'/nuzlocke-tracker', src:GH+'/nuzlocke-tracker', img:'/screenshots/nuzlocke-tracker.webp', page:'/projects/nuzlocke/',
-        d:'Track a Pokémon Nuzlocke run end to end — every encounter, your living team, and the graveyard.',
+        d:'Track a Pokémon Nuzlocke run end to end: every encounter, your living team, and the graveyard.',
         hi:[
-          'Encounters & team — log each route\'s catch, manage your active six, move the fallen to the graveyard.',
-          'Progress — badge bar, boss prep, and a shiny log.',
-          'Built-in dex — Pokémon search, move autocomplete, and type badges.',
+          'Encounters & team: log each route\'s catch, manage your active six, move the fallen to the graveyard.',
+          'Progress: badge bar, boss prep, and a shiny log.',
+          'Built-in dex: Pokémon search, move autocomplete, and type badges.',
         ],
         st:'React · TypeScript · Vite.'},
       {nm:'Connections Maker',  g:'word-puzzle builder',  m:3, k:'demo', cx:680, cy:280, url:D+'/connections-maker', src:GH+'/connections-maker', img:'/screenshots/connections-maker.webp', page:'/projects/connections-maker/',
         d:'Build your own NYT Connections-style puzzle and share it with a single link.',
         hi:[
-          'Four groups of four — set the words, category labels, and difficulty colors.',
-          'Link is the database — the whole puzzle lives in the URL hash; no account, no backend.',
-          'Auto-shortened — built-in TinyURL with a fallback.',
+          'Four groups of four: set the words, category labels, and difficulty colors.',
+          'Link is the database: the whole puzzle lives in the URL hash; no account, no backend.',
+          'Auto-shortened: built-in TinyURL with a fallback.',
         ],
         st:'React · TypeScript · Vite.'},
       {nm:'Game of Life',       g:'cellular automaton',   m:3, k:'demo', cx:585, cy:325, url:D+'/game-of-life', src:GH+'/game-of-life', img:'/screenshots/game-of-life.webp', page:'/projects/game-of-life/',
         d:"Conway's Game of Life, running at up to 60 generations a second on a wrap-around canvas.",
         hi:[
-          'Paint & play — drag to draw cells; play, pause, step, randomize, clear.',
-          'Pattern library — drop in a Glider, Gosper gun, Pulsar and more.',
-          'Fast — Uint8Array grid with a scratch buffer; live FPS, generation, and cell counts.',
+          'Paint & play: drag to draw cells; play, pause, step, randomize, clear.',
+          'Pattern library: drop in a Glider, Gosper gun, Pulsar and more.',
+          'Fast: Uint8Array grid with a scratch buffer; live FPS, generation, and cell counts.',
         ],
         st:'Vite · React · TypeScript · Tailwind · Canvas.'},
       {nm:'Birthday Paradox',   g:'probability visualizer',m:3,k:'demo', cx:830, cy:340, url:D+'/birthday-paradox', src:GH+'/birthday-paradox', img:'/screenshots/birthday-paradox.webp', page:'/projects/birthday-paradox/',
-        d:'See why 23 people is enough to share a birthday — the theory and a live simulation, side by side.',
+        d:'See why 23 people is enough to share a birthday: the theory and a live simulation, side by side.',
         hi:[
-          'Theory curve — plots P(shared) for groups of 1–100, with the 50% crossover at 23 marked.',
-          'Monte Carlo — runs up to 100,000 trials, chunked so the UI never stalls, and converges on the math.',
-          'Calendar view — a random sample with collision days lit up.',
+          'Theory curve: plots P(shared) for groups of 1–100, with the 50% crossover at 23 marked.',
+          'Monte Carlo: runs up to 100,000 trials, chunked so the UI never stalls, and converges on the math.',
+          'Calendar view: a random sample with collision days lit up.',
         ],
         st:'Vite · React · TypeScript · Tailwind · Recharts.'},
       {nm:'Claude Bot',         g:'Telegram → Claude',    m:1, k:'priv', cx:935, cy:295, page:'/projects/claude-bot/',
-        d:'A self-hosted relay that turns Telegram into a remote terminal for Claude Code — the harness that built most of this sky.',
+        d:'A self-hosted relay that turns Telegram into a remote terminal for Claude Code, the harness that built most of this sky.',
         hi:[
-          'Phone to agent — a message spawns Claude Code in a chosen workspace and streams the replies back.',
-          'Workspace-agnostic — any project directory; Auto Applier is just one tenant.',
-          'Self-hosted — deploys over SSH to a private server.',
+          'Phone to agent: a message spawns Claude Code in a chosen workspace and streams the replies back.',
+          'Workspace-agnostic: any project directory; Auto Applier is just one tenant.',
+          'Self-hosted: deploys over SSH to a private server.',
         ],
         st:'Node · Telegram Bot API · Claude Code.'},
     ],
-    // The Builder's Loom — outer frame (top beam, posts, bottom beam) + inner warp threads
+    // The Builder's Loom: outer frame (top beam, posts, bottom beam) + inner warp threads
     edges:[[0,1],[1,2],[2,4],[4,8],[8,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8]],
     conj:[[9,1]] },
 
@@ -103,18 +103,18 @@ const CONSTELLATIONS = [
     labelAt:[230, 405], box:[40, 380, 410, 700],
     figure:[{label:"The Worked Day", x:215, y:540}],
     stars:[
-      {nm:'C3 AI',              g:'Forward Deployed Engineer', m:1, k:'work', cx:340, cy:455, d:'Forward Deployed Engineer at C3 AI (Redwood City) — embedded with customers to ship production AI end to end.',
+      {nm:'C3 AI',              g:'Forward Deployed Engineer', m:1, k:'work', cx:340, cy:455, d:'Forward Deployed Engineer at C3 AI (Redwood City), embedded with customers to ship production AI end to end.',
         hi:[
           'Built tasking, HR, and housing applications for the U.S. Marine Corps; led workstreams across phases and shipped shared packages reused in every new engagement.',
-          'Delivered an agent suite across sales, legal, and finance — pre-proposal qualification, proposal generation, expense analysis — now in production.',
+          'Delivered an agent suite across sales, legal, and finance (pre-proposal qualification, proposal generation, expense analysis), now in production.',
           'Stood up a translate–critique–arbitrate pipeline for legal documents, replacing significant outside-services spend with an in-house multi-agent system at the same quality bar.',
           'Drove a platform-stability effort that cut daily crash frequency across the internal developer community ~94%.',
         ]},
       {nm:'Action Network',     g:'SWE intern · 2021',    m:3, k:'work', cx:210, cy:600, d:'Software engineering intern at The Action Network, 2021. Where the deploying started.'},
       {nm:"VT · CS '23",        g:'BS Computer Science',  m:2, k:'work', cx:95,  cy:665, d:'BS Computer Science, Virginia Tech, 2023. The origin point.'},
-      {nm:'KidDataViz',         g:'VT capstone · 2023',   m:4, k:'src', cx:110, cy:545, src:GH+'/KidDataViz', d:'Virginia Tech senior capstone — data visualization for kids. The oldest light in this sky.'},
+      {nm:'KidDataViz',         g:'VT capstone · 2023',   m:4, k:'src', cx:110, cy:545, src:GH+'/KidDataViz', d:'Virginia Tech senior capstone: data visualization for kids. The oldest light in this sky.'},
     ],
-    // The Worked Day — the career path (VT → Action Network → C3) with the capstone branching off
+    // The Worked Day: the career path (VT → Action Network → C3) with the capstone branching off
     edges:[[2,1],[1,0],[2,3]],
     conj:[] },
 
@@ -123,20 +123,20 @@ const CONSTELLATIONS = [
     figure:[{label:"The Merchant's Scale", x:735, y:560}],
     stars:[
       {nm:'Web Presence',       g:'local business sites', m:1, k:'service', cx:560, cy:475, url:'/business/',
-        d:'Websites for local businesses — designed, built, hosted, and kept up to date.'},
+        d:'Websites for local businesses, designed, built, hosted, and kept up to date.'},
       {nm:'Email & Domains',    g:'set up, handed off',   m:2, k:'service', cx:830, cy:655, url:'/business/',
         d:'Domain registration, DNS, and professional email set up and handed off, so a shop owns its own name.'},
       {nm:'Review Replies',     g:'AI review replies',    m:3, k:'service', cx:735, cy:445, url:'/business/',
         d:'AI-drafted responses to Google reviews, written in the business\'s own voice to keep the reply rate up.'},
       {nm:'grace-style',        g:'color + style tool',   m:2, k:'src',     cx:885, cy:550, src:GH+'/grace-style', page:'/projects/grace-style/',
-        d:'Upload a portrait and get a personalized 12-season color analysis — palette, hair, and makeup direction — from Claude vision.',
+        d:'Upload a portrait and get a personalized 12-season color analysis (palette, hair, and makeup direction) from Claude vision.',
         hi:[
-          'Vision analysis — shells out to the Claude CLI to read a portrait and place it in a 12-season system.',
-          'Private by default — results live in your browser\'s localStorage; nothing is stored server-side.',
+          'Vision analysis: shells out to the Claude CLI to read a portrait and place it in a 12-season system.',
+          'Private by default: results live in your browser\'s localStorage; nothing is stored server-side.',
         ],
         st:'React · Vite · TypeScript · Tailwind · Express (Claude CLI).'},
     ],
-    // The Merchant's Scale — fulcrum (Review Replies) over a beam, two pans, one weight
+    // The Merchant's Scale: fulcrum (Review Replies) over a beam, two pans, one weight
     edges:[[2,0],[2,3],[3,1]],
     conj:[] },
 ];
@@ -208,7 +208,7 @@ function renderGrid(cam){
     const x=rnd(i*2+1)*SKY_W, y=rnd(i*2+2)*SKY_H, r=0.3+rnd(i*7+3)*0.8;
     const d=document.createElementNS(SVGNS,'circle');
     d.setAttribute('cx',x.toFixed(1));d.setAttribute('cy',y.toFixed(1));d.setAttribute('r',r.toFixed(2));
-    // only ~1 in 3 stars actually twinkle — keeps the continuous animation cost low
+    // only ~1 in 3 stars actually twinkle: keeps the continuous animation cost low
     if(i%3===0){
       d.setAttribute('class','bgstar tw');
       d.style.setProperty('--tw', (2.4+rnd(i*11+5)*3).toFixed(2)+'s');
@@ -230,7 +230,7 @@ function buildConstellation(c, cam, onStarClick){
   const g = document.createElementNS(SVGNS,'g');
   g.setAttribute('class','cons'); g.setAttribute('data-id', c.id);
   g.setAttribute('role','button'); g.setAttribute('tabindex','0');
-  g.setAttribute('aria-label', c.name+' — '+c.sub);
+  g.setAttribute('aria-label', c.name+': '+c.sub);
 
   // hull
   const hullPts = convexHull(c.stars.map(s=>[s.cx,s.cy])).map(p=>expandPt(p, centroid(c.stars), 28));
@@ -248,7 +248,7 @@ function buildConstellation(c, cam, onStarClick){
     g.appendChild(t);
   });
 
-  // edges — pathLength=1 + a staggered draw-on delay so the figure inks itself in
+  // edges: pathLength=1 + a staggered draw-on delay so the figure inks itself in
   const edgeNodes=[];
   let edgeSeq=0;
   const addEdge=(a,b,cls)=>{
@@ -288,10 +288,10 @@ function buildConstellation(c, cam, onStarClick){
     const hollow = (s.k==='src'||s.k==='priv');
     sg.setAttribute('class','star m'+s.m+(hollow?' src':'')+(left?' right':' left'));
     sg.setAttribute('role','link'); sg.setAttribute('tabindex','0');
-    sg.setAttribute('aria-label', s.nm+' — '+s.g);
+    sg.setAttribute('aria-label', s.nm+': '+s.g);
     sg.dataset.i=i;
 
-    // generous invisible hit target — the dots are tiny, esp. on mobile
+    // generous invisible hit target: the dots are tiny, esp. on mobile
     const hit = document.createElementNS(SVGNS,'circle');
     hit.setAttribute('class','hit'); hit.setAttribute('cx',s.cx); hit.setAttribute('cy',s.cy); hit.setAttribute('r','18');
     sg.appendChild(hit);
@@ -410,13 +410,13 @@ function openCard(s, greek){
   const shot = o.querySelector('.shot');
   if(s.img){ shot.src = s.img; shot.alt = s.nm + ' screenshot'; shot.style.display=''; }
   else { shot.removeAttribute('src'); shot.style.display='none'; }
-  // "how it works" — bullets whose label (before the em dash) reads bold
+  // "how it works": bullets whose label (before the em dash) reads bold
   const hi = o.querySelector('.hi'); hi.innerHTML = '';
   if(s.hi && s.hi.length){
     hi.style.display='';
     s.hi.forEach(x=>{
       const li=document.createElement('li');
-      const i = x.indexOf(' — ');
+      const i = x.indexOf(': ');
       if(i>0){ const b=document.createElement('strong'); b.textContent=x.slice(0,i); li.appendChild(b); li.appendChild(document.createTextNode(x.slice(i))); }
       else li.textContent=x;
       hi.appendChild(li);
@@ -438,6 +438,44 @@ function closeCard(){
   document.body.style.overflow = '';
   if(lastFocused && lastFocused.focus){ lastFocused.focus(); lastFocused = null; }
 }
+
+// ---------- keyboard / navigation help (toggled with ?) ----------
+let helpOverlay = null, helpLastFocused = null;
+function ensureHelp(){
+  if(helpOverlay) return helpOverlay;
+  helpOverlay = document.createElement('div');
+  helpOverlay.className = 'card-overlay help-overlay';
+  helpOverlay.innerHTML = `<div class="card help" role="dialog" aria-modal="true" aria-labelledby="help-title">
+    <button class="close" aria-label="close">esc · close</button>
+    <h2 id="help-title">Finding your way</h2>
+    <dl class="shortcuts">
+      <dt>Click a constellation</dt><dd>zoom into it</dd>
+      <dt>Click a star</dt><dd>open its write-up</dd>
+      <dt><kbd>&larr;</kbd><kbd>&rarr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd></dt><dd>move between stars</dd>
+      <dt><kbd>Enter</kbd> / <kbd>Space</kbd></dt><dd>open the focused star or constellation</dd>
+      <dt><kbd>Esc</kbd></dt><dd>close a card, or zoom back out</dd>
+      <dt><kbd>?</kbd></dt><dd>show this help</dd>
+    </dl>
+  </div>`;
+  document.body.appendChild(helpOverlay);
+  helpOverlay.addEventListener('click', e=>{ if(e.target===helpOverlay) closeHelp(); });
+  helpOverlay.querySelector('.close').addEventListener('click', closeHelp);
+  helpOverlay.addEventListener('keydown', e=>{ if(e.key==='Escape'){ e.stopPropagation(); closeHelp(); } });
+  return helpOverlay;
+}
+function openHelp(){
+  const o = ensureHelp();
+  helpLastFocused = document.activeElement;
+  o.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  o.querySelector('.close').focus();
+}
+function closeHelp(){
+  if(helpOverlay) helpOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  if(helpLastFocused && helpLastFocused.focus){ helpLastFocused.focus(); helpLastFocused = null; }
+}
+function toggleHelp(){ (helpOverlay && helpOverlay.classList.contains('open')) ? closeHelp() : openHelp(); }
 
 // ---------- ambience, instruments & almanac (overview only) ----------
 function moonPhase(date){
@@ -466,7 +504,7 @@ function renderSeasonal(cam, date){
 function decorate(wrap, svg, cam){
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const compass=wrap.querySelector('.compass'), needle=compass&&compass.querySelector('.needle');
-  // compass needle tracks the cursor — rAF-throttled with a cached rect so we
+  // compass needle tracks the cursor: rAF-throttled with a cached rect so we
   // never read layout or repaint more than once per frame (the old per-move
   // getBoundingClientRect + 150-star parallax was the source of the lag)
   if(needle && !reduce){
@@ -497,7 +535,7 @@ function decorate(wrap, svg, cam){
   // comet → colophon
   const comet=document.createElement('button'); comet.className='comet'; comet.type='button'; comet.setAttribute('aria-label','Colophon');
   comet.innerHTML=`<svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="21" x2="15" y2="9"/><circle cx="17" cy="7" r="3"/></svg>`;
-  comet.addEventListener('click',()=>openCard({nm:'About this site', g:'colophon', d:'My work laid out as a star chart — side projects, the day job, and a small web studio. Built by hand; a lot of it through a Claude agent I run over Telegram. Type set in Cormorant Garamond and IBM Plex Mono.', k:null},'·'));
+  comet.addEventListener('click',()=>openCard({nm:'About this site', g:'colophon', d:'My work laid out as a star chart: side projects, the day job, and a small web studio. Built by hand; a lot of it through a Claude agent I run over Telegram. Type set in Cormorant Garamond and IBM Plex Mono.', k:null},'·'));
   wrap.appendChild(comet);
 }
 
@@ -669,4 +707,13 @@ window.renderSky = function(opts){
       nodes[focus].node.classList.add('lit','entered');
     });
   }
+
+  // '?' toggles the keyboard/navigation help on any chart page (ignore while typing)
+  document.addEventListener('keydown', e=>{
+    if(e.key !== '?') return;
+    const t = document.activeElement;
+    if(t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+    e.preventDefault();
+    toggleHelp();
+  });
 };

@@ -1,4 +1,4 @@
-// common.js — tiny shared script loaded on every page.
+// common.js, tiny shared script loaded on every page.
 // The full star-chart engine (atlas.js) only loads where the chart renders.
 
 // Mark the current nav link.

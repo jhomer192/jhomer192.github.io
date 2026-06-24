@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jhomer192.github.io/sitemap.xml
+Sitemap: https://jackhomer.com/sitemap.xml

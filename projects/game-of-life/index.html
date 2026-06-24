@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <title>Game of Life · Jack Homer</title>
-<meta name="description" content="Game of Life — an interactive Conway's Game of Life that runs at up to 60 generations a second on a wrap-around canvas, with a pattern library and live stats.">
-<link rel="canonical" href="https://jhomer192.github.io/projects/game-of-life/">
+<meta name="description" content="Game of Life, an interactive Conway's Game of Life that runs at up to 60 generations a second on a wrap-around canvas, with a pattern library and live stats.">
+<link rel="canonical" href="https://jackhomer.com/projects/game-of-life/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Game of Life · Jack Homer">
 <meta property="og:description" content="An interactive Conway's Game of Life that runs at up to 60 generations a second on a wrap-around canvas, with a pattern library and live stats.">
-<meta property="og:url" content="https://jhomer192.github.io/projects/game-of-life/">
+<meta property="og:url" content="https://jackhomer.com/projects/game-of-life/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:image" content="https://jhomer192.github.io/screenshots/game-of-life.webp">
+<meta property="og:image" content="https://jackhomer.com/screenshots/game-of-life.webp">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,23 +62,23 @@
     <p>
       Conway's Game of Life is four lines of rules that produce endless behavior, and the appeal is
       almost entirely in watching it move. A lot of versions I tried slowed down past a small grid, or
-      didn't expose the controls that make it worth poking at — pausing mid-pattern, stepping one
+      didn't expose the controls that make it worth poking at: pausing mid-pattern, stepping one
       generation at a time, or dropping in a glider gun to see where it goes.
     </p>
     <p>
       I wanted one that stayed smooth at a full screen of cells and let me drive it like an instrument.
       So the simulation runs on a flat typed array with a second buffer it swaps each tick, the canvas
-      redraws every frame, and everything — speed, grid size, patterns, painting — is wired to controls
+      redraws every frame, and everything (speed, grid size, patterns, painting) is wired to controls
       and keyboard shortcuts so you can stay in the loop while it runs.
     </p>
 
     <h2>How it works</h2>
     <ul>
-      <li><strong>Typed-array grid</strong> — the board lives in a flat <code>Uint8Array</code> with a reused scratch buffer for the next generation, so each tick computes into the scratch and swaps rather than allocating, keeping the renderer steady up to 180×108 cells.</li>
-      <li><strong>Toroidal neighbours</strong> — the edges wrap, so a glider that runs off the right side reappears on the left and spaceships glide forever instead of dying at a wall.</li>
-      <li><strong>Drive it live</strong> — play, pause, step a single generation, clear, and randomize; a speed slider runs 1 to 60 generations per second; click toggles a cell and dragging paints or erases a whole region.</li>
-      <li><strong>Pattern library</strong> — drop in known shapes like the Glider, Lightweight Spaceship, Pulsar, Pentadecathlon, R-pentomino, and the Gosper Glider Gun without hand-placing every cell.</li>
-      <li><strong>Stats overlay</strong> — generation count, live cells, measured FPS, and current grid size update as it runs, plus keyboard shortcuts for play/pause, step, randomize, and clear.</li>
+      <li><strong>Typed-array grid</strong>: the board lives in a flat <code>Uint8Array</code> with a reused scratch buffer for the next generation, so each tick computes into the scratch and swaps rather than allocating, keeping the renderer steady up to 180×108 cells.</li>
+      <li><strong>Toroidal neighbours</strong>: the edges wrap, so a glider that runs off the right side reappears on the left and spaceships glide forever instead of dying at a wall.</li>
+      <li><strong>Drive it live</strong>: play, pause, step a single generation, clear, and randomize; a speed slider runs 1 to 60 generations per second; click toggles a cell and dragging paints or erases a whole region.</li>
+      <li><strong>Pattern library</strong>: drop in known shapes like the Glider, Lightweight Spaceship, Pulsar, Pentadecathlon, R-pentomino, and the Gosper Glider Gun without hand-placing every cell.</li>
+      <li><strong>Stats overlay</strong>: generation count, live cells, measured FPS, and current grid size update as it runs, plus keyboard shortcuts for play/pause, step, randomize, and clear.</li>
     </ul>
 
     <h2>Stack</h2>

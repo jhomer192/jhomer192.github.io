@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <title>Birthday Paradox · Jack Homer</title>
-<meta name="description" content="Birthday Paradox — the theoretical probability curve and a live in-browser Monte Carlo simulator, side by side, showing why 23 people is enough for a shared birthday.">
-<link rel="canonical" href="https://jhomer192.github.io/projects/birthday-paradox/">
+<meta name="description" content="Birthday Paradox, the theoretical probability curve and a live in-browser Monte Carlo simulator, side by side, showing why 23 people is enough for a shared birthday.">
+<link rel="canonical" href="https://jackhomer.com/projects/birthday-paradox/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Birthday Paradox · Jack Homer">
 <meta property="og:description" content="The theory and a live Monte Carlo simulation, side by side, showing why 23 people is enough to share a birthday.">
-<meta property="og:url" content="https://jhomer192.github.io/projects/birthday-paradox/">
+<meta property="og:url" content="https://jackhomer.com/projects/birthday-paradox/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:image" content="https://jhomer192.github.io/screenshots/birthday-paradox.webp">
+<meta property="og:image" content="https://jackhomer.com/screenshots/birthday-paradox.webp">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,7 +52,7 @@
 
   <section class="proj">
     <div class="meta">Side project · 2026</div>
-    <p class="tagline">See why 23 people is enough to share a birthday — the theory and a live simulation, side by side.</p>
+    <p class="tagline">See why 23 people is enough to share a birthday, the theory and a live simulation, side by side.</p>
 
     <figure class="media" data-video="/projects/media/birthday-paradox.mp4">
       <img src="/screenshots/birthday-paradox.webp" alt="Birthday Paradox screenshot" loading="lazy">
@@ -62,7 +62,7 @@
     <p>
       The birthday paradox is the standard example of a true thing that feels wrong: in a room of just
       23 people, it's more likely than not that two of them share a birthday. Most people hear the answer,
-      nod, and still don't believe it — because the explanation is a formula, and a formula doesn't move.
+      nod, and still don't believe it, because the explanation is a formula, and a formula doesn't move.
       I wanted something you could push on instead of read.
     </p>
     <p>
@@ -75,11 +75,11 @@
 
     <h2>How it works</h2>
     <ul>
-      <li><strong>Plots the exact curve</strong> — the theoretical probability P(N) for group sizes from 1 to 100, with the 50% crossover at N = 23 annotated right on the line.</li>
-      <li><strong>Runs a live simulation</strong> — a Monte Carlo engine deals random birthdays for up to 100,000 trials and reports a running empirical estimate next to the theoretical value, so you can see how far off it is at any moment.</li>
-      <li><strong>Stays smooth under load</strong> — the trials are chunked across requestAnimationFrame frames instead of run in one blocking loop, so the progress bar animates and the page stays responsive even at 100k.</li>
-      <li><strong>Lets you turn the knobs</strong> — adjust the group size (1–100) and the trial count (100, 1k, 10k, 100k) and re-run to feel how each one changes the answer and the noise.</li>
-      <li><strong>Shows a single sample</strong> — a calendar of all 365 days renders one random draw of the current group, with any collision days lit up in red so you can see a match concretely.</li>
+      <li><strong>Plots the exact curve</strong>: the theoretical probability P(N) for group sizes from 1 to 100, with the 50% crossover at N = 23 annotated right on the line.</li>
+      <li><strong>Runs a live simulation</strong>: a Monte Carlo engine deals random birthdays for up to 100,000 trials and reports a running empirical estimate next to the theoretical value, so you can see how far off it is at any moment.</li>
+      <li><strong>Stays smooth under load</strong>: the trials are chunked across requestAnimationFrame frames instead of run in one blocking loop, so the progress bar animates and the page stays responsive even at 100k.</li>
+      <li><strong>Lets you turn the knobs</strong>: adjust the group size (1–100) and the trial count (100, 1k, 10k, 100k) and re-run to feel how each one changes the answer and the noise.</li>
+      <li><strong>Shows a single sample</strong>: a calendar of all 365 days renders one random draw of the current group, with any collision days lit up in red so you can see a match concretely.</li>
     </ul>
 
     <h2>Stack</h2>

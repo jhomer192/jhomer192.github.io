@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <title>Connections Maker · Jack Homer</title>
-<meta name="description" content="Connections Maker — build your own NYT Connections-style word puzzle and share it with a single link, no account or backend required.">
-<link rel="canonical" href="https://jhomer192.github.io/projects/connections-maker/">
+<meta name="description" content="Connections Maker, build your own NYT Connections-style word puzzle and share it with a single link, no account or backend required.">
+<link rel="canonical" href="https://jackhomer.com/projects/connections-maker/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Connections Maker · Jack Homer">
 <meta property="og:description" content="Build your own NYT Connections-style word puzzle and share it with a single link, no account or backend required.">
-<meta property="og:url" content="https://jhomer192.github.io/projects/connections-maker/">
+<meta property="og:url" content="https://jackhomer.com/projects/connections-maker/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:image" content="https://jhomer192.github.io/screenshots/connections-maker.webp">
+<meta property="og:image" content="https://jackhomer.com/screenshots/connections-maker.webp">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,7 +52,7 @@
 
   <section class="proj">
     <div class="meta">Side project · 2026</div>
-    <p class="tagline">Build your own NYT Connections-style puzzle and hand it to a friend with one link — no account, no server, nothing to sign up for.</p>
+    <p class="tagline">Build your own NYT Connections-style puzzle and hand it to a friend with one link, no account, no server, nothing to sign up for.</p>
 
     <figure class="media" data-video="/projects/media/connections-maker.mp4">
       <img src="/screenshots/connections-maker.webp" alt="Connections Maker screenshot" loading="lazy">
@@ -61,28 +61,26 @@
 
     <p>
       The New York Times Connections puzzle is great, but there's exactly one a day and you can't make your
-      own. I wanted to build a private puzzle for a friend's birthday — sixteen words, four hidden
-      categories — and there was no clean way to do it without standing up an account system and a database
+      own. I wanted to build a private puzzle for a friend's birthday (sixteen words, four hidden categories), and there was no clean way to do it without standing up an account system and a database
       to hold a few dozen words.
     </p>
     <p>
-      So I skipped the backend entirely. Connections Maker lets you author a puzzle in the browser and the
-      whole thing — words, groups, labels, colors — gets packed into the share URL itself. There's no
+      So I skipped the backend entirely. Connections Maker lets you author a puzzle in the browser and the whole thing (words, groups, labels, colors) gets packed into the share URL itself. There's no
       account to create, nothing stored on a server I run, and no link that quietly expires. You send the
       URL, the recipient opens it, and the puzzle is just there.
     </p>
 
     <h2>How it works</h2>
     <ul>
-      <li><strong>Author four groups of four</strong> — give each group a category label and pick its difficulty color, from yellow for the gimmes up to purple for the trap.</li>
-      <li><strong>State lives in the URL</strong> — the puzzle is encoded into the link, so there's no backend, no database, and no login; the data travels with the link instead of sitting on a server.</li>
-      <li><strong>One-click sharing</strong> — generating a link shortens it through TinyURL and drops it on your clipboard, with the full encoded URL copied as a fallback if the shortener is down.</li>
-      <li><strong>Play it like the real thing</strong> — open a shared link and you get the familiar grid: pick four words you think belong together, with a limited number of mistakes before the puzzle ends.</li>
-      <li><strong>Nothing to install</strong> — it's a static site on GitHub Pages, so creating and playing both happen entirely client-side in the browser.</li>
+      <li><strong>Author four groups of four</strong>: give each group a category label and pick its difficulty color, from yellow for the gimmes up to purple for the trap.</li>
+      <li><strong>State lives in the URL</strong>: the puzzle is encoded into the link, so there's no backend, no database, and no login; the data travels with the link instead of sitting on a server.</li>
+      <li><strong>One-click sharing</strong>: generating a link shortens it through TinyURL and drops it on your clipboard, with the full encoded URL copied as a fallback if the shortener is down.</li>
+      <li><strong>Play it like the real thing</strong>: open a shared link and you get the familiar grid: pick four words you think belong together, with a limited number of mistakes before the puzzle ends.</li>
+      <li><strong>Nothing to install</strong>: it's a static site on GitHub Pages, so creating and playing both happen entirely client-side in the browser.</li>
     </ul>
 
     <h2>Stack</h2>
-    <p class="stack">React · TypeScript · Vite, deployed as a static build to GitHub Pages. The puzzle is serialized into the share URL and TinyURL handles shortening — there is no server-side code, so there's nothing to run, scale, or pay for.</p>
+    <p class="stack">React · TypeScript · Vite, deployed as a static build to GitHub Pages. The puzzle is serialized into the share URL and TinyURL handles shortening, there is no server-side code, so there's nothing to run, scale, or pay for.</p>
 
     <div class="cta">
       <a href="https://jhomer192.github.io/connections-maker" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="connections-maker-demo">Try it live ↗</a>
