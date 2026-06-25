@@ -207,7 +207,7 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 }
 
 .ticks line{stroke:var(--ink);stroke-width:.4;opacity:.35}
-.ticks text{font-family:'IBM Plex Mono',monospace;font-size:9px;fill:var(--ink);opacity:.55;letter-spacing:.1em}
+.ticks text{font-family:'IBM Plex Mono',monospace;font-size:9px;fill:var(--ink);opacity:.66;letter-spacing:.1em}
 
 /* constellation */
 .cons{cursor:pointer;outline:none}
@@ -248,12 +248,18 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 .anim-paused .graticule .bgstar.tw{animation-play-state:paused}
 /* sticky "back to the sky" — mobile only, while zoomed into a constellation */
 .skyback{display:none;position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:40;background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:11px 20px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.25)}
-@media (max-width:720px){ body.zoomed .skyback{display:block} }
+/* show the back pill on narrow viewports AND on any touch device — otherwise a
+   landscape phone (>720px wide) loses the only obvious "back to the sky"
+   affordance and is left with the small breadcrumb button. */
+@media (max-width:720px), (max-height:560px), (hover:none) and (pointer:coarse){ body.zoomed .skyback{display:block} }
+/* pointer-reachable help trigger (the `?` shortcut is keyboard-only) */
+.helpbtn{position:absolute;right:46px;top:12px;width:26px;height:26px;padding:0;display:flex;align-items:center;justify-content:center;border:1px solid var(--rule);border-radius:50%;background:var(--paper);color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1;cursor:pointer;z-index:6;transition:color .2s,border-color .2s}
+.helpbtn:hover,.helpbtn:focus-visible{color:var(--ink);border-color:var(--ink);outline:none}
 .star:focus-visible .hit{stroke:var(--accent);stroke-width:1.5;fill:rgba(27,74,138,.06)}
 .star:focus-visible .dot,.star:focus-visible .ring{filter:drop-shadow(0 0 2px var(--accent))}
 .star .dot{fill:var(--ink);transition:r .25s ease, filter .25s ease}
 .star .ring{fill:var(--paper);stroke:var(--ink);stroke-width:1.5;transition:r .25s ease}
-.star .glabel{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:11px;fill:var(--ink-faint);pointer-events:none;letter-spacing:.02em;paint-order:stroke;stroke:var(--paper);stroke-width:2.5px;stroke-linejoin:round}
+.star .glabel{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:11px;fill:var(--ink-soft);pointer-events:none;letter-spacing:.02em;paint-order:stroke;stroke:var(--paper);stroke-width:2px;stroke-linejoin:round}
 /* names: upright, a touch larger, with a paper halo so they stay legible over the grid */
 .star .nlabel{font-family:'Cormorant Garamond',serif;font-style:normal;font-weight:600;font-size:13px;fill:var(--ink);pointer-events:none;paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
 .star.right .glabel,.star.right .nlabel{text-anchor:end}
@@ -290,6 +296,18 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 .breadcrumb .step{color:var(--ink);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;letter-spacing:.02em;text-transform:none}
 .breadcrumb button.zoom-out{background:none;border:0;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;color:var(--accent);padding:8px 10px;margin:-6px -4px;text-decoration:underline;min-height:24px}
 .breadcrumb a.plate-link{color:var(--accent);text-decoration:underline;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;letter-spacing:.02em;text-transform:none}
+/* mobile: grow the small chart controls to >=40px touch targets (glyph size kept
+   via padding so visuals don't change), and let the breadcrumb wrap so it can't
+   run under the top-right comet/help buttons on a 320px screen. Placed AFTER the
+   base .comet/.helpbtn/.breadcrumb/.viewtoggle rules so these overrides win. */
+@media (max-width:720px){
+  .comet{width:40px;height:40px;padding:11px;right:10px;top:8px}
+  .helpbtn{width:40px;height:40px;font-size:16px;right:60px;top:8px}
+  .breadcrumb{flex-wrap:wrap;max-width:calc(100% - 116px)}
+  .breadcrumb button.zoom-out{min-height:44px;display:inline-flex;align-items:center;padding:10px 12px;margin:-4px -2px}
+  .breadcrumb a.plate-link{min-height:44px;display:inline-flex;align-items:center}
+  .viewtoggle{min-height:40px;padding:9px 16px}
+}
 
 /* longform sections below the chart on section pages */
 .scroll{max-width:1180px;margin:0 auto;background:var(--paper);border:1.5px solid var(--ink);border-top:0;padding:42px 56px 56px;position:relative;z-index:4;box-shadow:0 1px 0 var(--ink),0 2px 0 var(--ink)}

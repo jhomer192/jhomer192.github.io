@@ -601,7 +601,18 @@ window.renderSky = function(opts){
 
   const nodes = {};
   list.forEach(c=>{
-    nodes[c.id] = buildConstellation(c, cam, (s, greek, cons)=>openCard(s, greek));
+    nodes[c.id] = buildConstellation(c, cam, (s, greek, cons)=>{
+      // On the zoomed-out overview, a star tap should ZOOM its constellation,
+      // not open a star card. This matches the stated model ("tap a
+      // constellation, then a star") and fixes the touch bug where the enlarged
+      // mobile hit-circles blanket the figure interior, so a tap meant for the
+      // constellation landed on a star and opened the wrong card ~45% of taps.
+      // Once entered (currentZoom===this id), star taps open cards as before.
+      // This callback only runs on user interaction, so the later-declared
+      // `currentZoom` / `enter` (below) are initialized by the time it fires.
+      if(mode==='overview' && currentZoom!==cons.id){ enter(cons.id, false); return; }
+      openCard(s, greek);
+    });
   });
 
   // breadcrumb (created once)
@@ -653,12 +664,16 @@ window.renderSky = function(opts){
       n.node.classList.toggle('lit', !dim);
       n.node.classList.toggle('entered', !dim);
       n.node.setAttribute('tabindex', dim ? '-1' : '0');
+      // also pull dimmed figures out of the AT tree so screen-reader browse/rotor
+      // users don't wade through the 8% opacity, visually-gone constellations.
+      // aria-hidden cascades to the descendant stars, so the group is enough.
+      if(dim) n.node.setAttribute('aria-hidden','true'); else n.node.removeAttribute('aria-hidden');
       n.stars.forEach(st=> st.setAttribute('tabindex', dim ? '-1' : '0'));
     });
     bc.style.display = 'flex';
     bc.innerHTML = `<span>Sky</span><span>›</span><span class="step">${c.name}</span>` +
       (c.section ? `<span>›</span><a class="plate-link" href="${c.section}" data-umami-event="plate-link" data-umami-event-target="${c.id}">Open plate ↗</a>` : '') +
-      `<button class="zoom-out" aria-label="zoom out">ESC</button>`;
+      `<button class="zoom-out" aria-label="zoom out">Back</button>`;
     bc.querySelector('.zoom-out').addEventListener('click', exit);
     history.replaceState(null,'','#/'+id);
     document.body.classList.add('zoomed');
@@ -675,8 +690,9 @@ window.renderSky = function(opts){
       const n = nodes[o.id]; if(!n) return;
       n.node.classList.remove('lit','entered');
       n.node.style.opacity = '';
-      // restore Tab order for the constellations dimmed out by enter()
+      // restore Tab order and AT visibility for the constellations dimmed by enter()
       n.node.setAttribute('tabindex','0');
+      n.node.removeAttribute('aria-hidden');
       n.stars.forEach(st=> st.setAttribute('tabindex','0'));
     });
     bc.style.display = 'none';
@@ -735,6 +751,15 @@ window.renderSky = function(opts){
     const skyback = document.createElement('button');
     skyback.type = 'button'; skyback.className = 'skyback'; skyback.textContent = '★ Back to the sky';
     skyback.addEventListener('click', exit); document.body.appendChild(skyback);
+    // pointer-reachable help trigger: the shortcuts overlay was bound only to the
+    // `?` key, so touch users (no keyboard) could never open it. Small glyph in
+    // the chart corner, 44px touch target on mobile, mirrors the `?` shortcut.
+    const helpBtn = document.createElement('button');
+    helpBtn.type = 'button'; helpBtn.className = 'helpbtn';
+    helpBtn.setAttribute('aria-label', 'Help and keyboard shortcuts');
+    helpBtn.textContent = '?';
+    helpBtn.addEventListener('click', openHelp);
+    wrap.appendChild(helpBtn);
     // pause ambient animation when the tab is hidden or the chart is off-screen
     const pause = on => document.body.classList.toggle('anim-paused', on);
     document.addEventListener('visibilitychange', ()=> pause(document.hidden));
