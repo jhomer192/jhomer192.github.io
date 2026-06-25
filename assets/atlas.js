@@ -510,7 +510,7 @@ function renderSeasonal(cam, date){
   const season=(m===11||m<=1)?'Hiems':(m<=4)?'Ver':(m<=7)?'Aestas':'Autumnus';
   const sets={Hiems:[[150,150],[225,120],[300,165],[250,205]],Ver:[[150,160],[235,130],[305,175]],Aestas:[[150,165],[225,125],[305,150],[260,205]],Autumnus:[[155,140],[245,165],[315,145]]};
   const pts=sets[season];
-  const g=document.createElementNS(SVGNS,'g'); g.setAttribute('class','seasonal');
+  const g=document.createElementNS(SVGNS,'g'); g.setAttribute('class','seasonal'); g.setAttribute('aria-hidden','true');
   for(let i=0;i<pts.length-1;i++){const l=document.createElementNS(SVGNS,'line');l.setAttribute('x1',pts[i][0]);l.setAttribute('y1',pts[i][1]);l.setAttribute('x2',pts[i+1][0]);l.setAttribute('y2',pts[i+1][1]);g.appendChild(l);}
   pts.forEach(pp=>{const d=document.createElementNS(SVGNS,'circle');d.setAttribute('cx',pp[0]);d.setAttribute('cy',pp[1]);d.setAttribute('r',1.5);d.setAttribute('class','sstar');g.appendChild(d);});
   const t=document.createElementNS(SVGNS,'text');t.setAttribute('x',pts[0][0]-4);t.setAttribute('y',pts[0][1]+20);t.setAttribute('class','slabel');t.textContent=season+' · in season';g.appendChild(t);
@@ -642,8 +642,15 @@ window.renderSky = function(opts){
     if(!c) return;
     const [x0,y0,x1,y1] = c.box;
     // generous padding so outward star labels, the breadcrumb (top) and the
-    // compass don't clip the figure once zoomed in
-    const padX = 72, padTop = 96, padBot = 64;
+    // compass don't clip the figure once zoomed in. On phones the breadcrumb is
+    // a fixed-pixel overlay that eats a bigger fraction of the smaller screen, so
+    // give portrait phones extra top clearance (else the breadcrumb covers the
+    // top stars); landscape phones trade some of that back to fit vertically.
+    const narrow = window.innerWidth <= 720;
+    const portrait = window.innerHeight >= window.innerWidth;
+    const padX = 72;
+    const padTop = narrow ? (portrait ? 150 : 110) : 96;
+    const padBot = (narrow && !portrait) ? 40 : 64;
     const bx = x0-padX, by = y0-padTop, bw = (x1-x0)+padX*2, bh = (y1-y0)+padTop+padBot;
     const s = Math.min(SKY_W/bw, SKY_H/bh);
     const cxv = (SKY_W - bw*s)/2, cyv = (SKY_H - bh*s)/2;
