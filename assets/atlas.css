@@ -133,7 +133,7 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 /* compass needle springs toward the cursor */
 .compass .needle{transform-box:fill-box;transform-origin:50% 67%;transition:transform .5s cubic-bezier(.2,1.3,.3,1)}
 /* comet → colophon */
-.comet{position:absolute;right:14px;top:12px;width:26px;height:26px;padding:4px;border:0;background:none;cursor:pointer;color:var(--ink-faint);opacity:.45;transition:opacity .25s,color .25s;z-index:6}
+.comet{position:absolute;right:14px;top:12px;width:26px;height:26px;padding:4px;border:0;background:none;cursor:pointer;color:var(--ink-soft);opacity:.6;transition:opacity .25s,color .25s;z-index:6}
 .comet:hover,.comet:focus-visible{opacity:1;color:var(--accent)}
 .comet svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
 
@@ -221,11 +221,13 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 .sky-svg.single-mode .cons .clabel,
 .sky-svg.single-mode .cons .csub{display:none}
 /* single-mode: light the figure label by default since there's only one constellation */
-.sky-svg.single-mode .cons .figure-label{opacity:.55}
+.sky-svg.single-mode .cons .figure-label{opacity:.62}
 
-/* T3(c) — named line clusters (hairline figure labels per constellation) */
-.cons .figure-label{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:10px;fill:var(--ink-soft);text-anchor:middle;letter-spacing:.06em;pointer-events:none;opacity:0;transition:opacity .35s ease}
-.cons:hover .figure-label,.cons.lit .figure-label{opacity:.55}
+/* T3(c) — named line clusters (hairline figure labels per constellation).
+   fill is full ink (not ink-soft) so that at the shown opacity the flavor text
+   still clears WCAG AA 4.5:1 — at .55 the blend toward paper dropped it to 3:1. */
+.cons .figure-label{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:10px;fill:var(--ink);text-anchor:middle;letter-spacing:.06em;pointer-events:none;opacity:0;transition:opacity .35s ease}
+.cons:hover .figure-label,.cons.lit .figure-label{opacity:.62}
 
 /* edges within constellation — faint figure visible at the sky level so the dots
    read as a constellation; pathLength=1 lets us "ink it in" on entry */
@@ -323,6 +325,28 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
   /* Nav links: give the row real vertical tap height (>=44px), including the
      short-landscape case where the max-width breakpoints don't apply. */
   .nav ul a, .nav .brand{display:inline-flex;align-items:center;min-height:44px}
+}
+
+/* No keyboard on a coarse pointer — drop the "Press ? for shortcuts" hint
+   (the on-screen help button covers it). */
+@media (hover:none) and (pointer:coarse){
+  .legend .hint{display:none}
+}
+
+/* Short-landscape (phones turned sideways): trim the hero AND float the chart
+   above the intro/legend (the mobile reorder is gated on max-width:720, which a
+   844x390 landscape phone doesn't match) so the sky isn't pushed below the fold
+   before the user can interact. */
+@media (max-height:560px) and (orientation:landscape){
+  .nav{margin-bottom:6px}
+  .header{padding:12px 56px 8px}
+  .preface{padding:8px 56px 8px}
+  .sky-hint{display:block;margin:0;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--accent)}
+  main.chart:not(.text-plate){display:flex;flex-direction:column}
+  main.chart:not(.text-plate) > .header{order:0}
+  main.chart:not(.text-plate) > .sky-hint{order:1}
+  main.chart:not(.text-plate) > #sky-wrap{order:1}
+  main.chart:not(.text-plate) > .preface{order:2}
 }
 
 /* longform sections below the chart on section pages */
@@ -504,13 +528,13 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 .form-wrap .lede{margin-left:auto;margin-right:auto;text-align:center}
 .ink-form .field{display:block}
 .ink-form label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:6px}
-.ink-form input,.ink-form textarea{width:100%;background:var(--paper);border:1px solid var(--ink);padding:10px 12px;font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--ink);font-style:italic}
+.ink-form input,.ink-form textarea{width:100%;min-height:44px;background:var(--paper);border:1px solid var(--ink);padding:10px 12px;font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--ink);font-style:italic}
 .ink-form input:focus,.ink-form textarea:focus{outline:1px solid var(--accent);outline-offset:1px}
 .ink-form input[aria-invalid="true"],.ink-form textarea[aria-invalid="true"]{border-color:#9a2515;outline-color:#9a2515}
 .ink-form .field-error{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:#9a2515;margin-top:5px;display:block}
 .ink-form textarea{min-height:160px;resize:vertical;line-height:1.5}
 .ink-form .honeypot{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-.ink-form .cta{justify-self:start;background:var(--ink);color:var(--paper);border:1px solid var(--ink);padding:12px 22px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block}
+.ink-form .cta{justify-self:start;min-height:44px;background:var(--ink);color:var(--paper);border:1px solid var(--ink);padding:12px 22px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block}
 .ink-form .cta:hover{background:var(--accent);border-color:var(--accent)}
 .ink-form .cta:disabled{opacity:.6;cursor:not-allowed}
 .ink-form .status{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin-top:4px;display:none}

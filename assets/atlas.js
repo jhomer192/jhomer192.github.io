@@ -293,7 +293,9 @@ function buildConstellation(c, cam, onStarClick){
     const sg = document.createElementNS(SVGNS,'g');
     const hollow = (s.k==='src'||s.k==='priv');
     sg.setAttribute('class','star m'+s.m+(hollow?' src':'')+(left?' right':' left'));
-    sg.setAttribute('role','link'); sg.setAttribute('tabindex','0');
+    // role=button, not link: activating a star opens an in-place card (or, on the
+    // overview, zooms its constellation) — it never navigates to a URL.
+    sg.setAttribute('role','button'); sg.setAttribute('tabindex','0');
     sg.setAttribute('aria-label', s.nm+': '+s.g);
     sg.dataset.i=i;
 
@@ -692,6 +694,12 @@ window.renderSky = function(opts){
     document.body.classList.add('zoomed');
     if(live) live.textContent = 'Entered '+c.name+'. Press Escape to return.';
     currentZoom = id;
+    // The sky canvas can be taller than the viewport (esp. desktop and short
+    // landscape), so a zoomed constellation may spill below the fold with its
+    // lower stars unclickable. Pull the chart into view so the whole figure is
+    // reachable without manual scrolling. block:'center' keeps a ~768px chart
+    // fully visible on an ~800px viewport; harmless when it already fits.
+    if(wrap.scrollIntoView){ wrap.scrollIntoView({behavior:'smooth', block:'center'}); }
     // for keyboard zoom, move focus into the constellation so arrow-cycling works
     if(moveFocus){ const st = nodes[id] && nodes[id].stars; (st && st[0] ? st[0] : nodes[id].node).focus(); }
   }
