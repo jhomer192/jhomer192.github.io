@@ -582,7 +582,11 @@ window.renderSky = function(opts){
   svg.setAttribute('id','sky');
   svg.setAttribute('viewBox', `0 0 ${SKY_W} ${SKY_H}`);
   svg.setAttribute('preserveAspectRatio','xMidYMid meet');
-  svg.setAttribute('role','img');
+  // role=group (not img): img is "children-presentational", which makes
+  // browse-mode screen readers prune the focusable constellation/star buttons
+  // from the reading order. group keeps the labelled container while exposing
+  // the interactive descendants. (The list-view text index mirrors it anyway.)
+  svg.setAttribute('role','group');
   svg.setAttribute('focusable','false');
   if(mode==='single' && focus){
     const fc = CONSTELLATIONS.find(c=>c.id===focus);
@@ -699,7 +703,11 @@ window.renderSky = function(opts){
     // lower stars unclickable. Pull the chart into view so the whole figure is
     // reachable without manual scrolling. block:'center' keeps a ~768px chart
     // fully visible on an ~800px viewport; harmless when it already fits.
-    if(wrap.scrollIntoView){ wrap.scrollIntoView({behavior:'smooth', block:'center'}); }
+    // Honor reduced-motion: smooth scroll can be vestibular-triggering.
+    if(wrap.scrollIntoView){
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      wrap.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'center'});
+    }
     // for keyboard zoom, move focus into the constellation so arrow-cycling works
     if(moveFocus){ const st = nodes[id] && nodes[id].stars; (st && st[0] ? st[0] : nodes[id].node).focus(); }
   }
@@ -750,9 +758,17 @@ window.renderSky = function(opts){
       const overlayOpen = (cardOverlay && cardOverlay.classList.contains('open')) || (helpOverlay && helpOverlay.classList.contains('open'));
       if(e.key==='Escape' && currentZoom && !overlayOpen){exit(true);}
     });
-    // honor hash on load
-    const m = (location.hash||'').match(/^#\/([a-z-]+)/);
-    if(m) enter(m[1]);
+    // screen-reader announcements for enter/exit. Created BEFORE the hash-load
+    // below so a deep-linked zoom (e.g. /#/opera-minora) is announced too.
+    live = document.createElement('div'); live.className = 'sr-only';
+    live.setAttribute('aria-live','polite'); wrap.appendChild(live);
+    // Honor the hash on load AND keep the zoom synced with later hash navigation
+    // (address-bar edits, in-page anchors, browser back/forward) — before, deep
+    // links only worked on a fresh document load. enter()/exit() use
+    // replaceState, which does not fire hashchange, so this can't loop.
+    const syncHash = ()=>{ const m=(location.hash||'').match(/^#\/([a-z-]+)/); if(m) enter(m[1]); else if(currentZoom) exit(); };
+    syncHash();
+    window.addEventListener('hashchange', syncHash);
 
     // list-view toggle (Sky / List)
     const vt = document.getElementById('viewtoggle');
@@ -761,9 +777,6 @@ window.renderSky = function(opts){
       vt.setAttribute('aria-pressed', on?'true':'false');
       vt.textContent = on ? '★ Back to the sky' : 'View as list →';
     });
-    // screen-reader announcements for enter/exit
-    live = document.createElement('div'); live.className = 'sr-only';
-    live.setAttribute('aria-live','polite'); wrap.appendChild(live);
     // sticky "back to the sky" button (shown on mobile while zoomed in).
     // Appended to <body>, NOT the chart: the intro animation leaves main.chart
     // with an identity transform, which would make it the containing block for

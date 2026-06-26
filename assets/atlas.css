@@ -333,6 +333,14 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
   .legend .hint{display:none}
 }
 
+/* Very narrow screens (Galaxy Fold ~280px): the nav row is overflow-x:auto with
+   a hidden scrollbar, so the last link ("Contact") was clipped with no scroll
+   cue. Tighten the row so all four labels fit. */
+@media (max-width:300px){
+  .nav ul{gap:8px}
+  .nav a{font-size:8.5px;letter-spacing:.06em}
+}
+
 /* Short-landscape (phones turned sideways): trim the hero AND float the chart
    above the intro/legend (the mobile reorder is gated on max-width:720, which a
    844x390 landscape phone doesn't match) so the sky isn't pushed below the fold
