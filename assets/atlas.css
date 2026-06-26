@@ -143,7 +143,7 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 @keyframes shoot{0%{opacity:0;transform:translate(-24px,-16px) rotate(20deg) scaleX(.2)}14%{opacity:.5}100%{opacity:0;transform:translate(150px,52px) rotate(20deg) scaleX(1)}}
 
 /* Phase E — moon-phase glyph + seasonal asterism */
-.moonphase{position:absolute;left:14px;bottom:12px;width:24px;height:24px;z-index:6;opacity:.8}
+.moonphase{position:absolute;left:14px;bottom:12px;width:24px;height:24px;z-index:6;opacity:.8;pointer-events:none}
 .moonphase svg{width:100%;height:100%;overflow:visible}
 .moon-lit{fill:var(--ink)} .moon-shadow{fill:var(--paper)} .moon-ring{fill:none;stroke:var(--ink);stroke-width:1}
 .seasonal{opacity:.3}
@@ -300,21 +300,29 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
    chart controls to >=40/44px touch targets, glyph size kept via padding so the
    visuals don't change. Placed AFTER the base rules so these overrides win. */
 @media (max-width:720px), (max-height:560px), (hover:none) and (pointer:coarse){
-  .comet{width:40px;height:40px;padding:11px;right:10px;top:8px}
-  .helpbtn{width:40px;height:40px;font-size:16px;right:60px;top:8px}
-  /* Keep the breadcrumb a single compact line (no wrap) and out of the figure.
-     While zoomed, hide the overview-only corner buttons so the breadcrumb has
-     room, and drop the redundant breadcrumb back button — the bottom "back to
-     the sky" pill is the touch back affordance. */
-  body.zoomed .comet, body.zoomed .helpbtn{display:none}
+  /* The small chart fills its own corners on phones, so chrome floating over the
+     sky steals star taps. The comet (colophon) and moonphase are decorative —
+     hide them. The help button is re-parented into the band above the chart
+     (.helpbtn-bar) so it stays reachable without overlapping any star. */
+  .comet, .moonphase{display:none}
+  .helpbtn-bar{position:static;order:1;align-self:flex-end;width:44px;height:44px;font-size:16px;margin:2px 22px 0}
+  body.zoomed .helpbtn-bar{display:none}
   .breadcrumb{max-width:calc(100% - 24px)}
   .breadcrumb button.zoom-out{display:none}
   /* 44px tap area for the plate link WITHOUT inflating the breadcrumb's height
      (a min-height here made the bar ~58px and re-covered the top stars). */
   .breadcrumb a.plate-link{position:relative}
   .breadcrumb a.plate-link::after{content:'';position:absolute;left:-8px;right:-8px;top:50%;transform:translateY(-50%);height:44px}
-  .viewtoggle{min-height:40px;padding:9px 16px}
+  .viewtoggle{min-height:44px;padding:11px 16px}
   .skyback{padding:15px 22px}
+  /* Spread the second-tap star targets where star spacing allows (single-plate
+     pages and the zoomed-in constellation). True 44px is impossible for the
+     dense ~100-unit-spaced overview without overlapping neighbours, so there the
+     large hull is the primary target and star taps reroute to zoom. */
+  .sky-svg.single-mode .star .hit, .cons.entered .star .hit{r:30}
+  /* Nav links: give the row real vertical tap height (>=44px), including the
+     short-landscape case where the max-width breakpoints don't apply. */
+  .nav ul a, .nav .brand{display:inline-flex;align-items:center;min-height:44px}
 }
 
 /* longform sections below the chart on section pages */
@@ -498,6 +506,8 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 .ink-form label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:6px}
 .ink-form input,.ink-form textarea{width:100%;background:var(--paper);border:1px solid var(--ink);padding:10px 12px;font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--ink);font-style:italic}
 .ink-form input:focus,.ink-form textarea:focus{outline:1px solid var(--accent);outline-offset:1px}
+.ink-form input[aria-invalid="true"],.ink-form textarea[aria-invalid="true"]{border-color:#9a2515;outline-color:#9a2515}
+.ink-form .field-error{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:#9a2515;margin-top:5px;display:block}
 .ink-form textarea{min-height:160px;resize:vertical;line-height:1.5}
 .ink-form .honeypot{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 .ink-form .cta{justify-self:start;background:var(--ink);color:var(--paper);border:1px solid var(--ink);padding:12px 22px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block}

@@ -94,9 +94,16 @@ const CONSTELLATIONS = [
           'Self-hosted: deploys over SSH to a private server.',
         ],
         st:'Node · Telegram Bot API · Claude Code.'},
+      {nm:'grace-style',        g:'color + style tool',   m:2, k:'src',  cx:620, cy:185, src:GH+'/grace-style', page:'/projects/grace-style/',
+        d:'Upload a portrait and get a personalized 12-season color analysis (palette, hair, and makeup direction) from Claude vision.',
+        hi:[
+          'Vision analysis: shells out to the Claude CLI to read a portrait and place it in a 12-season system.',
+          'Private by default: results live in your browser\'s localStorage; nothing is stored server-side.',
+        ],
+        st:'React · Vite · TypeScript · Tailwind · Express (Claude CLI).'},
     ],
     // The Builder's Loom: outer frame (top beam, posts, bottom beam) + inner warp threads
-    edges:[[0,1],[1,2],[2,4],[4,8],[8,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8]],
+    edges:[[0,1],[1,2],[2,4],[4,8],[8,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10]],
     conj:[[9,1]] },
 
   { id:'corona-laboris', name:'Corona Laboris', sub:'Day Work', section:'/career/',
@@ -128,16 +135,9 @@ const CONSTELLATIONS = [
         d:'Domain registration, DNS, and professional email set up and handed off, so a shop owns its own name.'},
       {nm:'Review Replies',     g:'AI review replies',    m:3, k:'service', cx:735, cy:445, url:'/business/',
         d:'AI-drafted responses to Google reviews, written in the business\'s own voice to keep the reply rate up.'},
-      {nm:'grace-style',        g:'color + style tool',   m:2, k:'src',     cx:885, cy:550, src:GH+'/grace-style', page:'/projects/grace-style/',
-        d:'Upload a portrait and get a personalized 12-season color analysis (palette, hair, and makeup direction) from Claude vision.',
-        hi:[
-          'Vision analysis: shells out to the Claude CLI to read a portrait and place it in a 12-season system.',
-          'Private by default: results live in your browser\'s localStorage; nothing is stored server-side.',
-        ],
-        st:'React · Vite · TypeScript · Tailwind · Express (Claude CLI).'},
     ],
-    // The Merchant's Scale: fulcrum (Review Replies) over a beam, two pans, one weight
-    edges:[[2,0],[2,3],[3,1]],
+    // The Merchant's Scale: fulcrum (Review Replies) over a beam balancing two pans
+    edges:[[2,0],[2,1]],
     conj:[] },
 ];
 
@@ -270,7 +270,13 @@ function buildConstellation(c, cam, onStarClick){
   // centre) so they radiate out, then nudge same-side labels apart vertically so
   // the names/glosses stop overwriting each other.
   const cen = centroid(c.stars);
-  const labelLeft = c.stars.map(s => s.cx < cen[0]);   // label sits left of its star
+  // Label on the OUTWARD side by default, but force it inward for stars near a
+  // viewBox edge so the text doesn't run off and clip (e.g. "Clocktower ST").
+  const labelLeft = c.stars.map(s => {
+    if (s.cx > SKY_W - 120) return true;    // near right edge → label left
+    if (s.cx < 120) return false;           // near left edge → label right
+    return s.cx < cen[0];
+  });
   const ldy = new Array(c.stars.length).fill(0);
   const LABEL_GAP = 22;
   [true,false].forEach(want=>{
@@ -765,8 +771,23 @@ window.renderSky = function(opts){
     helpBtn.type = 'button'; helpBtn.className = 'helpbtn';
     helpBtn.setAttribute('aria-label', 'Help and keyboard shortcuts');
     helpBtn.textContent = '?';
-    helpBtn.addEventListener('click', openHelp);
+    // focus the button before opening: a click doesn't focus a <button> in
+    // Safari/iOS, so without this the dialog's "restore focus on close" lands
+    // on <body> instead of the trigger.
+    helpBtn.addEventListener('click', ()=>{ helpBtn.focus(); openHelp(); });
     wrap.appendChild(helpBtn);
+    // On touch / small screens the chart fills its own corners, so a button
+    // floating over the sky steals star taps (sky-wrap has overflow:hidden, so
+    // it can't simply be nudged out). Move it into the band above the chart
+    // there; keep the desktop corner placement (where padding leaves it clear).
+    const placeHelp = ()=>{
+      const chart = wrap.closest('main.chart'); if(!chart) return;
+      const small = matchMedia('(max-width:720px), (max-height:560px), (hover:none) and (pointer:coarse)').matches;
+      if(small){ if(helpBtn.parentElement!==chart){ chart.insertBefore(helpBtn, wrap); helpBtn.classList.add('helpbtn-bar'); } }
+      else if(helpBtn.parentElement!==wrap){ wrap.appendChild(helpBtn); helpBtn.classList.remove('helpbtn-bar'); }
+    };
+    placeHelp();
+    window.addEventListener('resize', placeHelp, {passive:true});
     // pause ambient animation when the tab is hidden or the chart is off-screen
     const pause = on => document.body.classList.toggle('anim-paused', on);
     document.addEventListener('visibilitychange', ()=> pause(document.hidden));

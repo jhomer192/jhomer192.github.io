@@ -19,7 +19,7 @@
 <meta name="twitter:description" content="Send Jack Homer a note. It goes straight to his phone; he usually replies within a few hours.">
 <meta name="twitter:image" content="https://jackhomer.com/og.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/atlas.css?v=8">
+<link rel="stylesheet" href="/assets/atlas.css?v=9">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
 </head>
 <body>
@@ -117,6 +117,49 @@
     status.style.display = text ? 'block' : 'none';
   }
 
+  // Per-field validation. novalidate suppresses the browser's native bubbles, so
+  // we identify the failing field for screen readers: aria-invalid + an inline
+  // error linked via aria-describedby, and move focus to the first one.
+  const checks = [
+    {el: document.getElementById('name'),    msg: 'Please enter your name.'},
+    {el: document.getElementById('email'),   msg: 'Please enter a valid email address.',
+      ok: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)},
+    {el: document.getElementById('message'), msg: 'Please enter a message.'},
+  ];
+  function clearError(f){
+    f.el.removeAttribute('aria-invalid');
+    f.el.removeAttribute('aria-describedby');
+    const e = document.getElementById(f.el.id + '-error');
+    if (e) e.remove();
+  }
+  function showError(f){
+    f.el.setAttribute('aria-invalid', 'true');
+    const id = f.el.id + '-error';
+    f.el.setAttribute('aria-describedby', id);
+    let e = document.getElementById(id);
+    if (!e){ e = document.createElement('span'); e.id = id; e.className = 'field-error'; f.el.closest('.field').appendChild(e); }
+    e.textContent = f.msg;
+  }
+  function validate(){
+    const bad = [];
+    checks.forEach(f => {
+      clearError(f);
+      const v = (f.el.value || '').trim();
+      const ok = f.ok ? f.ok(v) : v.length > 0;
+      if (!ok) bad.push(f);
+    });
+    bad.forEach(showError);
+    if (bad.length){
+      bad[0].el.focus();
+      const which = bad.length === 1 ? 'one field' : bad.length + ' fields';
+      setStatus('Please check ' + which + ' above — see the note in red.', 'error');
+    }
+    return bad.length === 0;
+  }
+  checks.forEach(f => f.el.addEventListener('input', () => {
+    if (f.el.getAttribute('aria-invalid') === 'true') clearError(f);
+  }));
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(form);
@@ -126,6 +169,7 @@
       form.reset();
       return;
     }
+    if (!validate()) return;
     btn.disabled = true;
     setStatus('Sending…', 'info');
     try {
@@ -154,7 +198,7 @@
 })();
 </script>
 
-<script src="/assets/common.js?v=8"></script>
+<script src="/assets/common.js?v=9"></script>
 
 </body>
 </html>
