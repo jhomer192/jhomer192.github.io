@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>Backpressure · Jack Homer</title>
+<meta name="description" content="Backpressure, practice system-design interviews solo: diagram an architecture on a canvas, get grilled by an AI interviewer, and receive a scored verdict. Free and open source.">
+<link rel="canonical" href="https://jackhomer.com/projects/backpressure/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Backpressure · Jack Homer">
+<meta property="og:description" content="Diagram an architecture on a canvas, get grilled by an AI interviewer, and receive a scored verdict. Free and open source, runs on your own Claude login.">
+<meta property="og:url" content="https://jackhomer.com/projects/backpressure/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:image" content="https://jackhomer.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/atlas.css?v=12">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <a class="brand" href="/">Jack Homer</a>
+  <ul>
+    <li><a href="/projects/">Projects</a></li>
+    <li><a href="/career/">Career</a></li>
+    <li><a href="/business/">Business</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</nav>
+
+<main id="main" class="chart text-plate">
+  <div class="meander-frame" aria-hidden="true">
+    <span class="strip top"></span><span class="strip bottom"></span>
+    <span class="strip left"></span><span class="strip right"></span>
+  </div>
+  <svg class="corner tl" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner tr" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner bl" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner br" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+
+  <header class="header">
+    <div class="c">
+      <h1>Backpressure</h1>
+      <div class="sub">system-design trainer</div>
+    </div>
+  </header>
+
+  <section class="proj">
+    <div class="meta">Side project · 2026</div>
+    <p class="tagline">Practice system-design interviews without another person in the room: diagram an architecture on a canvas, get grilled by an AI interviewer, and read back a scored "would you pass?" verdict.</p>
+
+    <p>
+      System-design interviews are hard to rehearse alone. The value is in being pushed, "what happens
+      when this queue backs up, where's your single point of failure, how does this read path scale," and
+      a static prompt list can't push back. So Backpressure puts an interviewer on the other side of the
+      whiteboard: you draw, it interrogates, and at the end it grades.
+    </p>
+    <p>
+      You start from a prompt, "design Slack," "design a URL shortener," sketch your components and their
+      connections on an open canvas, and talk through the design with an AI interviewer that probes the
+      weak spots. When you're done it returns a scored verdict against a rubric written for that specific
+      problem, judged on the properties your design achieves rather than whether it matches one reference
+      answer, so a genuinely different-but-sound design still passes.
+    </p>
+
+    <h2>How it works</h2>
+    <ul>
+      <li><strong>An open canvas, not preset blocks</strong>: you draw and name every component yourself; the node labels are the whole signal, so the tool never boxes you into one shape of answer.</li>
+      <li><strong>An interviewer that pushes back</strong>: a chat model interrogates your design in real time, and a second model returns a structured, property-based verdict with a score and the reasoning behind it.</li>
+      <li><strong>Graded on properties, not resemblance</strong>: each problem's rubric rewards what the design achieves (availability, scaling, failure handling), so a completely alternative architecture that holds up is marked correct.</li>
+      <li><strong>~50 problems</strong>: Slack, YouTube, Uber, an LLM inference service and more, each with its own rubric and reference solution.</li>
+      <li><strong>Bring your own Claude</strong>: it runs on your own Claude Code login; there's no API key to paste, no account to make, and nothing to pay.</li>
+    </ul>
+
+    <h2>Stack</h2>
+    <p class="stack">Next.js · TypeScript · Tailwind · @xyflow/react canvas · Claude, through the Agent SDK or the raw Messages API. Free and open source; there's no hosted demo, you clone the repo and run it against your own Claude login.</p>
+
+    <p class="next"><strong>Next</strong> more problems, and calibration so every rubric grades a good alternative design as fairly as the reference one.</p>
+
+    <div class="cta">
+      <a href="https://github.com/jhomer192/backpressure" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="backpressure-src">Source on GitHub ↗</a>
+    </div>
+  </section>
+
+  <p class="returnto"><a href="/projects/">← all projects</a></p>
+</main>
+
+<footer class="colophon">
+  Jack Homer · Bay Area<br>
+  <a href="mailto:jack@homerfamily.com">jack@homerfamily.com</a> · <a href="https://github.com/jhomer192">GitHub</a>
+</footer>
+
+<script src="/assets/common.js?v=12"></script>
+
+</body>
+</html>

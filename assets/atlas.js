@@ -101,9 +101,17 @@ const CONSTELLATIONS = [
           'Private by default: results live in your browser\'s localStorage; nothing is stored server-side.',
         ],
         st:'React · Vite · TypeScript · Tailwind · Express (Claude CLI).'},
+      {nm:'Backpressure',       g:'system-design trainer',m:2, k:'src',  cx:460, cy:205, src:GH+'/backpressure', page:'/projects/backpressure/',
+        d:'Practice system-design interviews solo: diagram an architecture on a canvas, get grilled by an AI interviewer, and receive a scored "would you pass?" verdict.',
+        hi:[
+          'Canvas, no preset blocks: draw and name any architecture; an AI interviewer probes the design and a second model returns a scored, property-based verdict.',
+          'Bring your own Claude: runs on your own Claude Code login, so there is no API key, no account, and nothing to pay.',
+          '~50 problems: Slack, YouTube, Uber, an LLM inference service and more, each graded against its own rubric.',
+        ],
+        st:'Next.js · TypeScript · Tailwind · @xyflow/react canvas · Claude (Agent SDK / Messages API). Free and open source, clone and run it yourself.'},
     ],
     // The Builder's Loom: outer frame (top beam, posts, bottom beam) + inner warp threads
-    edges:[[0,1],[1,2],[2,4],[4,8],[8,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10]],
+    edges:[[0,1],[1,2],[2,4],[4,8],[8,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11]],
     conj:[[9,1]] },
 
   { id:'corona-laboris', name:'Corona Laboris', sub:'Day Work', section:'/career/',
@@ -766,7 +774,11 @@ window.renderSky = function(opts){
     // (address-bar edits, in-page anchors, browser back/forward) — before, deep
     // links only worked on a fresh document load. enter()/exit() use
     // replaceState, which does not fire hashchange, so this can't loop.
-    const syncHash = ()=>{ const m=(location.hash||'').match(/^#\/([a-z-]+)/); if(m) enter(m[1]); else if(currentZoom) exit(); };
+    // Gate on a REAL constellation id: a pattern-matching typo (e.g.
+    // #/opera-minorz) must fall through to exit, not leave a stale zoom — enter()
+    // returns early on an unknown id, which would otherwise strand the prior
+    // state and make the same URL render differently on reload.
+    const syncHash = ()=>{ const m=(location.hash||'').match(/^#\/([a-z-]+)/); if(m && CONSTELLATIONS.some(c=>c.id===m[1])) enter(m[1]); else if(currentZoom) exit(); };
     syncHash();
     window.addEventListener('hashchange', syncHash);
 
