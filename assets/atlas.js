@@ -101,7 +101,7 @@ const CONSTELLATIONS = [
           'Private by default: results live in your browser\'s localStorage; nothing is stored server-side.',
         ],
         st:'React · Vite · TypeScript · Tailwind · Express (Claude CLI).'},
-      {nm:'Backpressure',       g:'system-design trainer',m:2, k:'src',  cx:460, cy:205, src:GH+'/backpressure', page:'/projects/backpressure/',
+      {nm:'Backpressure',       g:'system-design trainer',m:2, k:'src',  cx:455, cy:225, lp:'R', src:GH+'/backpressure', page:'/projects/backpressure/',
         d:'Practice system-design interviews solo: diagram an architecture on a canvas, get grilled by an AI interviewer, and receive a scored "would you pass?" verdict.',
         hi:[
           'Canvas, no preset blocks: draw and name any architecture; an AI interviewer probes the design and a second model returns a scored, property-based verdict.',
@@ -281,6 +281,7 @@ function buildConstellation(c, cam, onStarClick){
   // Label on the OUTWARD side by default, but force it inward for stars near a
   // viewBox edge so the text doesn't run off and clip (e.g. "Clocktower ST").
   const labelLeft = c.stars.map(s => {
+    if (s.lp) return s.lp === 'L';          // explicit per-star override ('L'/'R')
     if (s.cx > SKY_W - 120) return true;    // near right edge → label left
     if (s.cx < 120) return false;           // near left edge → label right
     return s.cx < cen[0];
