@@ -571,8 +571,15 @@ function decorate(wrap, svg, cam){
         s.style.top=(8+rnd(seed++)*44).toFixed(0)+'%'; s.style.left=(48+rnd(seed++)*44).toFixed(0)+'%';
         wrap.appendChild(s); setTimeout(()=>s.remove(),1500);
       }
-      setTimeout(fly, 12000+rnd(seed++)*15000);};
-    setTimeout(fly, 6000);
+      timer = setTimeout(fly, 12000+rnd(seed++)*15000);};
+    // Stop the chain entirely while hidden rather than just skipping the
+    // element: the old guard left a timer rescheduling itself for the life of
+    // a backgrounded tab. Restart on return.
+    let timer = setTimeout(fly, 6000);
+    document.addEventListener('visibilitychange', ()=>{
+      clearTimeout(timer);
+      if(!document.hidden) timer = setTimeout(fly, 4000);
+    });
   }
   // comet → colophon
   const comet=document.createElement('button'); comet.className='comet'; comet.type='button'; comet.setAttribute('aria-label','Colophon');
@@ -847,7 +854,15 @@ window.renderSky = function(opts){
       else if(helpBtn.parentElement!==wrap){ wrap.appendChild(helpBtn); helpBtn.classList.remove('helpbtn-bar'); }
     };
     placeHelp();
-    window.addEventListener('resize', placeHelp, {passive:true});
+    // Coalesce resize bursts into one layout read per frame: placeHelp
+    // does a closest() + matchMedia() and can move a node, and a phone
+    // collapsing its URL bar fires this dozens of times a second.
+    let placeQueued = false;
+    window.addEventListener('resize', ()=>{
+      if(placeQueued) return;
+      placeQueued = true;
+      requestAnimationFrame(()=>{ placeQueued = false; placeHelp(); });
+    }, {passive:true});
     // pause ambient animation when the tab is hidden or the chart is off-screen
     const pause = on => document.body.classList.toggle('anim-paused', on);
     document.addEventListener('visibilitychange', ()=> pause(document.hidden));
