@@ -193,6 +193,14 @@
           message: data.get('message'),
         }),
       });
+      // The relay rate-limits by IP. Say so plainly and leave the message in
+      // the box, rather than showing the generic "didn't go through" and
+      // making someone retype it.
+      if (res.status === 429) {
+        setStatus("That's one message already — give it a minute before sending another, or email "
+          + ['jack','homerfamily.com'].join('@') + " directly.", 'error');
+        return;
+      }
       if (!res.ok) {
         const body = await res.text().catch(() => '');
         throw new Error('HTTP ' + res.status + ': ' + (body || 'unknown error'));
