@@ -26,6 +26,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # gen_sitemap.py reads each page's last commit date for <lastmod>,
+          # which needs real history rather than the default single commit.
+          fetch-depth: 0
+
+      - name: Regenerate sitemap
+        # Built from the pages that exist, so adding a project directory is
+        # enough — there is no second list to keep in step.
+        run: |
+          python3 scripts/gen_sitemap.py
+          cat sitemap.xml
 
       - name: Inject Umami website ID
         env:
