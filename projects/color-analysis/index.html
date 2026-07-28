@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>Color Analysis · Jack Homer</title>
+<meta name="description" content="Color Analysis, upload a portrait and get a personalized 12-season color analysis with palette, hair, and makeup direction, run by Claude vision.">
+<link rel="canonical" href="https://jackhomer.com/projects/color-analysis/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Color Analysis">
+<meta property="og:description" content="Upload a portrait and get a personalized 12-season color analysis, palette, hair, and makeup direction, from Claude vision.">
+<meta property="og:url" content="https://jackhomer.com/projects/color-analysis/">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:image" content="https://jackhomer.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Color Analysis">
+<meta name="twitter:description" content="Color Analysis, upload a portrait and get a personalized 12-season color analysis with palette, hair, and makeup direction, run by Claude vision.">
+<meta name="twitter:image" content="https://jackhomer.com/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/atlas.css?v=18">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CreativeWork","name":"Color Analysis","description":"Color Analysis, upload a portrait and get a personalized 12-season color analysis with palette, hair, and makeup direction, run by Claude vision.","url":"https://jackhomer.com/projects/color-analysis/","image":"https://jackhomer.com/og.png","author":{"@type":"Person","name":"Jack Homer","url":"https://jackhomer.com"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jack Homer","item":"https://jackhomer.com"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://jackhomer.com/projects/"},{"@type":"ListItem","position":3,"name":"Color Analysis","item":"https://jackhomer.com/projects/color-analysis/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <a class="brand" href="/">Jack Homer</a>
+  <ul>
+    <li><a href="/projects/">Projects</a></li>
+    <li><a href="/career/">Career</a></li>
+    <li><a href="/business/">Business</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</nav>
+
+<main id="main" class="chart text-plate">
+  <div class="meander-frame" aria-hidden="true">
+    <span class="strip top"></span><span class="strip bottom"></span>
+    <span class="strip left"></span><span class="strip right"></span>
+  </div>
+  <svg class="corner tl" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner tr" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner bl" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner br" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+
+  <header class="header">
+    <div class="c">
+      <h1>Color Analysis</h1>
+      <div class="sub">color + style tool</div>
+    </div>
+  </header>
+
+  <section class="proj">
+    <div class="meta">Side project · 2026</div>
+    <p class="tagline">Upload a portrait and get a personalized 12-season color analysis, palette, hair, and makeup direction, from Claude vision.</p>
+
+    <p>
+      Seasonal color analysis is one of those things that's genuinely useful and almost impossible to
+      get without paying a consultant. The advice is real (which colors make you look healthy versus washed out, what to do with your hair, how to approach makeup), but it's locked behind an
+      appointment and a fair amount of jargon about undertones and contrast levels. I wanted to see
+      how far a vision model could get on its own from a single photo.
+    </p>
+    <p>
+      Color Analysis is the answer. You drop in a portrait, the app sends it to Claude with vision, and
+      you get back a structured 12-season read: your season, a wearable palette, hair direction, and
+      optional makeup notes. Your photo goes to Claude for the read and isn't kept anywhere; there's no account, and the backend exists only to pass the image through and hand the result straight back.
+    </p>
+
+    <h2>How it works</h2>
+    <ul>
+      <li><strong>Upload a portrait</strong>: the React frontend takes one photo and lets you toggle whether you want makeup recommendations before you run the analysis.</li>
+      <li><strong>Claude does the vision read</strong>: an Express server writes the photo to a temp file, shells out to the Claude CLI in print mode, and parses the JSON it returns into a 12-season result.</li>
+      <li><strong>You get a full breakdown</strong>: season, a color palette to wear, hair direction, and makeup notes when you opted in, rendered as a card you can save as an image.</li>
+      <li><strong>Your photo isn't stored</strong>: it goes to Claude for the read, then the stateless server deletes the temp file the moment the CLI finishes; results live only in your browser's localStorage.</li>
+      <li><strong>It handles shared devices</strong>: each browser keeps its own list of past analyses (capped at 30), so several people on one laptop don't overwrite each other.</li>
+    </ul>
+
+    <h2>Stack</h2>
+    <p class="stack">React 19 · Vite · TypeScript · Tailwind on the frontend, with an Express server that drives the Claude CLI for the vision analysis. No database, no auth, the API is stateless and results persist client-side in localStorage.</p>
+
+    <div class="cta">
+      <a href="https://github.com/jhomer192/grace-style" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="grace-style-src">Source on GitHub ↗</a>
+    </div>
+  </section>
+
+  <p class="returnto"><a href="/projects/">← all projects</a></p>
+</main>
+
+<footer class="colophon">
+  Jack Homer · Bay Area<br>
+  <a href="/contact/" data-user="jack" data-domain="homerfamily.com" data-show-address>jack at homerfamily.com</a> · <a href="https://github.com/jhomer192">GitHub</a>
+</footer>
+
+<script src="/assets/common.js?v=18"></script>
+
+</body>
+</html>

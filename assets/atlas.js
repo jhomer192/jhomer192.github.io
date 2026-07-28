@@ -94,7 +94,7 @@ const CONSTELLATIONS = [
           'Self-hosted: deploys over SSH to a private server.',
         ],
         st:'Node · Telegram Bot API · Claude Code.'},
-      {nm:'grace-style',        g:'color + style tool',   m:2, k:'src',  cx:620, cy:185, src:GH+'/grace-style', page:'/projects/grace-style/',
+      {nm:'Color Analysis',     g:'seasonal palette from a portrait',   m:2, k:'src',  cx:620, cy:185, src:GH+'/grace-style', page:'/projects/color-analysis/',
         d:'Upload a portrait and get a personalized 12-season color analysis (palette, hair, and makeup direction) from Claude vision.',
         hi:[
           'Vision analysis: shells out to the Claude CLI to read a portrait and place it in a 12-season system.',
