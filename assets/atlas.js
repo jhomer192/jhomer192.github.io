@@ -128,12 +128,15 @@ const CONSTELLATIONS = [
     labelAt:[230, 405], box:[40, 380, 410, 700],
     figure:[{label:"The Worked Day", x:215, y:540}],
     stars:[
-      {nm:'C3 AI',              g:'Forward Deployed Engineer', m:1, k:'work', cx:340, cy:455, d:'Forward Deployed Engineer at C3 AI (Redwood City), embedded with customers to ship production AI end to end.',
+      {nm:'C3 AI',              g:'Forward Deployed Engineer · 2024–present', m:1, k:'work', cx:340, cy:455, d:'Forward Deployed Engineer at C3 AI (Redwood City), embedded with customers to ship production AI end to end.',
         hi:[
-          'Built tasking, HR, and housing applications for the U.S. Marine Corps; led workstreams across phases and shipped shared packages reused in every new engagement.',
-          'Delivered an agent suite across sales, legal, and finance (pre-proposal qualification, proposal generation, expense analysis), now in production.',
-          'Stood up a translate–critique–arbitrate pipeline for legal documents, replacing significant outside-services spend with an in-house multi-agent system at the same quality bar.',
-          'Drove a platform-stability effort that cut daily crash frequency across the internal developer community ~94%.',
+          'U.S. Marine Corps (2024–present): technical lead across $16M+ of programs over three years, running three concurrent teams. Workforce planning and logistics; took one program from a 108-page spec to production and drove a $1.5M follow-on at double the price.',
+          'Property appraisal (2024): led C3\'s assessor application across a run of Connecticut towns — Darien, Mansfield, Manchester, Stonington — with data ingestion, parcel data modeling, IAAO dashboards, mass appraisal, and automated valuation.',
+          'USDA (2026): took an AI correspondence-management system to go-live — mail intake, PII detection, topic classification, LLM drafting, and multi-step approval routing.',
+          'NATO (2026): contested-logistics planning with a rerouting optimizer for an alliance logistics program, including on-site support in London.',
+          'Delivered five production agents across sales, finance, and legal: proposal generation, hypothesis qualification, sales coaching, and expense analysis.',
+          'Stood up a translate–critique–arbitrate pipeline that replaced outside-vendor legal-translation spend with an in-house multi-agent system — 1,081 documents, 2.2M words, at the same quality bar.',
+          'Drove a platform-stability effort that cut daily developer-impacting crashes ~94%.',
         ]},
       {nm:'Action Network',     g:'SWE intern · 2021',    m:3, k:'work', cx:210, cy:600, d:'Software engineering intern at The Action Network, 2021. Where the deploying started.'},
       {nm:"VT · CS '23",        g:'BS Computer Science',  m:2, k:'work', cx:95,  cy:665, d:'BS Computer Science, Virginia Tech, 2023. The origin point.'},
@@ -674,7 +677,20 @@ window.renderSky = function(opts){
   if(mode==='overview'){
     const compass = document.createElement('div');
     compass.className = 'compass';
-    compass.innerHTML = `<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="22"/><line x1="30" y1="8" x2="30" y2="52"/><line x1="8" y1="30" x2="52" y2="30"/><polygon class="needle" points="30,10 33,30 30,28 27,30"/><text x="30" y="7">N</text><text x="30" y="58">S</text><text x="5" y="33">W</text><text x="56" y="33">E</text></svg>`;
+    compass.setAttribute('aria-hidden', 'true'); // decorative instrument, not a real nav control
+    compass.innerHTML = `<svg viewBox="0 0 60 60" focusable="false">` +
+      `<circle class="rose" cx="30" cy="30" r="22"/>` +
+      `<circle class="tick-ring" cx="30" cy="30" r="18.5"/>` +
+      `<line x1="30" y1="8" x2="30" y2="52"/><line x1="8" y1="30" x2="52" y2="30"/>` +
+      `<line class="ord" x1="14.4" y1="14.4" x2="19.4" y2="19.4"/>` +
+      `<line class="ord" x1="45.6" y1="14.4" x2="40.6" y2="19.4"/>` +
+      `<line class="ord" x1="14.4" y1="45.6" x2="19.4" y2="40.6"/>` +
+      `<line class="ord" x1="45.6" y1="45.6" x2="40.6" y2="40.6"/>` +
+      `<g class="needle-pivot"><g class="needle">` +
+      `<polygon class="tip" points="30,9 32.4,30 30,26.5 27.6,30"/>` +
+      `<polygon class="tail" points="30,51 32.4,30 30,33.5 27.6,30"/>` +
+      `</g></g><circle class="pivot" cx="30" cy="30" r="1.4"/>` +
+      `<text x="30" y="7">N</text><text x="30" y="58">S</text><text x="5" y="33">W</text><text x="56" y="33">E</text></svg>`;
     wrap.appendChild(compass);
     renderSeasonal(cam, new Date());
     wrap.appendChild(buildMoon(new Date()));

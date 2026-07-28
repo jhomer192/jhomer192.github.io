@@ -2,6 +2,14 @@
 // The full star-chart engine (atlas.js) only loads where the chart renders.
 
 // Mark the current nav link.
+// Time-of-day parchment: tint the palette to the visitor's local hour.
+// Runs immediately (script is at end of body) to minimize any flash.
+(function setSkyBand(){
+  const h = new Date().getHours();
+  document.documentElement.setAttribute('data-band',
+    h < 5 ? 'night' : h < 8 ? 'dawn' : h < 17 ? 'day' : h < 20 ? 'dusk' : 'night');
+})();
+
 function markCurrentNav(){
   const path = location.pathname.replace(/\/$/,'') || '/';
   document.querySelectorAll('.nav a[href]').forEach(a=>{

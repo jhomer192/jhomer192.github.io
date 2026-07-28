@@ -50,6 +50,21 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 /* T1 — laid-paper SVG noise (hidden filter referenced as background) */
 .paper-noise{position:absolute;inset:0;opacity:.05;pointer-events:none;z-index:0}
 
+/* T1b — page-wide parchment grain + aged vignette, painted behind content so the
+   whole sky reads as ink pressed into real paper */
+body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
+  mix-blend-mode:multiply;opacity:.05;background-size:300px 300px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='pg'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='300' height='300' filter='url(%23pg)'/></svg>")}
+body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 118% 118% at 50% 40%, transparent 56%, rgba(10,10,10,.055) 100%)}
+
+/* T1c — time-of-day parchment: the palette tints to the visitor's local hour,
+   subtle, with ink kept near-black so contrast never drops. Band set by common.js;
+   day = the default palette above. */
+html[data-band="dawn"]{ --paper:#fcf5ec; --paper2:#f7ede1 }
+html[data-band="dusk"]{ --paper:#faf1e0; --paper2:#f3e8d2 }
+html[data-band="night"]{ --paper:#efe9da; --paper2:#e8e0cd; --ink:#080807; --ink-soft:#343330; --rule:rgba(10,10,10,.24) }
+
 /* chart frame — T2 Greek-key meander border */
 .chart{max-width:1180px;margin:0 auto;background:var(--paper);border:1.5px solid var(--ink);position:relative;
   box-shadow:0 1px 0 var(--ink),0 2px 0 var(--ink),0 12px 36px rgba(0,0,0,.15)}
@@ -141,8 +156,15 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
    bug that hid the OS mouse cursor over the chart) */
 .cons .edge{stroke-linecap:round}
 
-/* compass needle springs toward the cursor */
-.compass .needle{transform-box:fill-box;transform-origin:50% 67%;transition:transform .5s cubic-bezier(.2,1.3,.3,1)}
+/* compass needle springs toward the cursor; a wrapping pivot group adds a
+   faint perpetual drift so the needle reads as a live magnetic instrument
+   settling, not a flat icon, even while the cursor sits still */
+.compass .needle{transform-box:fill-box;transform-origin:50% 50%;transition:transform .5s cubic-bezier(.2,1.3,.3,1)}
+.compass .needle-pivot{transform-box:fill-box;transform-origin:50% 50%;animation:needle-settle 8s ease-in-out infinite}
+@keyframes needle-settle{0%,100%{transform:rotate(-1.1deg)}50%{transform:rotate(1.1deg)}}
+@media (prefers-reduced-motion: reduce){
+  .compass .needle-pivot{animation:none}
+}
 /* comet → colophon */
 .comet{position:absolute;right:14px;top:12px;width:26px;height:26px;padding:4px;border:0;background:none;cursor:pointer;color:var(--ink-soft);opacity:.6;transition:opacity .25s,color .25s;z-index:6}
 .comet:hover,.comet:focus-visible{opacity:1;color:var(--accent)}
@@ -312,8 +334,13 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 }
 .compass svg{display:block;width:100%;height:100%}
 .compass line{stroke:var(--ink);stroke-width:.6}
-.compass circle{fill:none;stroke:var(--ink);stroke-width:.6}
-.compass .needle{fill:var(--accent)}
+.compass line.ord{stroke-width:.4;opacity:.5}
+.compass circle.rose{fill:none;stroke:var(--ink);stroke-width:.6}
+/* fine graduated bezel, like a hand-engraved degree ring */
+.compass circle.tick-ring{fill:none;stroke:var(--ink);stroke-width:.5;stroke-dasharray:1.1 4.7;opacity:.5}
+.compass circle.pivot{fill:var(--ink)}
+.compass .needle .tip{fill:var(--accent)}
+.compass .needle .tail{fill:var(--ink);opacity:.65}
 .compass text{font-family:'IBM Plex Mono',monospace;font-size:9px;fill:var(--ink);letter-spacing:.1em;text-anchor:middle}
 
 /* breadcrumb (shown when zoomed) */
