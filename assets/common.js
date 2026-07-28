@@ -29,7 +29,20 @@ function swapProjectMedia(){
   });
 }
 
+// Assemble contact addresses at runtime. The address used to sit in plain
+// mailto: markup on all 19 pages, which is exactly what address harvesters
+// scrape; almost none of them execute JavaScript. Without JS the link still
+// works — it just points at the contact form instead of the mailbox.
+function revealMail(){
+  document.querySelectorAll('a[data-user][data-domain]').forEach(a=>{
+    const addr = a.getAttribute('data-user') + '@' + a.getAttribute('data-domain');
+    a.setAttribute('href', 'mailto:' + addr);
+    if(a.hasAttribute('data-show-address')) a.textContent = addr;
+  });
+}
+
 document.addEventListener('DOMContentLoaded', ()=>{
   markCurrentNav();
   swapProjectMedia();
+  revealMail();
 });
