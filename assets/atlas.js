@@ -109,9 +109,18 @@ const CONSTELLATIONS = [
           '~50 problems: Slack, YouTube, Uber, an LLM inference service and more, each graded against its own rubric.',
         ],
         st:'Next.js · TypeScript · Tailwind · @xyflow/react canvas · Claude (Agent SDK / Messages API). Free and open source, clone and run it yourself.'},
+      {nm:'Pokémon Agent',      g:'local model plays FireRed', m:2, k:'priv', cx:795, cy:245, img:'/screenshots/pokemon-agent.webp', page:'/projects/pokemon-agent/',
+        d:'A language model running on the desk plays Pokémon FireRed unassisted, one button press at a time: it reads the screen, decides, and presses.',
+        hi:[
+          'One press, always: the only primitive the model is given is a single button; there is no macro for walking, battling, or working a menu, so every action in a run is its own. A press-origin audit puts ~99% of them on the model.',
+          'Reads pixels, not memory: a vision model turns the raw frame into a structured observation (screen, dialogue, menu cursor, HP, move PP) and a second model turns that into one button, so nothing in the decision path is specific to one game.',
+          'Beaten so far: Brock end to end, and Elite Four Lorelei with all six of the party still standing.',
+          'Watch it play: a browser panel streams the live frame, the button, the reason for it, and the party; every decision is written to a trace log with the state before and after.',
+        ],
+        st:'Python · mGBA · Ollama (qwen2.5vl:7b perceiving, qwen2.5:14b or qwen3.6:27b deciding). Runs entirely on one machine, on my own GPU; no API and nothing hosted.'},
     ],
     // The Builder's Loom: outer frame (top beam, posts, bottom beam) + inner warp threads
-    edges:[[0,1],[1,2],[2,4],[4,8],[8,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11]],
+    edges:[[0,1],[1,2],[2,4],[4,8],[8,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12]],
     conj:[[9,1]] },
 
   { id:'corona-laboris', name:'Corona Laboris', sub:'Day Work', section:'/career/',
