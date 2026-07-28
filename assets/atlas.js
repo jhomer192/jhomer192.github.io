@@ -429,8 +429,16 @@ function ensureCard(){
   });
   return cardOverlay;
 }
+// Analytics. Guarded because the umami script is deferred, and blocked outright
+// for a fair share of visitors — a missing tracker must never break the chart.
+function track(event, data){
+  try{ if(window.umami && typeof umami.track === 'function') umami.track(event, data); }
+  catch(_){ /* analytics is never load-bearing */ }
+}
+
 function openCard(s, greek){
   const o = ensureCard();
+  track('card-open', {project: s.nm, kind: s.k || 'unknown'});
   lastFocused = document.activeElement;
   o.querySelector('.greek').textContent = greek;
   o.querySelector('h2').textContent = s.nm;
@@ -678,6 +686,7 @@ window.renderSky = function(opts){
   function enter(id, moveFocus){
     const c = CONSTELLATIONS.find(x=>x.id===id);
     if(!c) return;
+    track('constellation-enter', {id, via: moveFocus ? 'keyboard' : 'pointer'});
     const [x0,y0,x1,y1] = c.box;
     // generous padding so outward star labels, the breadcrumb (top) and the
     // compass don't clip the figure once zoomed in. On phones the breadcrumb is
@@ -815,6 +824,19 @@ window.renderSky = function(opts){
         window.addEventListener(ev, stopAttract, {once:true, passive:true}));
       attract.addEventListener('animationend', stopAttract, {once:true});
     }
+
+    // Did the visitor touch the sky at all? Bounce rate cannot tell "left
+    // immediately" apart from "played with the chart for forty seconds and
+    // then left", and those call for opposite fixes. Fires at most once per
+    // pageview, and only for interaction inside the chart itself.
+    let touched = false;
+    const firstTouch = (e)=>{
+      if(touched) return;
+      touched = true;
+      track('sky-first-interaction', {via: e.type});
+    };
+    ['pointerdown','keydown','touchstart'].forEach(ev=>
+      wrap.addEventListener(ev, firstTouch, {once:true, passive:true}));
 
     // list-view toggle (Sky / List)
     const vt = document.getElementById('viewtoggle');
