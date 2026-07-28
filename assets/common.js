@@ -4,10 +4,13 @@
 // Mark the current nav link.
 // Time-of-day parchment: tint the palette to the visitor's local hour.
 // Runs immediately (script is at end of body) to minimize any flash.
+// A ?band=dawn|day|dusk|night query param forces a band (for previewing / sharing).
 (function setSkyBand(){
-  const h = new Date().getHours();
-  document.documentElement.setAttribute('data-band',
-    h < 5 ? 'night' : h < 8 ? 'dawn' : h < 17 ? 'day' : h < 20 ? 'dusk' : 'night');
+  const q = new URLSearchParams(location.search).get('band');
+  const valid = ['dawn','day','dusk','night'];
+  let band = valid.includes(q) ? q : (()=>{ const h = new Date().getHours();
+    return h < 5 ? 'night' : h < 8 ? 'dawn' : h < 17 ? 'day' : h < 20 ? 'dusk' : 'night'; })();
+  document.documentElement.setAttribute('data-band', band);
 })();
 
 function markCurrentNav(){
