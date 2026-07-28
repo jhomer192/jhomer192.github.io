@@ -109,15 +109,16 @@ const CONSTELLATIONS = [
           '~50 problems: Slack, YouTube, Uber, an LLM inference service and more, each graded against its own rubric.',
         ],
         st:'Next.js · TypeScript · Tailwind · @xyflow/react canvas · Claude (Agent SDK / Messages API). Free and open source, clone and run it yourself.'},
-      {nm:'Pokémon Agent',      g:'local model plays FireRed', m:2, k:'priv', cx:795, cy:245, img:'/screenshots/pokemon-agent.webp', page:'/projects/pokemon-agent/',
-        d:'A language model running on the desk plays Pokémon FireRed unassisted, one button press at a time: it reads the screen, decides, and presses.',
+      {nm:'Pokémon Agent',      g:'local models play FireRed and Emerald', m:2, k:'priv', cx:795, cy:245, img:'/screenshots/pokemon-agent.webp', page:'/projects/pokemon-agent/',
+        d:'Local models running on the desk play Pokémon FireRed and Emerald unassisted, one button press at a time. Several agents share the work: one reads the screen, one decides, and specialists supply what a screenshot cannot show. Nothing leaves the machine, so the only running cost is electricity.',
         hi:[
-          'One press, always: the only primitive the model is given is a single button; there is no macro for walking, battling, or working a menu, so every action in a run is its own. A press-origin audit puts ~99% of them on the model.',
-          'Reads pixels, not memory: a vision model turns the raw frame into a structured observation (screen, dialogue, menu cursor, HP, move PP) and a second model turns that into one button, so nothing in the decision path is specific to one game.',
+          'One press, always: the only primitive the deciding model is given is a single button; there is no macro for walking, battling, or working a menu, so every action in a run is its own. A press-origin audit puts ~99% of them on the model.',
+          'A multi-agent system, not one model guessing: a vision model turns the raw frame into a structured observation (screen, dialogue, menu cursor, HP, move PP), a decision model turns that into one button, and specialist agents read the console’s own memory for what pixels cannot say — route planning, level caps derived from the game’s own trainer data, catch and party scoring, shiny detection. They inform; the deciding model still presses.',
+          'Two games, three runs, supervised: FireRed and Emerald play in parallel and relaunch themselves when they wedge. Every sentence either game prints is logged, so a stall is diagnosed from the artifacts rather than by watching for it.',
           'Beaten so far: Brock end to end, and Elite Four Lorelei with all six of the party still standing.',
           'Watch it play: a browser panel streams the live frame, the button, the reason for it, and the party; every decision is written to a trace log with the state before and after.',
         ],
-        st:'Python · mGBA · Ollama (qwen2.5vl:7b perceiving, qwen2.5:14b or qwen3.6:27b deciding). Runs entirely on one machine, on my own GPU; no API and nothing hosted.'},
+        st:'Python · mGBA · Ollama (qwen2.5vl:7b perceiving, qwen2.5:14b or qwen3.6:27b deciding). Runs entirely on one machine, on my own GPU — no API keys, no per-token cost, nothing hosted. The only running cost is electricity.'},
     ],
     // The Builder's Loom: outer frame (top beam, posts, bottom beam) + inner warp threads
     edges:[[0,1],[1,2],[2,4],[4,8],[8,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12]],
@@ -707,6 +708,8 @@ window.renderSky = function(opts){
       if(dim) n.node.setAttribute('aria-hidden','true'); else n.node.removeAttribute('aria-hidden');
       n.stars.forEach(st=> st.setAttribute('tabindex', dim ? '-1' : '0'));
     });
+    // the visitor has found the way in; the first-look cue has done its job
+    Object.values(nodes).forEach(n=>n.node.classList.remove('attract'));
     bc.style.display = 'flex';
     bc.innerHTML = `<span>Sky</span><span>›</span><span class="step">${c.name}</span>` +
       (c.section ? `<span>›</span><a class="plate-link" href="${c.section}" data-umami-event="plate-link" data-umami-event-target="${c.id}">Open plate ↗</a>` : '') +
@@ -791,6 +794,20 @@ window.renderSky = function(opts){
     const syncHash = ()=>{ const m=(location.hash||'').match(/^#\/([a-z-]+)/); if(m && CONSTELLATIONS.some(c=>c.id===m[1])) enter(m[1]); else if(currentZoom) exit(); };
     syncHash();
     window.addEventListener('hashchange', syncHash);
+
+    // First-look cue. The sky is the only way into the work, and a still
+    // picture gives no sign that it answers back — so once the plate has
+    // developed, the projects constellation lights itself twice (see
+    // .cons.attract). Skipped for reduced-motion and for a deep-linked zoom;
+    // cancelled the moment the visitor does anything at all.
+    const attract = nodes['opera-minora'] && nodes['opera-minora'].node;
+    if(attract && !matchMedia('(prefers-reduced-motion: reduce)').matches && !currentZoom){
+      const t = setTimeout(()=>{ if(!currentZoom) attract.classList.add('attract'); }, 1500);
+      const stopAttract = ()=>{ clearTimeout(t); attract.classList.remove('attract'); };
+      ['pointerdown','keydown','touchstart'].forEach(ev=>
+        window.addEventListener(ev, stopAttract, {once:true, passive:true}));
+      attract.addEventListener('animationend', stopAttract, {once:true});
+    }
 
     // list-view toggle (Sky / List)
     const vt = document.getElementById('viewtoggle');

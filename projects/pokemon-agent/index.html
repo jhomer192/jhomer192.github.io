@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <title>Pokémon Agent · Jack Homer</title>
-<meta name="description" content="Pokémon Agent, a language model running on my own GPU that plays Pokémon FireRed unassisted, one button press at a time. It has beaten Brock end to end and Elite Four Lorelei.">
+<meta name="description" content="Pokémon Agent, a multi-agent system of local models running on my own GPU that plays Pokémon FireRed and Emerald unassisted, one button press at a time. Nothing is hosted, so the only running cost is electricity.">
 <link rel="canonical" href="https://jackhomer.com/projects/pokemon-agent/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pokémon Agent · Jack Homer">
-<meta property="og:description" content="A local language model plays Pokémon FireRed unassisted, one button press at a time: it reads the screen, decides, and presses.">
+<meta property="og:description" content="Local models play Pokémon FireRed and Emerald unassisted, one button press at a time: several agents read the screen and advise, one decides and presses. All on one GPU; the only cost is electricity.">
 <meta property="og:url" content="https://jackhomer.com/projects/pokemon-agent/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/atlas.css?v=13">
+<link rel="stylesheet" href="/assets/atlas.css?v=14">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
 </head>
 <body>
@@ -46,13 +46,13 @@
   <header class="header">
     <div class="c">
       <h1>Pokémon Agent</h1>
-      <div class="sub">local model plays FireRed</div>
+      <div class="sub">local models play FireRed and Emerald</div>
     </div>
   </header>
 
   <section class="proj">
     <div class="meta">Side project · 2026</div>
-    <p class="tagline">A language model running on the desk plays Pokémon FireRed unassisted, one button press at a time.</p>
+    <p class="tagline">Local models running on the desk play Pokémon FireRed and Emerald unassisted, one button press at a time. Nothing leaves the machine, so the only running cost is electricity.</p>
 
     <figure class="media">
       <img src="/screenshots/pokemon-agent.webp" alt="Pokémon Agent screenshot" loading="lazy">
@@ -67,26 +67,30 @@
       is no macro for a battle turn, a menu, or a route. Every step across Kanto is a press it chose.
     </p>
     <p>
-      The harness's job is to make the model aware, never to decide for it. Tools hand back
-      information and advice, what is on screen, how much PP a move has, a suggested path, and the model
-      is free to ignore all of it. An audit of where each press came from puts about 99% of them on the
-      model; the remainder is bookkeeping the game itself leaves behind. It reads the screen the way a
-      person does, from pixels: a vision model turns the raw frame into a structured observation and a
-      second model turns that observation into one button. Nothing in that path knows it is FireRed,
-      which is the point, the same loop drives an Emerald run beside it.
+      No single model does all of this. It is a multi-agent system, and each agent's job is to make the
+      deciding model better informed, never to decide for it. A vision model turns the raw frame into a
+      structured observation; a stronger text model turns that observation into one button; and a set of
+      specialists supply what a screenshot cannot show, reading the console's own memory for route
+      geometry, level caps derived from the game's trainer data, catch and party scoring, and whether a
+      wild encounter is shiny. All of it arrives as advice the deciding model is free to ignore. An audit
+      of where each press came from puts about 99% of them on that model; the remainder is bookkeeping
+      the game itself leaves behind. Nothing in the path is specific to one cartridge, which is the
+      point, the same loop drives FireRed and Emerald runs side by side.
     </p>
 
     <h2>How it works</h2>
     <ul>
       <li><strong>One press, always</strong>: <code>press(button)</code> is the whole interface to the game; no compound action exists for the model to hide behind.</li>
       <li><strong>Perceive, then decide</strong>: a vision-language model reads the frame into an observation, screen kind, dialogue, menu cursor, HP, move PP, and a stronger text model reads that observation and answers with a single button and a reason.</li>
+      <li><strong>Specialists that see past the pixels</strong>: separate agents read the game's memory for what a frame cannot say, the route through a map whose barriers are painted on at load time, the level cap implied by the next major battle, whether the wild Pokémon on screen is a 1-in-8192 shiny. They advise; they never press.</li>
       <li><strong>Tools inform, never choose</strong>: pathfinding, battle state, and level caps are offered as advice; move selection, switching, healing, and where to walk are all the model's.</li>
+      <li><strong>Three runs at once, self-supervising</strong>: FireRed and Emerald play in parallel and relaunch themselves when a run wedges. Every sentence either game prints is logged, so a stall is diagnosed from the artifacts afterwards instead of by sitting and watching for it.</li>
       <li><strong>Beaten so far</strong>: Brock end to end, and Elite Four Lorelei with all six of the party still standing. The failure that preceded it was tactical, a weaker model overstaying a bad matchup, so the ceiling turned out to be the model's depth rather than the harness.</li>
       <li><strong>Everything is logged</strong>: each run writes a trace with one record per decision, what the model was shown, what it answered, which buttons fired, and the state before and after, and a browser panel streams the same thing live while it plays.</li>
     </ul>
 
     <h2>Stack</h2>
-    <p class="stack">Python · mGBA · Ollama, with qwen2.5vl:7b perceiving and qwen2.5:14b or qwen3.6:27b deciding. It runs entirely on one machine on my own GPU: no API key, no cloud model, and nothing hosted to visit.</p>
+    <p class="stack">Python · mGBA · Ollama, with qwen2.5vl:7b perceiving and qwen2.5:14b or qwen3.6:27b deciding. Every agent in the system runs on one machine on my own GPU: no API key, no cloud model, no per-token bill, and nothing hosted to visit. Three runs can play around the clock and the only thing they consume is electricity.</p>
 
     <p class="next"><strong>Next</strong> the rest of the Elite Four, and a window-grab host so the same loop can play games that have no emulator to read from.</p>
 
@@ -103,7 +107,7 @@
   <a href="mailto:jack@homerfamily.com">jack@homerfamily.com</a> · <a href="https://github.com/jhomer192">GitHub</a>
 </footer>
 
-<script src="/assets/common.js?v=13"></script>
+<script src="/assets/common.js?v=14"></script>
 
 </body>
 </html>
