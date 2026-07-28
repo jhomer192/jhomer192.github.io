@@ -110,9 +110,16 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 .preface .legend .ring{width:8px;height:8px;border-radius:50%;background:var(--paper);box-shadow:0 0 0 1.5px var(--ink);display:inline-block;vertical-align:middle;margin:0 10px 0 3px}
 .preface .legend .dash{display:inline-block;width:16px;border-top:1px dashed var(--accent);margin:0 8px 0 3px;vertical-align:middle}
 .preface .legend .hint{display:block;margin-top:6px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12.5px;letter-spacing:.04em;text-transform:none;color:var(--accent)}
-/* touch-only hint shown directly above the chart on phones (the legend hint is
-   keyboard-worded and reordered below the chart on mobile) */
-.sky-hint{display:none}
+/* Standing caption directly above the chart, at every width: the sky is the
+   only way into the work, so it says plainly what a star is and that it opens.
+   Verb swaps click/tap by pointer type; display:none keeps the unused word out
+   of the accessibility tree too. */
+.sky-hint{display:block;margin:14px 56px 0;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;letter-spacing:.02em;color:var(--accent)}
+.sky-hint .i-tap{display:none}
+@media (hover:none) and (pointer:coarse){
+  .sky-hint .i-click{display:none}
+  .sky-hint .i-tap{display:inline}
+}
 @media (max-width:720px){
   .preface{padding:14px 22px 14px;grid-template-columns:1fr;gap:18px}
   .preface .legend{border-left:0;border-top:1px solid var(--ink);padding-left:0;padding-top:14px}
@@ -242,6 +249,18 @@ body.listmode .listview{position:static;width:auto;height:auto;margin:0;overflow
 .cons.entered .clabel,.cons.entered .csub{opacity:0}
 @keyframes draw-on{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 @media (prefers-reduced-motion: reduce){ .cons.entered .edge{animation:none} }
+
+/* First-look cue (overview only): the projects constellation lights itself
+   exactly the way a hover does — twice, then stops — so a visitor who hasn't
+   moved the pointer yet can see that the figures answer back. No new visual
+   vocabulary: the same hull and edge values .cons:hover already uses. JS adds
+   the class ~1.5s in and drops it on the first interaction. */
+.cons.attract .hull{animation:attract-hull 2.4s ease-in-out 2}
+.cons.attract .edge{animation:attract-edge 2.4s ease-in-out 2}
+@keyframes attract-hull{0%,100%{opacity:.55;fill:rgba(27,74,138,.025);stroke-width:.6}50%{opacity:1;fill:rgba(27,74,138,.07);stroke-width:1}}
+@keyframes attract-edge{0%,100%{opacity:.18}50%{opacity:.5}}
+.anim-paused .cons.attract .hull,.anim-paused .cons.attract .edge{animation-play-state:paused}
+@media (prefers-reduced-motion: reduce){ .cons.attract .hull,.cons.attract .edge{animation:none} }
 
 /* stars */
 .star{cursor:pointer;outline:none}
