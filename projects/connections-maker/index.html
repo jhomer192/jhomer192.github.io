@@ -78,17 +78,40 @@
       URL, the recipient opens it, and the puzzle is just there.
     </p>
 
-    <h2>How it works</h2>
+    <h2>Authoring one</h2>
     <ul>
-      <li><strong>Author four groups of four</strong>: give each group a category label and pick its difficulty color, from yellow for the gimmes up to purple for the trap.</li>
-      <li><strong>State lives in the URL</strong>: the puzzle is encoded into the link, so there's no backend, no database, and no login; the data travels with the link instead of sitting on a server.</li>
-      <li><strong>One-click sharing</strong>: generating a link shortens it through TinyURL and drops it on your clipboard, with the full encoded URL copied as a fallback if the shortener is down.</li>
-      <li><strong>Play it like the real thing</strong>: open a shared link and you get the familiar grid: pick four words you think belong together, with a limited number of mistakes before the puzzle ends.</li>
-      <li><strong>Nothing to install</strong>: it's a static site on GitHub Pages, so creating and playing both happen entirely client-side in the browser.</li>
+      <li><strong>Four groups of four</strong>: each group takes a category name, exactly four words, and one of the four fixed difficulty colours, yellow for the gimmes through green and blue to purple for the trap. A title and an author line are optional.</li>
+      <li><strong>The form refuses a broken puzzle</strong>: it checks as you type and will not generate a link until all sixteen words are filled, no word repeats anywhere in the puzzle, and all four colours are distinct. The same check runs again when a link is opened, so a hand-edited or truncated URL is rejected rather than played.</li>
+      <li><strong>A dice button for the group you're stuck on</strong>: 393 ready-made categories ship with the app, 101 yellow, 99 green, 100 blue and 93 purple, 1,572 words in total. A roll prefers templates whose words collide with nothing already in your puzzle, and you can keep rolling, edit the result, or take it as-is. Whole puzzles can also be pasted in or copied out as JSON.</li>
+      <li><strong>Drafts survive the tab closing</strong>: up to ten in-progress puzzles autosave to local storage as you work.</li>
+    </ul>
+
+    <h2>How the link works</h2>
+    <p>
+      Generating a share link serialises the puzzle to JSON, encodes it as base64url and hangs it off
+      the URL as <code>?p=…</code>. That link is the puzzle. Nothing is written to a database, nothing
+      expires, and no server of mine ever sees the words. It rides in a query string rather than a
+      hash fragment for a specific reason: chat apps and unfurlers truncate at <code>#</code>, so every
+      puzzle used to preview as the homepage. Links made in the old <code>#p=…</code> form still open.
+    </p>
+    <p>
+      A full puzzle URL runs 500 to 800 characters, which SMS refuses to auto-link and will happily
+      split across message segments mid-link. So the app asks TinyURL to shorten it and hands you the
+      short version. Worth saying plainly: that step sends the puzzle through TinyURL's servers rather
+      than straight to the recipient. If TinyURL is unreachable the label changes to "shortener
+      unavailable" and you copy the full link, which works identically.
+    </p>
+
+    <h2>Playing it</h2>
+    <ul>
+      <li><strong>Four mistakes</strong>: pick four tiles and submit. Guess three of four right and it tells you "one away"; guess wrong and the tiles shake. Four wrong guesses ends the puzzle.</li>
+      <li><strong>The usual conveniences</strong>: a Fisher-Yates shuffle button, deselect-all, <code>Enter</code> to submit a full selection and <code>Escape</code> to clear it. Solved groups collapse into a coloured banner.</li>
+      <li><strong>A recap you can paste</strong>: win or lose, the results screen reveals all four groups and builds the emoji grid of your guesses, the way the real thing does.</li>
+      <li><strong>Three example puzzles</strong>: the home screen loads one at random for anyone who just wants to see it work before authoring anything.</li>
     </ul>
 
     <h2>Stack</h2>
-    <p class="stack">React · TypeScript · Vite, deployed as a static build to GitHub Pages. The puzzle is serialized into the share URL and TinyURL handles shortening, there is no server-side code, so there's nothing to run, scale, or pay for.</p>
+    <p class="stack">React 19 · TypeScript · Vite 8 · Tailwind v4, with canvas-confetti for the win animation. No router and no state library, navigation is <code>history.pushState</code>. Four dark themes, remembered between visits. Deployed as a static build to GitHub Pages, so there is nothing to run, scale or pay for; the only things that leave the browser are the share link when TinyURL shortens it and a cookieless visit counter.</p>
 
     <div class="cta">
       <a href="/connections-maker/" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="connections-maker-demo">Try it live ↗</a>

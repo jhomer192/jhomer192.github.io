@@ -87,14 +87,27 @@
 
     <h2>How it works</h2>
     <ul>
-      <li><strong>Pulls a real slice of your listening</strong>: 128 tracks, split between your recent rotation and your all-time favorites, straight from the Spotify API.</li>
-      <li><strong>Ranks by binary insertion</strong>: each new song is placed with a handful of comparisons against songs already ranked, so it takes roughly 370 taps to fully sort 128 tracks instead of comparing every possible pair.</li>
-      <li><strong>Exports the result</strong>: writes your top 10 or 25 back to Spotify as a playlist, with mosaic cover art generated from the album covers.</li>
-      <li><strong>Has a friends mode</strong>: someone else guesses your top 10 and gets scored on how close they came.</li>
+      <li><strong>Builds the pool from five signals</strong>: 128 tracks (or 64, if you'd rather), drawn in three widening passes across your all-time top, your last six months, your last four weeks, Spotify's own recap playlists (Wrapped, On Repeat, Repeat Rewind) and the songs that recur across your own playlists. The four-week signal is deliberately capped at five tracks, because a song you found on Tuesday has not earned a place yet. Cross-release duplicates are collapsed by title and lead artist, and no more than three tracks come from one album.</li>
+      <li><strong>Ranks by binary insertion into a top 25</strong>: each challenger is placed by binary search against the songs already ranked. Once the list is full its first comparison is against the current number 25, so a song that loses that one vote is out in a single tap. Measured over two thousand randomised pool orders, sorting 128 tracks takes about 380 votes, typically between 313 and 454, against roughly 900 for a full comparison sort.</li>
+      <li><strong>Only the top 25 is really ranked</strong>: everything below it is the pool in Spotify's own signal order, not something you voted on. The reveal page will show you a top 50, 100 or 128, but the honest number is 25.</li>
+      <li><strong>Progress is safe</strong>: the whole comparison state is written to local storage after every single vote, so closing the tab mid-run costs nothing, and the last twenty votes can be undone.</li>
+      <li><strong>Exports two private playlists</strong>: "My Top 10 — Songrank" and "My Top 25 — Songrank", each with mosaic cover art built in the browser at 600×600, a 2×2 of four album covers for the ten and a 3×3 of nine for the twenty-five, sampled evenly down the tier rather than off the top. The JPEG steps its own quality down until it fits Spotify's 256 KB limit, and if the art upload fails the playlist is created anyway.</li>
+      <li><strong>Friends guess your top 10</strong>: the guessing link carries the ten track IDs and nothing else, so a friend needs no Spotify login to play. Their score is 60% the fraction of the 45 possible pairs they put in the right relative order, plus 40% the fraction of positions they nailed exactly.</li>
+      <li><strong>Or build a pool together</strong>: two to four people can each contribute a slice of one shared pool, handed along as a URL, with the last person ranking the merged result.</li>
     </ul>
 
+    <h2>Why you register your own Spotify app</h2>
+    <p>
+      Every Spotify developer app runs in development mode against a 25-user allowlist that the app's
+      owner adds by hand. One shared Songrank key would therefore serve twenty-five people worldwide,
+      ever, and then stop. So Songrank ships with no key at all: the setup page walks you through
+      registering a free developer app of your own and adding yourself to your own allowlist, which
+      takes one slot of your twenty-five. Skipping that step is the usual reason saving back to
+      Spotify fails later, and the app recognises that specific error and says so.
+    </p>
+
     <h2>Stack</h2>
-    <p class="stack">Next.js · TypeScript · Tailwind. Auth is Spotify PKCE OAuth against your own developer app, so there's no shared rate cap and nothing of yours passes through a server I run.</p>
+    <p class="stack">Next.js 16 · React 19 · TypeScript · Tailwind v4, exported as static HTML to GitHub Pages. Auth is genuine RFC 7636 PKCE with S256 challenges, and there is no server-side code anywhere in the repo, so no client secret exists and every call goes from your browser to Spotify. The honest trade-off of having no backend: your tokens sit in local storage, which the code guards with a content-security-policy meta tag rather than pretending the problem away. Thirty-second previews come from Apple's iTunes search API, because Spotify stopped returning preview URLs for most tracks in late 2024.</p>
 
     <p class="next"><strong>Next</strong> Apple Music and Last.fm imports, so it isn't Spotify-only.</p>
 

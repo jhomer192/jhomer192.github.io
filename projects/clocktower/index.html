@@ -81,17 +81,32 @@
       it back rather than reconstructing the board from memory.
     </p>
 
-    <h2>How it works</h2>
+    <h2>What it holds</h2>
     <ul>
-      <li><strong>Setup</strong>: pick a script, hand out roles (or let it randomize), and check the composition is legal before the first night.</li>
-      <li><strong>Night order</strong>: step through each role's turn in the correct sequence, with a per-role reminder of what wakes and what it does.</li>
-      <li><strong>Day phase</strong>: run nominations, count votes, and resolve executions without keeping a tally on paper.</li>
-      <li><strong>Player status</strong>: a tab for who's alive, dead, or a ghost, which ghost votes are spent, and free-text notes per seat.</li>
-      <li><strong>Log and undo</strong>: every event lands in a timestamped history, and any misstep rewinds up to 20 actions back.</li>
+      <li><strong>72 roles across the three base scripts</strong>: Trouble Brewing's 22, and 25 each for Sects &amp; Violets and Bad Moon Rising, with each role's team, ability text and night-order numbers. 47 of the 72 wake at least once, and the night engine has a purpose-built panel for every one of those 47 rather than a generic prompt.</li>
+      <li><strong>Setup that refuses an illegal table</strong>: the composition table runs 5 to 15 players and the app will not start a game until the dealt roles match it exactly. Roles that change the count are applied as deltas against the townsfolk, so a Baron adds two Outsiders and removes two Townsfolk, a Fang Gu or Godfather one, a Vigormortis minus one. A Drunk cannot be dealt without also choosing the Townsfolk role it thinks it is, and at night the Drunk wakes at that cover role's position, labelled to remind you to lie.</li>
+      <li><strong>Two night orders, built per game</strong>: first night and every night after are separate sequences, assembled from only the roles actually in play, with the dead dropped out. Trouble Brewing runs nine steps on the first night and nine after; Sects &amp; Violets and Bad Moon Rising open shorter and run fifteen thereafter.</li>
+      <li><strong>Reminder tokens on the seats</strong>: 37 roles carry their own tokens, 51 in all, plus eight generic ones and a free-text field for whatever your table needs. Tokens are grouped by the roles in play first, with the full catalogue a tap away.</li>
+      <li><strong>A day phase that does the arithmetic</strong>: one nomination per nominator and one per nominee, a live tally against a threshold recomputed from the living count, and a Devil's Advocate check on execution. An executed player stays alive to vote that day and dies at dusk. Ticking a dead player onto a nomination spends their ghost vote and unticking gives it back.</li>
+      <li><strong>Everything is logged</strong>: the opening roster and every assignment, each night step with what you recorded, poisonings and protections and the kills they did or did not stop, nominations with the names of who voted, executions, Slayer shots, Virgin and Witch triggers, and an end-of-game summary down to the ghost votes spent.</li>
+      <li><strong>Undo, honestly described</strong>: the store keeps the last twenty-one whole-game snapshots, taken at phase transitions and executions. It steps a bad call back without rebuilding the board from memory, but it is not a general undo of every grimoire edit, and it does not survive a refresh. The game itself does: seating, roles, statuses, timers and the log are written to local storage on every change.</li>
     </ul>
 
+    <h2>Custom scripts</h2>
+    <p>
+      A fourth script slot takes your own. It reads the JSON that the official
+      script tool at script.bloodontheclocktower.com exports, matching role IDs loosely enough that
+      <code>fortuneteller</code> and <code>fortune_teller</code> both land, and it accepts homebrew
+      entries alongside official IDs. Roles can also be written by hand in the app or toggled in from
+      the 72-role pool, and a finished ruleset can be named, saved, exported to a file or pasted
+      between devices. Travellers and Fabled are not supported and are skipped on import with a
+      warning.
+    </p>
+
     <h2>Stack</h2>
-    <p class="stack">React · TypeScript · Vite · Zustand. It ships Trouble Brewing, Sects &amp; Violets, and Bad Moon Rising out of the box, takes custom scripts on top, and runs entirely in the browser as a static GitHub Pages build, no account, no server, nothing to install.</p>
+    <p class="stack">React 19 · TypeScript · Vite · Tailwind v4. State is a hand-rolled <code>useGameStore</code> hook over <code>useState</code>, not a state library. Nothing in the source makes a network request except a cookieless visit counter, and it ships as a static GitHub Pages build: no account, no server, nothing to install. It is phone-first and only phone-first, a fixed bottom tab bar with iPhone safe-area padding and exactly one responsive breakpoint in the whole tree, because a Storyteller is holding a phone, not sitting at a desk.</p>
+
+    <p class="next"><strong>Known limits</strong> 5 to 15 players, which rules out the Traveller games that go past 15. The execution threshold is a strict majority rather than the official half-or-more, so an even number of living players needs one more vote here than at the table.</p>
 
     <div class="cta">
       <a href="/clocktower/" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="clocktower-demo">Try it live ↗</a>

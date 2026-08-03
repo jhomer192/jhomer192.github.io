@@ -73,22 +73,23 @@
       than it needs to be.
     </p>
     <p>
-      Meme Maker keeps the whole job on your own machine. You start from a built-in template or an image
-      you already have, set your top and bottom captions, tune how the text looks, and hit download.
-      Nothing is uploaded, nothing is stored, and the file you get back is just your meme.
+      Meme Maker keeps the whole job in the tab. You start from a template or an image you already
+      have, type the captions, drag them where they belong, and hit download. There is no backend to
+      upload to, so a picture off your own device has nowhere else to go.
     </p>
 
     <h2>How it works</h2>
     <ul>
-      <li><strong>Two ways to start</strong>: choose from a library of common meme formats, or drop in any image from your device. Either path lands you in the same editor.</li>
-      <li><strong>Real caption controls</strong>: separate top and bottom text with adjustable font size, color, outline stroke, and drop shadow, so the words stay readable over whatever's behind them.</li>
-      <li><strong>Drawn on a canvas</strong>: the image and text composite live on an HTML canvas, which is also what gets exported, so the download matches the preview pixel-for-pixel.</li>
-      <li><strong>PNG export</strong>: one click pulls the canvas down as a PNG. No watermark, no sign-in, no compression surprise.</li>
-      <li><strong>Dark and light themes</strong>: the editor chrome flips between themes to suit the room you're working in.</li>
+      <li><strong>Templates come from Imgflip</strong>: the picker loads Imgflip's public list of the hundred formats people actually use, searchable by name, and the last five you opened move to the front of the grid. For anything not on that list, upload an image from your device.</li>
+      <li><strong>Captions are objects, not slots</strong>: two text boxes start on the image and you can add as many more as you like. Each holds its own text over as many lines as you type, a size from 16 to 96, a color, left, center or right alignment, and a black outline you can switch off.</li>
+      <li><strong>Drag to place</strong>: captions move under a mouse or a finger and stay clamped to the image. Positions are kept as fractions of the canvas rather than pixels, so a layout survives a template of any size.</li>
+      <li><strong>Impact, uppercased</strong>: text renders in Impact at weight 900 and every line is uppercased on the way to the canvas, the way the format expects. Font size scales against a 500-pixel reference width, so the preview and the exported file agree.</li>
+      <li><strong>Download at the template's own size</strong>: export redraws onto an offscreen canvas at the source image's real pixel dimensions and saves that as a PNG. No watermark, no sign-in, no second trip through a compressor.</li>
+      <li><strong>iPhones take a different route</strong>: Safari on iOS ignores the download attribute, so there the finished image opens full screen instead, ready for a long press and Save to Photos.</li>
     </ul>
 
     <h2>Stack</h2>
-    <p class="stack">React · TypeScript · Vite · HTML Canvas. Everything runs client-side and ships as a static build on GitHub Pages, there's no backend, so your images never leave the browser tab.</p>
+    <p class="stack">React 19 · TypeScript · Vite. Drawing, hit-testing and export are plain canvas 2D with no image library in the path, and a Vitest suite covers the coordinate math and the text layout. Four dark themes ship with it, Tokyo Night, Miami, Matcha and Gruvbox, remembered between visits. The build is static on GitHub Pages: template images load from Imgflip, and an uploaded image never leaves the page.</p>
 
     <div class="cta">
       <a href="/meme-generator/" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="meme-maker-demo">Try it live ↗</a>

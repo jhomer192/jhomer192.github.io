@@ -83,15 +83,24 @@
 
     <h2>How it works</h2>
     <ul>
-      <li><strong>Plots the exact curve</strong>: the theoretical probability P(N) for group sizes from 1 to 100, with the 50% crossover at N = 23 annotated right on the line.</li>
-      <li><strong>Runs a live simulation</strong>: a Monte Carlo engine deals random birthdays for up to 100,000 trials and reports a running empirical estimate next to the theoretical value, so you can see how far off it is at any moment.</li>
-      <li><strong>Stays smooth under load</strong>: the trials are chunked across requestAnimationFrame frames instead of run in one blocking loop, so the progress bar animates and the page stays responsive even at 100k.</li>
-      <li><strong>Lets you turn the knobs</strong>: adjust the group size (1–100) and the trial count (100, 1k, 10k, 100k) and re-run to feel how each one changes the answer and the noise.</li>
-      <li><strong>Shows a single sample</strong>: a calendar of all 365 days renders one random draw of the current group, with any collision days lit up in red so you can see a match concretely.</li>
+      <li><strong>Plots the exact curve</strong>: the theoretical probability P(N) for group sizes from 1 to 100, with the crossover at N = 23 marked where the probability first passes a coin flip, at 50.73%.</li>
+      <li><strong>Runs a live simulation</strong>: a Monte Carlo engine deals random birthdays for up to 100,000 trials and reports a running empirical estimate next to the theoretical value, so you can see how far off it is at any moment. Each trial fills a 365-slot byte array and stops at the first repeat, since one collision is all a trial is asked for.</li>
+      <li><strong>Stays smooth under load</strong>: trials are chunked across requestAnimationFrame frames rather than run in one blocking loop. A chunk is a sixtieth of the run, floored at 50 trials and capped at 5,000, so the progress bar animates and the page keeps drawing while 100,000 trials go through.</li>
+      <li><strong>Lets you turn the knobs</strong>: adjust the group size (1–100, starting at 23) and the trial count (100, 1k, 10k, 100k, starting at 10k) and re-run to feel how each one changes the answer and the noise.</li>
+      <li><strong>Shows a single sample as people</strong>: one group is drawn as named strangers with birthdays, coloured by which of them collide, from a pool of 161 first names and 149 last names. Sort by collision group, name or date, filter to one group, search for a person, or redraw. The sampler is a seeded mulberry32 PRNG and the seed is printed under the grid, so any group you find can be reproduced exactly.</li>
     </ul>
 
+    <h2>What it assumes</h2>
+    <p>
+      Both the curve and the simulation treat the year as 365 equally likely days. That ignores
+      February 29 and the seasonal clustering that real birth records show, which is the standard
+      simplification for this problem and is stated in the app rather than left implied. Two notes
+      under the charts carry the reason the answer is surprising: 23 people make C(23,2) = 253 pairs,
+      and P(N) is one minus the probability that all N birthdays are distinct.
+    </p>
+
     <h2>Stack</h2>
-    <p class="stack">Vite · React 18 · TypeScript (strict) · Tailwind · Recharts. Dark and light themes with system auto-detect and a manual override; ships as a static bundle to GitHub Pages, so it runs entirely in the browser with no backend.</p>
+    <p class="stack">Vite · React 18 · TypeScript (strict) · Tailwind · Recharts. Four colour themes ship with it, Tokyo Night, Miami, Matcha and Gruvbox, remembered between visits. The probability math, the simulator and the seeded sampler all live in one file, <code>src/math.ts</code>. Static bundle on GitHub Pages, so it runs entirely in the browser with no backend.</p>
 
     <div class="cta">
       <a href="/birthday-paradox/" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="birthday-paradox-demo">Try it live ↗</a>

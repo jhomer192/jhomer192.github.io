@@ -68,21 +68,45 @@
     </p>
     <p>
       Color Analysis is the answer. You drop in a portrait, the app sends it to Claude with vision, and
-      you get back a structured 12-season read: your season, a wearable palette, hair direction, and
-      optional makeup notes. Your photo goes to Claude for the read and isn't kept anywhere; there's no account, and the backend exists only to pass the image through and hand the result straight back.
+      you get back a structured read written against the 12-season system: a season, a wearable
+      palette, hair direction, and optional makeup notes. Your photo goes to Claude for the read and
+      isn't kept anywhere; there's no account, and the backend exists only to pass the image through
+      and hand the result straight back.
     </p>
 
     <h2>How it works</h2>
     <ul>
-      <li><strong>Upload a portrait</strong>: the React frontend takes one photo and lets you toggle whether you want makeup recommendations before you run the analysis.</li>
-      <li><strong>Claude does the vision read</strong>: an Express server writes the photo to a temp file, shells out to the Claude CLI in print mode, and parses the JSON it returns into a 12-season result.</li>
-      <li><strong>You get a full breakdown</strong>: season, a color palette to wear, hair direction, and makeup notes when you opted in, rendered as a card you can save as an image.</li>
-      <li><strong>Your photo isn't stored</strong>: it goes to Claude for the read, then the stateless server deletes the temp file the moment the CLI finishes; results live only in your browser's localStorage.</li>
-      <li><strong>It handles shared devices</strong>: each browser keeps its own list of past analyses (capped at 30), so several people on one laptop don't overwrite each other.</li>
+      <li><strong>Upload one photo or several</strong>: up to five, 10 MB each, JPEG, PNG or WebP. More than one and the prompt asks Claude to reconcile them into a single read rather than analysing each. A checkbox before you run it decides whether makeup advice comes back at all.</li>
+      <li><strong>Claude does the vision read</strong>: an Express server holds the uploads in memory, writes them to temp files, and spawns the Claude CLI in print mode with the <code>Read</code> tool as its only permission, handing it the file path rather than an attachment. It gets 90 seconds before it is killed.</li>
+      <li><strong>The answer is a fixed shape</strong>: the system prompt asks for raw JSON with ten top-level fields, and pins the counts. Exactly eight colors to wear and four to avoid, each with a name, a hex value and a sentence on why it works against your skin. Hair comes back as a face shape, three cuts, three color options and three styling notes. Accessories are a metal tone and three jewellery directions. Makeup, if you asked for it, is a foundation undertone, three eyeshadows, two lip colors and a blush.</li>
+      <li><strong>Two cards you can save</strong>: a colour card and a hair card, both exported as PNGs at triple pixel density. Fonts are self-hosted rather than loaded from a CDN specifically so the saved image keeps its typography.</li>
+      <li><strong>Your photo isn't kept</strong>: the temp files are deleted in a <code>finally</code> block as soon as the CLI process closes, whether it succeeded or not. Results live only in your own browser's local storage, newest first, capped at thirty and trimmed further if the browser runs out of quota. Only the first photo of a set is kept with the result; the rest are dropped after the analysis.</li>
     </ul>
 
+    <h2>What it does not do</h2>
+    <p>
+      The twelve seasons are a request, not a rule. The prompt names the 12-season system and gives
+      four examples, but nothing in the code enumerates the seasons or checks the answer against them,
+      so the season it returns is whatever Claude writes. Every hex value in the palette is generated
+      by the model as well; no pixel of the photo is measured, and there is no ground truth anywhere in
+      the project to score a read against. If the JSON comes back malformed the server reruns the whole
+      analysis once, which doubles the wait rather than repairing the response. And no model is pinned:
+      it runs on whatever the installed CLI defaults to, so the same photo can read differently a
+      release later.
+    </p>
+
+    <h2>Running it</h2>
+    <p>
+      There is nothing hosted. It needs the Claude CLI installed and logged in on the machine running
+      the server, and <code>npm run dev</code> brings up the API on 3001 and the interface on 5173
+      together. Every request forks its own <code>claude</code> process with no queue and no rate
+      limit, and the analysis is billed to whoever's login is on that machine, which is the honest
+      reason there is no public demo. An optional Pexels key adds example photographs to the hairstyle
+      suggestions; without it, everything else still works.
+    </p>
+
     <h2>Stack</h2>
-    <p class="stack">React 19 · Vite · TypeScript · Tailwind on the frontend, with an Express server that drives the Claude CLI for the vision analysis. No database, no auth, the API is stateless and results persist client-side in localStorage.</p>
+    <p class="stack">React 19 · Vite 8 · TypeScript · Tailwind v4 on the frontend, with a single-file Express 5 server that drives the Claude CLI. Card export is html-to-image. No database, no auth, and the only test is a live end-to-end script that spends a real Claude call per case.</p>
 
     <div class="cta">
       <a href="https://github.com/jhomer192/grace-style" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="grace-style-src">Source on GitHub ↗</a>
