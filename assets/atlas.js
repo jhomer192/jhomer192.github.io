@@ -595,7 +595,7 @@ function decorate(wrap, svg, cam){
   // comet → colophon
   const comet=document.createElement('button'); comet.className='comet'; comet.type='button'; comet.setAttribute('aria-label','Colophon');
   comet.innerHTML=`<svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="21" x2="15" y2="9"/><circle cx="17" cy="7" r="3"/></svg>`;
-  comet.addEventListener('click',()=>openCard({nm:'About this site', g:'colophon', d:'My work laid out as a star chart: side projects, the day job, and a small web studio. Built by hand; a lot of it through a Claude agent I run over Telegram. Type set in Cormorant Garamond and IBM Plex Mono.', k:null},'·'));
+  comet.addEventListener('click',()=>openCard({nm:'About this site', g:'colophon', d:'My work laid out as a star chart: side projects, the day job, and Tableside, a small web studio. Built by hand; a lot of it through a Claude agent I run over Telegram. Type set in Cormorant Garamond and IBM Plex Mono.', k:null},'·'));
   wrap.appendChild(comet);
 }
 
