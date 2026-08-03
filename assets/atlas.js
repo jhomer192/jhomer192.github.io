@@ -130,8 +130,8 @@ const CONSTELLATIONS = [
     stars:[
       {nm:'C3 AI',              g:'Forward Deployed Engineer · 2024–present', m:1, k:'work', cx:340, cy:455, d:'Forward Deployed Engineer at C3 AI (Redwood City), embedded with customers to ship production AI end to end.',
         hi:[
-          'U.S. Marine Corps (2024–present): technical lead across $16M+ of programs over three years, running three concurrent teams. Workforce planning and logistics; took one program from a 108-page spec to production and drove a $1.5M follow-on at double the price.',
-          'Property appraisal (2024): led C3\'s assessor application across a run of Connecticut towns — Darien, Mansfield, Manchester, Stonington — with data ingestion, parcel data modeling, IAAO dashboards, mass appraisal, and automated valuation.',
+          'U.S. Marine Corps (2024–present): technical lead across a multi-program portfolio, running three concurrent teams. Workforce planning and logistics; took one program from a 108-page spec to production.',
+          'Property appraisal (2024): led C3\'s assessor application across a run of Connecticut towns, with data ingestion, parcel data modeling, IAAO dashboards, mass appraisal, and automated valuation.',
           'USDA (2026): took an AI correspondence-management system to go-live — mail intake, PII detection, topic classification, LLM drafting, and multi-step approval routing.',
           'NATO (2026): contested-logistics planning with a rerouting optimizer for an alliance logistics program, including on-site support in London.',
           'Delivered five production agents across sales, finance, and legal: proposal generation, hypothesis qualification, sales coaching, and expense analysis.',
