@@ -25,9 +25,9 @@ const CONSTELLATIONS = [
       {nm:'Wikipedia Game Solver', g:'wiki path solver',  m:1, k:'demo', cx:680, cy:55, url:D+'/wikipedia-game-solver', src:GH+'/wikipedia-game-solver', img:'/screenshots/wikipedia-game-solver.webp', page:'/projects/wikipedia-game-solver/',
         d:'Give it any two Wikipedia articles and watch it find a path between them, hopping link to link.',
         hi:[
-          'Greedy TF-IDF walker: at each page it scores outbound links by similarity to the target and takes the best one, up to 30 hops.',
+          'Greedy TF-IDF walker, the default mode: at each page it scores outbound links by similarity to the target and takes the best one, up to 50 hops. Fast, but the path it finds is rarely the shortest.',
           'Public API only: runs straight against the live MediaWiki API, no key or backend.',
-          'Shortest-path mode: a bidirectional breadth-first search runs out from both articles until the frontiers meet, returning the shortest path within the depth cap.',
+          'Shortest-path mode: a toggle swaps the walker for a bidirectional breadth-first search that runs out from both articles until the frontiers meet and returns the shortest path within the depth cap.',
         ],
         st:'Vite · React · TypeScript · MediaWiki API.'},
       {nm:'Meme Maker',         g:'browser meme editor',  m:2, k:'demo', cx:885, cy:120, url:D+'/meme-generator', src:GH+'/meme-generator', img:'/screenshots/meme-generator.webp', page:'/projects/meme-maker/',
@@ -45,7 +45,7 @@ const CONSTELLATIONS = [
           'Human in the loop: borderline matches come back to you for a quick yes / no.',
           'Profile-driven: one profile.yaml supplies the answers; runs on a $6/mo droplet.',
         ],
-        st:'Claude Code · Playwright · Telegram · DigitalOcean. Built on Claude Bot.'},
+        st:'Claude Code · Playwright · Telegram · DigitalOcean. Built on the Telegram-era Claude relay.'},
       {nm:'Clocktower ST',      g:'BotC storyteller tool',m:2, k:'demo', cx:935, cy:210, url:D+'/clocktower', src:GH+'/clocktower', img:'/screenshots/clocktower.webp', page:'/projects/clocktower/',
         d:"A Storyteller's control panel for Blood on the Clocktower: it runs setup, night order, and voting so you can focus on the table.",
         hi:[
