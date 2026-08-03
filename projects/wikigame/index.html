@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <title>WikiGame · Jack Homer</title>
-<meta name="description" content="WikiGame, give it any two Wikipedia articles and watch it walk the links from one to the other, scoring each step by how close it gets you to the goal.">
+<meta name="description" content="WikiGame is a daily Wikipedia race: the same two articles for everyone, only the links inside the pages to get between them, and a bot that solves the pair first to set your par.">
 <link rel="canonical" href="https://jackhomer.com/projects/wikigame/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WikiGame · Jack Homer">
-<meta property="og:description" content="Give it any two Wikipedia articles and watch it find a path between them, hopping link to link.">
+<meta property="og:description" content="A daily Wikipedia race: same two articles for everyone, only the blue links in between, and a bot that sets the par.">
 <meta property="og:url" content="https://jackhomer.com/projects/wikigame/">
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -18,14 +18,14 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="WikiGame · Jack Homer">
-<meta name="twitter:description" content="WikiGame, give it any two Wikipedia articles and watch it walk the links from one to the other, scoring each step by how close it gets you to the goal.">
+<meta name="twitter:description" content="WikiGame is a daily Wikipedia race: the same two articles for everyone, only the links inside the pages to get between them, and a bot that solves the pair first to set your par.">
 <meta name="twitter:image" content="https://jackhomer.com/og/wikigame.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/atlas.css?v=20">
+<link rel="stylesheet" href="/assets/atlas.css?v=21">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CreativeWork","name":"WikiGame","description":"WikiGame, give it any two Wikipedia articles and watch it walk the links from one to the other, scoring each step by how close it gets you to the goal.","url":"https://jackhomer.com/projects/wikigame/","image":"https://jackhomer.com/og/wikigame.png","author":{"@type":"Person","name":"Jack Homer","url":"https://jackhomer.com"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jack Homer","item":"https://jackhomer.com"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://jackhomer.com/projects/"},{"@type":"ListItem","position":3,"name":"WikiGame","item":"https://jackhomer.com/projects/wikigame/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CreativeWork","name":"WikiGame","description":"WikiGame is a daily Wikipedia race: the same two articles for everyone, only the links inside the pages to get between them, and a bot that solves the pair first to set your par.","url":"https://jackhomer.com/projects/wikigame/","image":"https://jackhomer.com/og/wikigame.png","author":{"@type":"Person","name":"Jack Homer","url":"https://jackhomer.com"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jack Homer","item":"https://jackhomer.com"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://jackhomer.com/projects/"},{"@type":"ListItem","position":3,"name":"WikiGame","item":"https://jackhomer.com/projects/wikigame/"}]}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -54,51 +54,90 @@
   <header class="header">
     <div class="c">
       <h1>WikiGame</h1>
-      <div class="sub">wiki path solver</div>
+      <div class="sub">daily wikipedia race</div>
     </div>
   </header>
 
   <section class="proj">
     <div class="meta">Side project · 2026</div>
-    <p class="tagline">Give it any two Wikipedia articles and watch it find a path between them, hopping link to link.</p>
+    <p class="tagline">One start article, one target, and only the blue links in between. Everyone gets the same pair each day, and a bot solves it first so you have a number to beat.</p>
 
     <figure class="media">
-      <img src="/screenshots/wikigame.webp" alt="WikiGame screenshot" width="780" height="493" decoding="async">
-      <figcaption>Demo · walking from one article to another, hop by hop</figcaption>
+      <img src="/screenshots/wikigame.webp" alt="WikiGame start screen showing the rules and the day's challenge" width="1000" height="649" decoding="async">
+      <figcaption>The day's challenge, still face down until you press play</figcaption>
     </figure>
 
     <p>
-      The Wikipedia Game is the old browser dare: start on one article, reach another using only the
-      blue links inside each page, in as few clicks as you can. Playing it by hand is half intuition and half luck: you click toward whatever feels closer to the destination and hope the next page opens
-      a better door. I wanted to watch that intuition run as a program, so I built a solver that makes the
-      same call at every step and shows you the trail it leaves behind.
+      The Wikipedia Game is the old browser dare: land on some article, reach another one, click
+      only the links inside the pages. It has always been played on the honour system in a
+      browser tab, which makes it easy to cheat and impossible to compare. WikiGame puts it on a
+      schedule instead. Everyone playing on a given day gets the same start and the same target,
+      the rules are enforced by the app rather than by you, and the run ends with a score you can
+      hold next to someone else's.
+    </p>
+
+    <h2>The day's pair</h2>
+    <p>
+      Challenge #1 was 19 April 2026 and the number goes up by one at local midnight. The pair
+      comes out of a hand-written pool of 1,822 start/end pairs, each labelled easy, medium or
+      hard, dealt in order and wrapping after about five years. The start is usually something
+      obscure and the target something famous, so the difficulty is real but the goal is
+      recognisable: <em>Isomorphism-closed subcategory</em> to <em>Boeing 747</em> was an easy
+      one. Neither title is shown before you commit. The card on the home screen gives you the
+      number and the difficulty, and nothing else until you press play.
+    </p>
+
+    <h2>The bot that sets par</h2>
+    <p>
+      Between pressing play and starting the clock there is a ready screen showing the two
+      articles, and while you read them a solver works the same puzzle in the background. It is a
+      trimmed port of the walker from the
+      <a href="/projects/wikipedia-game-solver/">Wikipedia Game Solver</a>: at each page it scores
+      up to twenty outbound links by TF-IDF cosine similarity between their intros and the
+      target's intro, then jumps to the best unvisited one, with twenty hops as the ceiling. It
+      also pulls the target's backlinks up front, so any link that sits one hop from the goal is
+      taken immediately. When the top scores bunch up, or it starts circling variants of the same
+      title, it penalises candidates that share words with where it has just been and reaches for
+      a broader article to break out.
     </p>
     <p>
-      The honest part of the problem is "closer." A human reads a page and senses which link points
-      roughly the right way; the solver has to turn that hunch into a number. So at each article it pulls
-      the outbound links, reads a little of what each one is about, and measures how much that text
-      overlaps with the destination article's text. The link that overlaps the most wins, and the walk
-      moves on. No backtracking, no lookahead, just the best-looking step, taken over and over until it
-      arrives or gives up.
+      Whatever it lands on becomes your par: its hop count, plus a time budget of twenty-five
+      seconds per hop. On the pair above it needed eighteen hops, which set a target of 7m 30s.
+      You can begin before it finishes, and the path it found is kept so you can watch it later
+      without paying for the search twice.
     </p>
 
-    <h2>How it works</h2>
+    <h2>What the app will not let you do</h2>
     <ul>
-      <li><strong>Greedy similarity walk</strong>: at each page it scores the outbound links by TF-IDF cosine similarity against the target article and jumps to the best unvisited one, repeating until it lands on the goal.</li>
-      <li><strong>Reads before it leaps</strong>: for every step it batch-fetches the intro extract of up to 40 candidate links, builds TF-IDF vectors over those intros plus the target, and ranks them, so the choice is based on what each page is actually about.</li>
-      <li><strong>Knows when to quit</strong>: it caps the run at 30 hops, never revisits a page, and aborts if the best candidate scores below a small threshold, meaning nothing on the page looks meaningfully connected to the target.</li>
-      <li><strong>Runs entirely in the browser</strong>: every request goes straight to the live public MediaWiki API with CORS, so there's no API key, no backend, and nothing to host beyond static files.</li>
-      <li><strong>Shows its reasoning</strong>: the path renders as a chain of cards so you can see each hop the walker chose and how the trail got from start to finish.</li>
+      <li><strong>Search</strong>: the article HTML comes from Wikipedia's REST API and every anchor has its href taken away before it renders, so a click is a move in the game rather than a page load. Citations, category and portal pages, and outbound links are dead.</li>
+      <li><strong>Click through from the target</strong>: the target preview renders the whole goal article, image and infobox included, with every link unwrapped into plain text. You can read it for clues, but you cannot ride it home.</li>
+      <li><strong>Fly blind</strong>: hovering a link, or long-pressing it on a phone, opens a popover with the summary of where it goes, so a guess costs you a moment instead of a hop.</li>
+      <li><strong>Lose your place</strong>: the running game is held in session storage, so a reload puts you back on the article you were reading, and the day's result and the bot's path stay in local storage after it ends.</li>
     </ul>
 
-    <h2>Stack</h2>
-    <p class="stack">Vite · React · TypeScript, talking directly to the MediaWiki API. The TF-IDF tokenizer and sparse cosine similarity are hand-rolled, ported from an earlier Python version of the same idea, and the whole thing ships as a static site on GitHub Pages.</p>
+    <p>
+      Finishing produces the path you actually took, with any article you doubled back to marked
+      in red, and a button that lays the bot's route out beside it. The shareable version is
+      deliberately thin: challenge number, hops, time, and a row of squares standing in for the
+      articles. Sending someone your result cannot spoil their run. Giving up records the
+      attempt too, which is the honest thing to do with a puzzle that some days beats you.
+    </p>
 
-    <p class="next"><strong>Next</strong> a bidirectional walk that searches from both articles at once, for shorter paths on the hard pairs.</p>
+    <h2>Off the schedule</h2>
+    <p>
+      Two other modes reuse the same machinery. Random pulls genuine random articles from the
+      MediaWiki API and throws back anything unplayable, lists, indexes, disambiguation pages,
+      bare years, and stubs under two kilobytes, so the pair it hands you has enough links to be
+      winnable. Custom takes any two titles through an autocomplete backed by Wikipedia's search
+      and checks both exist before the clock starts. The bot solves those pairs too.
+    </p>
+
+    <h2>Built with</h2>
+    <p class="stack">React · TypeScript · Vite · Tailwind, in four themes. Both Wikipedia interfaces are called straight from the browser, the Action API for links, backlinks and intro extracts, the REST API for article HTML and summaries, so there is no key, no backend, and nothing to host beyond static files.</p>
 
     <div class="cta">
-      <a href="/wikipedia-game-solver/" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="wikigame-demo">Try it live ↗</a>
-      <a href="https://github.com/jhomer192/wikipedia-game-solver" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="wikigame-src">Source on GitHub ↗</a>
+      <a href="/wikigame/" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="wikigame-demo">Play today's challenge ↗</a>
+      <a href="https://github.com/jhomer192/wikigame" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="wikigame-src">Source on GitHub ↗</a>
     </div>
   </section>
 
@@ -110,7 +149,7 @@
   <a href="/contact/" data-user="jack" data-domain="homerfamily.com" data-show-address>jack at homerfamily.com</a> · <a href="https://github.com/jhomer192">GitHub</a>
 </footer>
 
-<script src="/assets/common.js?v=20"></script>
+<script src="/assets/common.js?v=21"></script>
 
 </body>
 </html>

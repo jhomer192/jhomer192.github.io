@@ -22,12 +22,12 @@ const CONSTELLATIONS = [
           'Friends mode: someone guesses your top 10 and gets scored on how close they got.',
         ],
         st:'Next.js · TypeScript · Tailwind · Spotify PKCE OAuth (bring your own dev app, no shared rate cap).'},
-      {nm:'WikiGame',           g:'wiki path solver',     m:1, k:'demo', cx:680, cy:55, url:D+'/wikipedia-game-solver', src:GH+'/wikipedia-game-solver', img:'/screenshots/wikigame.webp', page:'/projects/wikigame/',
+      {nm:'Wikipedia Game Solver', g:'wiki path solver',  m:1, k:'demo', cx:680, cy:55, url:D+'/wikipedia-game-solver', src:GH+'/wikipedia-game-solver', img:'/screenshots/wikipedia-game-solver.webp', page:'/projects/wikipedia-game-solver/',
         d:'Give it any two Wikipedia articles and watch it find a path between them, hopping link to link.',
         hi:[
           'Greedy TF-IDF walker: at each page it scores outbound links by similarity to the target and takes the best one, up to 30 hops.',
           'Public API only: runs straight against the live MediaWiki API, no key or backend.',
-          'Route cache: common paths resolve instantly from precomputed results.',
+          'Shortest-path mode: a bidirectional breadth-first search runs out from both articles until the frontiers meet, returning the shortest path within the depth cap.',
         ],
         st:'Vite · React · TypeScript · MediaWiki API.'},
       {nm:'Meme Maker',         g:'browser meme editor',  m:2, k:'demo', cx:885, cy:120, url:D+'/meme-generator', src:GH+'/meme-generator', img:'/screenshots/meme-generator.webp', page:'/projects/meme-maker/',
@@ -119,9 +119,19 @@ const CONSTELLATIONS = [
           'Watch it play: a browser panel streams the live frame, the button, the reason for it, and the party; every decision is written to a trace log with the state before and after.',
         ],
         st:'Python · mGBA · Ollama (qwen2.5vl:7b perceiving, qwen2.5:14b or qwen3.6:27b deciding). Runs entirely on one machine, on my own GPU — no API keys, no per-token cost, nothing hosted. The only running cost is electricity.'},
+      {nm:'WikiGame',           g:'daily wikipedia race', m:2, k:'demo', cx:782, cy:87, url:D+'/wikigame', src:GH+'/wikigame', img:'/screenshots/wikigame.webp', page:'/projects/wikigame/',
+        d:'A Wikipedia race with a fixed pair every day: same start, same target for everyone, and only the blue links inside the articles to get there.',
+        hi:[
+          'One puzzle a day: 1,822 hand-written start/end pairs, each tagged easy, medium or hard, dealt out one per day since 19 April 2026.',
+          'A bot sets your par: a TF-IDF walker solves the day\'s pair while you read the two titles, then hands you its hop count to beat.',
+          'Wikipedia without the shortcuts: articles render inside the app with every link rewritten, so there is no search box and no way to jump straight to the target.',
+          'Spoiler-free sharing: results copy out as a hop count, a time and a row of squares, with the article names left out.',
+        ],
+        st:'React · TypeScript · Vite · Tailwind, calling the MediaWiki Action and REST APIs from the browser. No backend, no key.'},
     ],
-    // The Builder's Loom: outer frame (top beam, posts, bottom beam) + inner warp threads
-    edges:[[0,1],[1,2],[2,4],[4,8],[8,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12]],
+    // The Builder's Loom: outer frame (top beam, posts, bottom beam) + inner warp threads.
+    // WikiGame (13) sits on the top beam between 1 and 2, so the beam still reads straight.
+    edges:[[0,1],[1,13],[13,2],[2,4],[4,8],[8,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12],[13,12]],
     conj:[[9,1]] },
 
   { id:'corona-laboris', name:'Corona Laboris', sub:'Day Work', section:'/career/',
