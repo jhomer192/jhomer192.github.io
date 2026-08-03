@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>Sticker Maker · Jack Homer</title>
+<meta name="description" content="Sticker Maker turns a photo or screenshot into an iOS sticker in the browser, with a magic wand, brushes and an on-device background remover, and no App Store download or Apple Developer account.">
+<link rel="canonical" href="https://jackhomer.com/projects/polygon-stickers/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sticker Maker · Jack Homer">
+<meta property="og:description" content="Turn a photo or screenshot into an iOS sticker in the browser, with a magic wand, brushes and an on-device background remover, and no App Store download or Apple Developer account.">
+<meta property="og:url" content="https://jackhomer.com/projects/polygon-stickers/">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:image" content="https://jackhomer.com/og/polygon-stickers.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sticker Maker · Jack Homer">
+<meta name="twitter:description" content="Sticker Maker turns a photo or screenshot into an iOS sticker in the browser, with a magic wand, brushes and an on-device background remover, and no App Store download or Apple Developer account.">
+<meta name="twitter:image" content="https://jackhomer.com/og/polygon-stickers.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/atlas.css?v=24">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CreativeWork","name":"Sticker Maker","description":"Sticker Maker turns a photo or screenshot into an iOS sticker in the browser, with a magic wand, brushes and an on-device background remover, and no App Store download or Apple Developer account.","url":"https://jackhomer.com/projects/polygon-stickers/","image":"https://jackhomer.com/og/polygon-stickers.png","codeRepository":"https://github.com/jhomer192/polygon-stickers","author":{"@type":"Person","name":"Jack Homer","url":"https://jackhomer.com"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jack Homer","item":"https://jackhomer.com"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://jackhomer.com/projects/"},{"@type":"ListItem","position":3,"name":"Sticker Maker","item":"https://jackhomer.com/projects/polygon-stickers/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <a class="brand" href="/">Jack Homer</a>
+  <ul>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/projects/">Projects</a></li>
+    <li><a href="/career/">Career</a></li>
+    <li><a href="/business/">Business</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</nav>
+
+<main id="main" class="chart text-plate">
+  <div class="meander-frame" aria-hidden="true">
+    <span class="strip top"></span><span class="strip bottom"></span>
+    <span class="strip left"></span><span class="strip right"></span>
+  </div>
+  <svg class="corner tl" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner tr" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner bl" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner br" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+
+  <header class="header">
+    <div class="c">
+      <h1>Sticker Maker</h1>
+      <div class="sub">photo to iOS sticker</div>
+    </div>
+  </header>
+
+  <section class="proj">
+    <div class="meta">Side project · 2026</div>
+    <p class="tagline">Cut the background out of a photo on your phone, save the result to Photos, and let iOS lift it into your sticker drawer. No App Store download, no Apple Developer account.</p>
+
+    <figure class="media">
+      <img src="/screenshots/polygon-stickers.webp" alt="Sticker Maker with a cut-out subject on a transparency checkerboard, the wand tool selected" width="780" height="1688" decoding="async">
+      <figcaption>Demo · one wand tap has taken the background off a six-point star</figcaption>
+    </figure>
+
+    <p>
+      Making a custom iOS sticker usually starts with installing an app, and putting an app on a
+      phone starts with an Apple Developer account. Neither is required for the work itself.
+      Reading the pixels of an image, clearing the ones you do not want and writing the result
+      back out to a file are all things a browser already does, so the editor is a web page and
+      there is nothing to install.
+    </p>
+    <p>
+      The one step Safari cannot take is the last one. Apple adds a sticker to the system drawer
+      only when you long-press the subject yourself inside Photos, and no web page is allowed to
+      trigger that. So the app stops short of it and hands off instead: cut the background out
+      here, save the file to Photos, finish it there.
+    </p>
+
+    <h2>The handoff</h2>
+    <p>
+      Save / Share flattens the cut-out onto a solid lime-green background, writes a 1024×1024
+      JPEG, and opens the iOS share sheet so it can go to Photos. Long-press the subject in
+      Photos, tap Add Sticker, and it works in Messages and anywhere else stickers do.
+    </p>
+    <p>
+      The lime is deliberate, and it is the detail that makes the rest work. Photos strips
+      transparency from a PNG saved out of Safari, so the obvious export, a transparent cut-out,
+      arrives with a solid box behind it anyway. Apple's subject-lift model also needs a
+      foreground sitting on a background before it has anything to separate; hand it a picture
+      that is already nothing but subject and the long-press does nothing. A flat, saturated green
+      answers both. On a device without the share sheet the same JPEG downloads as a file, and the
+      Copy button puts it on the clipboard instead.
+    </p>
+
+    <h2>Cutting out the subject</h2>
+    <ul>
+      <li><strong>Wand</strong>: tap a pixel and it flood-fills outward from there, taking any neighbour whose RGB distance from the tapped colour falls inside a tolerance you set from 0 to 120. Rather than cutting hard at that line, the outer band of the range gets a graded alpha, so the edge fades out instead of coming away jagged. It refuses to spread through pixels that are already transparent, which means a second tap works on what is left rather than starting over.</li>
+      <li><strong>Erase</strong>: a round brush, 6 to 200 pixels, clearing whatever it passes over. Dragging interpolates along the stroke at a third of the brush width, so a fast swipe does not come out as a row of dots.</li>
+      <li><strong>Restore</strong>: the same brush running backwards, copying pixels back from the untouched copy of the image. Overshoot with the wand and you paint the subject back rather than starting again.</li>
+      <li><strong>Paint</strong>: an opaque brush in one of eight colours, for filling a hole the wand ate or drawing on the sticker.</li>
+      <li><strong>Crop to subject</strong>: finds the bounding box of everything still opaque, trims to it, and re-centres with a 4% margin, which turns a small subject in a large frame into a sticker that fills the square.</li>
+      <li><strong>Undo and Reset</strong>: ten steps of undo, and a reset that drops back to the untouched copy. Cropping and auto-remove both replace that copy, so they become the new floor.</li>
+    </ul>
+
+    <h2>Auto-remove</h2>
+    <p>
+      A flood fill is quick on a flat background and no use against hair or a busy photo. For
+      those there is Auto-remove bg, which imports <code>@imgly/background-removal</code> the first
+      time you press it, roughly 30 MB that the browser then caches, and runs the segmentation on
+      the device. The model is fetched on demand rather than bundled, so the app itself stays a
+      handful of small files and nobody who only wanted the wand pays for it.
+    </p>
+
+    <h2>Stack</h2>
+    <p class="stack">Vanilla JavaScript in a single page: no framework, no bundler, no build step. The editor is one 1024×1024 <code>&lt;canvas&gt;</code> and its <code>ImageData</code>; the export is a second canvas filled with chroma and re-encoded as JPEG at quality 0.92. A manifest and a version-keyed service worker make it installable to the home screen and keep it working offline after the first load, and the service worker goes network-first on HTML so a deploy lands on the next visit. Static on GitHub Pages. No server, no account, and no image ever leaves the device.</p>
+
+    <div class="cta">
+      <a href="/polygon-stickers/" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="polygon-stickers-demo">Try it live ↗</a>
+      <a href="https://github.com/jhomer192/polygon-stickers" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="polygon-stickers-src">Source on GitHub ↗</a>
+    </div>
+  </section>
+
+  <p class="returnto"><a href="/projects/">← all projects</a></p>
+</main>
+
+<footer class="colophon">
+  Jack Homer · Bay Area<br>
+  <a href="/contact/" data-user="jack" data-domain="homerfamily.com" data-show-address>jack at homerfamily.com</a> · <a href="https://github.com/jhomer192">GitHub</a>
+</footer>
+
+<script src="/assets/common.js?v=24"></script>
+
+</body>
+</html>

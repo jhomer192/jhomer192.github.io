@@ -130,10 +130,21 @@ const CONSTELLATIONS = [
           'Spoiler-free sharing: results copy out as a hop count, a time and a row of squares, with the article names left out.',
         ],
         st:'React · TypeScript · Vite · Tailwind, calling the MediaWiki Action and REST APIs from the browser. No backend, no key.'},
+      {nm:'Sticker Maker',      g:'photo to iOS sticker', m:2, k:'demo', cx:755, cy:335, lp:'L', url:D+'/polygon-stickers', src:GH+'/polygon-stickers', img:'/screenshots/polygon-stickers.webp', page:'/projects/polygon-stickers/',
+        d:'Turn a photo or a screenshot into an iOS sticker in the browser, with no App Store download and no Apple Developer account. Cut the background out on your phone, save the result to Photos, and iOS lifts it into the sticker drawer.',
+        hi:[
+          'It hands off to iOS instead of faking it: Apple only adds a sticker to the drawer through your own long-press in Photos, so the export flattens the cut-out onto flat lime green, writes a 1024×1024 JPEG, and opens the share sheet. The lime is deliberate, because Photos strips transparency from a PNG saved out of Safari and the subject-lift model needs a foreground sitting on a background to have anything to separate.',
+          'Four tools on one canvas: a wand that flood-fills from the tapped pixel by RGB distance out to a tolerance of 0 to 120, fading the alpha across the outer band of that range rather than cutting at it, so the border is not jagged; a 6 to 200 pixel eraser; the same brush in reverse, painting pixels back from the untouched copy; and an opaque brush in eight colours.',
+          'Fixing a bad cut: Crop to subject trims to the bounding box of whatever is still opaque and re-centres it, Undo holds ten steps, and Reset drops back to the untouched copy.',
+          'Auto-remove is optional and local: it pulls @imgly/background-removal on demand, about 30 MB that the browser caches after the first run, and segments on the device.',
+          'Nothing leaves the phone: the editing is a <canvas> on your own machine, with no server and no account, and a manifest and service worker make it installable to the home screen.',
+        ],
+        st:'Vanilla JavaScript in one page, no framework and no bundler. Canvas 2D for the editor, a version-keyed service worker for offline use, and @imgly/background-removal pulled from a CDN only if you ask for it. Static on GitHub Pages.'},
     ],
     // The Builder's Loom: outer frame (top beam, posts, bottom beam) + inner warp threads.
-    // WikiGame (13) sits on the top beam between 1 and 2, so the beam still reads straight.
-    edges:[[0,1],[1,13],[13,2],[2,4],[4,8],[8,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12],[13,12]],
+    // WikiGame (13) sits on the top beam between 1 and 2, and Sticker Maker (14) on the
+    // bottom beam between 8 and 7, so both beams still read straight.
+    edges:[[0,1],[1,13],[13,2],[2,4],[4,8],[8,14],[14,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12],[13,12]],
     conj:[[9,1]] },
 
   { id:'corona-laboris', name:'Corona Laboris', sub:'Day Work', section:'/career/',
