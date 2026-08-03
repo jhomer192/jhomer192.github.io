@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The live apps. Each is a separate repo served under the same domain,
+     so scripts/gen_sitemap.py cannot see them. Keep this list in step by hand. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://jackhomer.com/songrank/</loc><lastmod>2026-08-03</lastmod></url>
+  <url><loc>https://jackhomer.com/wikipedia-game-solver/</loc><lastmod>2026-08-03</lastmod></url>
+  <url><loc>https://jackhomer.com/wikigame/</loc><lastmod>2026-08-03</lastmod></url>
+  <url><loc>https://jackhomer.com/connections-maker/</loc><lastmod>2026-08-03</lastmod></url>
+  <url><loc>https://jackhomer.com/clocktower/</loc><lastmod>2026-08-03</lastmod></url>
+  <url><loc>https://jackhomer.com/game-of-life/</loc><lastmod>2026-08-03</lastmod></url>
+  <url><loc>https://jackhomer.com/meme-generator/</loc><lastmod>2026-08-03</lastmod></url>
+  <url><loc>https://jackhomer.com/birthday-paradox/</loc><lastmod>2026-08-03</lastmod></url>
+  <url><loc>https://jackhomer.com/nuzlocke-tracker/</loc><lastmod>2026-08-03</lastmod></url>
+  <url><loc>https://jackhomer.com/polygon-stickers/</loc><lastmod>2026-08-03</lastmod></url>
+</urlset>

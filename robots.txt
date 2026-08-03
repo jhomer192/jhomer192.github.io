@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://jackhomer.com/sitemap.xml
+Sitemap: https://jackhomer.com/sitemap-apps.xml
