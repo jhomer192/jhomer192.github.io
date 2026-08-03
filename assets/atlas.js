@@ -86,14 +86,16 @@ const CONSTELLATIONS = [
           'Calendar view: a random sample with collision days lit up.',
         ],
         st:'Vite · React · TypeScript · Tailwind · Recharts.'},
-      {nm:'Claude Bot',         g:'Telegram → Claude',    m:1, k:'priv', cx:935, cy:295, page:'/projects/claude-bot/',
-        d:'A self-hosted relay that turns Telegram into a remote terminal for Claude Code, the harness that built most of this sky.',
+      {nm:'Claude Discord',     g:'Claude bots in a private server', m:1, k:'src', cx:935, cy:295, src:GH+'/claude-discord', img:'/screenshots/claude-discord-a.webp', page:'/projects/claude-bot/',
+        d:'Self-hostable Claude bots that live in a private Discord server. One process is one bot, with its own token, working directory, persona and conversation state, and several of them in the same guild can hand work to each other.',
         hi:[
-          'Phone to agent: a message spawns Claude Code in a chosen workspace and streams the replies back.',
-          'Workspace-agnostic: any project directory; Auto Applier is just one tenant.',
-          'Self-hosted: deploys over SSH to a private server.',
+          'One process per bot: token, working directory, persona and conversation state belong to the instance, so a second bot is the same code run against a second Discord application.',
+          'Three gates before the model: the bot\'s own, webhook-forged and system messages are dropped; a fail-closed allowlist refuses to start without a valid owner user ID; and an engagement rule answers mentions, channels it has chosen to watch, and peer bots under a cooldown.',
+          'A live session per channel: each channel holds its own Claude session, with an LRU pool keeping three warm and evicting under memory pressure, never one with a turn still running.',
+          'It manages its own presence: an in-process MCP server lets it read any channel\'s history, watch and unwatch channels, post into another room, and create, rename, move or delete channels.',
+          'Bots that talk to each other: several instances in one guild collaborate by @mention, capped at six consecutive bot-to-bot turns before it pauses and pings its owner.',
         ],
-        st:'Node · Telegram Bot API · Claude Code.'},
+        st:'Python · discord.py · Claude Agent SDK, authenticated with a subscription OAuth token rather than a per-token API key.'},
       {nm:'Color Analysis',     g:'seasonal palette from a portrait',   m:2, k:'src',  cx:620, cy:185, src:GH+'/grace-style', page:'/projects/color-analysis/',
         d:'Upload a portrait and get a personalized 12-season color analysis (palette, hair, and makeup direction) from Claude vision.',
         hi:[
@@ -106,7 +108,7 @@ const CONSTELLATIONS = [
         hi:[
           'Canvas, no preset blocks: draw and name any architecture; an AI interviewer probes the design and a second model returns a scored, property-based verdict.',
           'Bring your own Claude: runs on your own Claude Code login, so there is no API key, no account, and nothing to pay.',
-          '~50 problems: Slack, YouTube, Uber, an LLM inference service and more, each graded against its own rubric.',
+          '108 problems: Slack, YouTube, Uber, an LLM inference service and more, each graded against its own rubric.',
         ],
         st:'Next.js · TypeScript · Tailwind · @xyflow/react canvas · Claude (Agent SDK / Messages API). Free and open source, clone and run it yourself.'},
       {nm:'Pokémon Agent',      g:'local models play FireRed and Emerald', m:2, k:'priv', cx:795, cy:245, img:'/screenshots/pokemon-agent.webp', page:'/projects/pokemon-agent/',
@@ -605,7 +607,7 @@ function decorate(wrap, svg, cam){
   // comet → colophon
   const comet=document.createElement('button'); comet.className='comet'; comet.type='button'; comet.setAttribute('aria-label','Colophon');
   comet.innerHTML=`<svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="21" x2="15" y2="9"/><circle cx="17" cy="7" r="3"/></svg>`;
-  comet.addEventListener('click',()=>openCard({nm:'About this site', g:'colophon', d:'My work laid out as a star chart: side projects, the day job, and Tableside, a small web studio. Built by hand; a lot of it through a Claude agent I run over Telegram. Type set in Cormorant Garamond and IBM Plex Mono.', k:null},'·'));
+  comet.addEventListener('click',()=>openCard({nm:'About this site', g:'colophon', d:'My work laid out as a star chart: side projects, the day job, and Tableside, a small web studio. Built by hand; a lot of it through a Claude agent I run over Discord. Type set in Cormorant Garamond and IBM Plex Mono.', k:null},'·'));
   wrap.appendChild(comet);
 }
 

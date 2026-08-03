@@ -3,27 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
-<title>Claude Bot · Jack Homer</title>
-<meta name="description" content="Claude Bot, a self-hosted relay that wires Telegram to Claude Code, so you can drive a coding agent in a real workspace from your phone.">
+<title>Claude Discord · Jack Homer</title>
+<meta name="description" content="Claude Discord, self-hostable Claude bots that live in a private Discord server: one process per bot, a live session per channel, and several instances in one guild that hand work to each other by mention.">
 <link rel="canonical" href="https://jackhomer.com/projects/claude-bot/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Claude Bot · Jack Homer">
-<meta property="og:description" content="A self-hosted relay that wires Telegram to Claude Code, so you can drive a coding agent in a real workspace from your phone.">
+<meta property="og:title" content="Claude Discord · Jack Homer">
+<meta property="og:description" content="Self-hostable Claude bots that live in a private Discord server: one process per bot, a live session per channel, and several instances in one guild that hand work to each other by mention.">
 <meta property="og:url" content="https://jackhomer.com/projects/claude-bot/">
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:image" content="https://jackhomer.com/og.png">
+<meta property="og:image" content="https://jackhomer.com/og/claude-bot.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Claude Bot · Jack Homer">
-<meta name="twitter:description" content="Claude Bot, a self-hosted relay that wires Telegram to Claude Code, so you can drive a coding agent in a real workspace from your phone.">
-<meta name="twitter:image" content="https://jackhomer.com/og.png">
+<meta name="twitter:title" content="Claude Discord · Jack Homer">
+<meta name="twitter:description" content="Claude Discord, self-hostable Claude bots that live in a private Discord server: one process per bot, a live session per channel, and several instances in one guild that hand work to each other by mention.">
+<meta name="twitter:image" content="https://jackhomer.com/og/claude-bot.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/atlas.css?v=21">
+<link rel="stylesheet" href="/assets/atlas.css?v=22">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CreativeWork","name":"Claude Bot","description":"Claude Bot, a self-hosted relay that wires Telegram to Claude Code, so you can drive a coding agent in a real workspace from your phone.","url":"https://jackhomer.com/projects/claude-bot/","image":"https://jackhomer.com/og.png","author":{"@type":"Person","name":"Jack Homer","url":"https://jackhomer.com"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jack Homer","item":"https://jackhomer.com"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://jackhomer.com/projects/"},{"@type":"ListItem","position":3,"name":"Claude Bot","item":"https://jackhomer.com/projects/claude-bot/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CreativeWork","name":"Claude Discord","description":"Claude Discord, self-hostable Claude bots that live in a private Discord server: one process per bot, a live session per channel, and several instances in one guild that hand work to each other by mention.","url":"https://jackhomer.com/projects/claude-bot/","codeRepository":"https://github.com/jhomer192/claude-discord","image":"https://jackhomer.com/og/claude-bot.png","author":{"@type":"Person","name":"Jack Homer","url":"https://jackhomer.com"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jack Homer","item":"https://jackhomer.com"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://jackhomer.com/projects/"},{"@type":"ListItem","position":3,"name":"Claude Discord","item":"https://jackhomer.com/projects/claude-bot/"}]}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -51,42 +53,56 @@
 
   <header class="header">
     <div class="c">
-      <h1>Claude Bot</h1>
-      <div class="sub">Telegram → Claude</div>
+      <h1>Claude Discord</h1>
+      <div class="sub">Claude bots in a private server</div>
     </div>
   </header>
 
   <section class="proj">
     <div class="meta">Side project · 2026</div>
-    <p class="tagline">A self-hosted relay that turns Telegram into a remote terminal for Claude Code, the harness that built most of this sky.</p>
+    <p class="tagline">Self-hostable Claude bots that live in a private Discord server. One process is one bot, with its own token, working directory, persona and conversation state, and several of them in the same guild can hand work to each other.</p>
+
+    <figure class="media">
+      <img src="/screenshots/claude-discord-a.webp" alt="A Discord channel: a question about the site's search-result icon, and the bot answering with the icon files it generated, committed and pushed" width="1100" height="377" decoding="async">
+      <figcaption>A question in plain English · the bot writes the icons, pushes them, and says what each file is for</figcaption>
+    </figure>
 
     <p>
-      Claude Code lives on a machine, and most of the time I'm not sitting in front of it. I'd think of
-      a fix on the train, or want to kick off a task from the couch, and the work would either wait for
-      me to get back to a terminal or fall out of my head entirely. The agent was happy to run anywhere;
-      I just had no way to reach it.
+      A Discord guild turns out to be a reasonable place to keep a coding agent. It already has rooms
+      to separate work, clients on every device, and a built-in answer to who is allowed to talk. So
+      one process is one bot: its own Discord application token, its own working directory, its own
+      persona. Inside a channel it keeps a live Claude session rather than starting cold on each
+      message, which is what makes a room read like a conversation instead of a queue of one-shot
+      prompts.
     </p>
     <p>
-      So I built a small relay. A Telegram chat becomes the front end: I type a message, a Claude Code
-      session picks it up in a real project directory, does the work, and the reply lands back in the
-      same thread. Nothing about it is tied to one project; point it at any workspace and that workspace
-      is suddenly something I can drive from my phone. The Auto Applier was just the first tenant.
+      Run more than one instance in the same guild and the server becomes a small workspace of agents.
+      They appear in the member list, mention each other by name, and a bot pulled into a room by a
+      peer answers there. Two of them left alone will keep replying, so a bot-to-bot exchange stops
+      after six consecutive turns, pauses, and pings its owner; any human message resets the count.
     </p>
 
     <h2>How it works</h2>
     <ul>
-      <li><strong>Listens on the Telegram Bot API</strong>: incoming messages from an allowed chat get handed straight to the relay; everything else is dropped.</li>
-      <li><strong>Spawns Claude Code per message</strong>: each prompt starts a Claude Code process rooted in a configured workspace directory, so the agent has the real files and tools, not a stripped-down sandbox.</li>
-      <li><strong>Routes the reply back</strong>: whatever the session produces is captured and sent to the same chat, so a phone is the only interface I need.</li>
-      <li><strong>Workspace-agnostic</strong>: the target directory is config, not code, so any Claude Code project becomes reachable through the same bot.</li>
-      <li><strong>Self-hosted</strong>: it runs on my own server and deploys over SSH, so the keys and the workspaces never leave hardware I control.</li>
+      <li><strong>One process per bot</strong>: token, working directory, persona and conversation state all belong to the instance, so adding a second bot is running the same code against a second Discord application.</li>
+      <li><strong>Three gates before the model</strong>: an integrity check drops the bot's own messages, webhook-forged ones and Discord system messages; a fail-closed allowlist refuses to start without a valid owner user ID; and an engagement rule decides whether a message deserves an answer at all, replying to mentions everywhere, to anything in a channel it has chosen to watch, and to peer bots under a cooldown.</li>
+      <li><strong>A live session per channel</strong>: each channel holds its own <code>ClaudeSDKClient</code>. An LRU pool keeps three warm at roughly 190&nbsp;MB each and tears down the least recently used one under memory pressure, never a session with a turn still running.</li>
+      <li><strong>It manages its own presence</strong>: an in-process MCP server hands the model tools for Discord itself, reading any channel's history, starting and stopping watching channels (the set survives restarts), posting into another room, and creating, renaming, moving or deleting channels.</li>
+      <li><strong>Restarts resume, not repeat</strong>: recent channel history is replayed and split at a persisted watermark, so everything at or before the last reply is labelled background and only what arrived after it is treated as work. Without the split a restarted bot answered days-old requests instead of the message that tagged it.</li>
+      <li><strong>Replies land in the message that announced them</strong>: a "working" placeholder is edited into the answer as it arrives, split at Discord's 2,000-character limit and attached as a file past 6,000. <code>/stop</code> interrupts the running turn and keeps the session, so the context survives the cancel.</li>
+      <li><strong>Subscription auth, not an API key</strong>: the backend is the Python Claude Agent SDK driving the same <code>claude</code> CLI, authenticated with an OAuth token from <code>claude setup-token</code>, so turns bill against a Claude plan rather than per-token API credit.</li>
     </ul>
 
+    <figure class="media">
+      <img src="/screenshots/claude-discord-b.webp" alt="A follow-up in the same channel: the bot reports pushing the favicon sizes and warns that Google caches favicons for days" width="1100" height="214" decoding="async">
+      <figcaption>A follow-up in the same thread · what the crawler actually reads, and why it takes days to show</figcaption>
+    </figure>
+
     <h2>Stack</h2>
-    <p class="stack">Node · Telegram Bot API · Claude Code. The bot is a thin Node process: it owns the chat connection and the process lifecycle, and leans on Claude Code for all the actual work in the workspace.</p>
+    <p class="stack">Python · discord.py · Claude Agent SDK. Each instance is a single process on a host you control, with an in-process MCP server for the Discord tools; sessions run with permissions bypassed inside the working directory, so that directory is code you are handing to a model.</p>
 
     <div class="cta">
-      <span class="note" data-umami-event="proj-link" data-umami-event-target="claude-bot-private">Private · self-hosted, no public link.</span>
+      <a href="https://github.com/jhomer192/claude-discord" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="claude-discord-src">Source on GitHub ↗</a>
     </div>
   </section>
 
@@ -98,7 +114,7 @@
   <a href="/contact/" data-user="jack" data-domain="homerfamily.com" data-show-address>jack at homerfamily.com</a> · <a href="https://github.com/jhomer192">GitHub</a>
 </footer>
 
-<script src="/assets/common.js?v=21"></script>
+<script src="/assets/common.js?v=22"></script>
 
 </body>
 </html>
