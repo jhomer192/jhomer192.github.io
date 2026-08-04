@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>A multi-agent translation pipeline: 1,081 documents at $2.31 each · Jack Homer</title>
+<meta name="description" content="1,081 documents translated English to Italian in 2.5 weeks for $2,495 total. A translator/critic/arbitrator loop, automated document reconstruction, and a 21-agent verification swarm, against a $245-per-document vendor quote.">
+<link rel="canonical" href="https://jackhomer.com/writing/multi-agent-translation/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A multi-agent translation pipeline: 1,081 documents at $2.31 each">
+<meta property="og:description" content="1,081 documents translated English to Italian in 2.5 weeks for $2,495 total, against a $245-per-document vendor quote. How the pipeline was built and what it taught me.">
+<meta property="og:url" content="https://jackhomer.com/writing/multi-agent-translation/">
+<meta property="article:published_time" content="2026-08-03">
+<meta property="article:author" content="Jack Homer">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:image" content="https://jackhomer.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="A multi-agent translation pipeline: 1,081 documents at $2.31 each">
+<meta name="twitter:description" content="1,081 documents translated English to Italian in 2.5 weeks for $2,495 total, against a $245-per-document vendor quote.">
+<meta name="twitter:image" content="https://jackhomer.com/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/atlas.css?v=24">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","headline":"A multi-agent translation pipeline: 1,081 documents at $2.31 each","description":"1,081 documents translated English to Italian in 2.5 weeks for $2,495 total. A translator/critic/arbitrator loop, automated document reconstruction, and a 21-agent verification swarm, against a $245-per-document vendor quote.","url":"https://jackhomer.com/writing/multi-agent-translation/","mainEntityOfPage":"https://jackhomer.com/writing/multi-agent-translation/","datePublished":"2026-08-03","dateModified":"2026-08-03","inLanguage":"en","image":"https://jackhomer.com/og.png","author":{"@type":"Person","@id":"https://jackhomer.com/#jack","name":"Jack Homer","url":"https://jackhomer.com","jobTitle":"Forward Deployed Engineer"},"publisher":{"@type":"Person","@id":"https://jackhomer.com/#jack","name":"Jack Homer"},"keywords":["multi-agent systems","machine translation","LLM agents","document processing","AI pipelines"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jack Homer","item":"https://jackhomer.com"},{"@type":"ListItem","position":2,"name":"Writing","item":"https://jackhomer.com/writing/"},{"@type":"ListItem","position":3,"name":"A multi-agent translation pipeline","item":"https://jackhomer.com/writing/multi-agent-translation/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <a class="brand" href="/">Jack Homer</a>
+  <ul>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/projects/">Projects</a></li>
+    <li><a href="/writing/">Writing</a></li>
+    <li><a href="/career/">Career</a></li>
+    <li><a href="/business/">Business</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</nav>
+
+<main id="main" class="chart text-plate">
+  <div class="meander-frame" aria-hidden="true">
+    <span class="strip top"></span><span class="strip bottom"></span>
+    <span class="strip left"></span><span class="strip right"></span>
+  </div>
+  <svg class="corner tl" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner tr" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner bl" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner br" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+
+  <header class="header">
+    <div class="c">
+      <h1>1,081 documents, $2.31 each</h1>
+      <div class="sub">A multi-agent translation pipeline</div>
+    </div>
+  </header>
+
+  <section class="proj">
+    <div class="meta">Writing · August 2026</div>
+    <p class="tagline">I replaced a $245/document translation workflow with a $2.31/document AI pipeline.</p>
+
+    <p>
+      We needed 1,081 documents translated from English to Italian in 2.5 weeks. Traditional
+      translation services quoted ~$245/doc. We didn't have the time or want to spend the budget.
+    </p>
+    <p>
+      So I designed and built a multi-agent pipeline (shoutout to Michael Carmody for helping push
+      this across the finish line under a tight deadline).
+    </p>
+    <p>
+      As a step 0, we would categorize documents based off of file type and structure. Dependent on
+      those two characteristics, we'd send documents to different agentic workflows. Here's the one
+      ~85% of documents went through.
+    </p>
+
+    <h2>Stage 1 · Translation</h2>
+    <p>
+      Each document was chunked and assigned to multiple independent translator agents. Every
+      translator had a dedicated critic agent that reviewed its output for accuracy, tone, and
+      terminology. An arbitrator agent resolved disagreements and produced the final translation
+      for each chunk.
+    </p>
+
+    <h2>Stage 2 · Document reconstruction</h2>
+    <p>
+      Automated rebuilding of production-ready documents, preserving original formatting, diagrams,
+      tables, and typographic conventions across PDFs and presentations.
+    </p>
+
+    <h2>Stage 3 · Verification swarm</h2>
+    <p>
+      21 agents running in parallel on a file-system-based inbox structure, each equipped with custom
+      skills for format validation, translation QA, and cross-reference checking. Documents flowed
+      through inboxes, got verified, and either got sent to be retranslated, moved to another set of
+      agents' inboxes or moved to our verified done folder, all autonomous.
+    </p>
+
+    <h2>The numbers</h2>
+    <p>
+      Total: 1,081 documents. 2.2M words. 2.5 weeks. $2,495 total cost. 99% cheaper than the
+      alternative.
+    </p>
+
+    <h2>Three things I learned</h2>
+    <ul>
+      <li><strong>Agent architecture matters more than model choice.</strong> The translator/critic/arbitrator loop caught errors that a single-pass translation missed entirely. Adversarial structure forces higher quality output.</li>
+      <li><strong>Give agents real tools, not just prompts.</strong> The verification swarm worked because each agent had custom skills, OCR comparison, formatting checks, terminology validation. Agents without tools are just expensive autocomplete.</li>
+      <li><strong>The hardest part wasn't the AI, it was the formatting.</strong> Translating text is solved. Reconstructing production-ready documents with correct formatting, preserved diagrams, and proper Italian typographic conventions took 90% of the engineering time. Think of the slightly tilted scans of paper from 2010.</li>
+    </ul>
+
+    <p>
+      The era of paying $245/doc for bulk translation is over. Not because AI translation is perfect,
+      but because AI + structured verification is good enough at 1% of the cost.
+    </p>
+
+    <h2>Postscript</h2>
+    <p>
+      First thing I did when it was done: installed iTerm2. 21 panes, verifiers, warning handlers,
+      error handlers, recheckers, and a status agent reporting system health. Watching it run was the
+      most fun I've had in a terminal.
+    </p>
+  </section>
+
+  <p class="returnto"><a href="/writing/">← all writing</a></p>
+</main>
+
+<footer class="colophon">
+  Jack Homer · Bay Area<br>
+  <a href="/contact/" data-user="jack" data-domain="homerfamily.com" data-show-address>jack at homerfamily.com</a> · <a href="https://github.com/jhomer192">GitHub</a>
+</footer>
+
+<script src="/assets/common.js?v=24"></script>
+
+</body>
+</html>
