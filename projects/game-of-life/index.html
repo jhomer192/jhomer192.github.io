@@ -81,7 +81,7 @@
       and keyboard shortcuts so you can stay in the loop while it runs.
     </p>
 
-    <h2>How it works</h2>
+    <h2>Under the grid</h2>
     <ul>
       <li><strong>Typed-array grid</strong>: the board lives in a flat <code>Uint8Array</code> with a reused scratch buffer for the next generation, so each tick computes into the scratch and swaps rather than allocating, keeping the renderer steady up to 180×108 cells.</li>
       <li><strong>Toroidal neighbours</strong>: the edges wrap, so a glider that runs off the right side reappears on the left and spaceships glide forever instead of dying at a wall.</li>

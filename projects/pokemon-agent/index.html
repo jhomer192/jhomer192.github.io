@@ -87,7 +87,7 @@
       point, the same loop drives FireRed and Emerald runs side by side.
     </p>
 
-    <h2>How it works</h2>
+    <h2>One button at a time</h2>
     <ul>
       <li><strong>One press, always</strong>: <code>press(button)</code> is the whole interface to the game; no compound action exists for the model to hide behind.</li>
       <li><strong>Perceive, then decide</strong>: a vision-language model reads the frame into an observation, screen kind, dialogue, menu cursor, HP, move PP, and a stronger text model reads that observation and answers with a single button and a reason.</li>
@@ -98,7 +98,7 @@
       <li><strong>Everything is logged</strong>: each run writes a trace with one record per decision, what the model was shown, what it answered, which buttons fired, and the state before and after, and a browser panel streams the same thing live while it plays.</li>
     </ul>
 
-    <h2>Stack</h2>
+    <h2>What it's made of</h2>
     <p class="stack">Python · mGBA · Ollama, with qwen2.5vl:7b perceiving and qwen2.5:14b or qwen3.6:27b deciding. Every agent in the system runs on one machine on my own GPU: no API key, no cloud model, no per-token bill, and nothing hosted to visit. Three runs can play around the clock and the only thing they consume is electricity.</p>
 
     <p class="next"><strong>Next</strong> the rest of the Elite Four, and a window-grab host so the same loop can play games that have no emulator to read from.</p>

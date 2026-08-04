@@ -82,7 +82,7 @@
       just saw happen.
     </p>
 
-    <h2>How it works</h2>
+    <h2>What it shows you</h2>
     <ul>
       <li><strong>Plots the exact curve</strong>: the theoretical probability P(N) for group sizes from 1 to 100, with the crossover at N = 23 marked where the probability first passes a coin flip, at 50.73%.</li>
       <li><strong>Runs a live simulation</strong>: a Monte Carlo engine deals random birthdays for up to 100,000 trials and reports a running empirical estimate next to the theoretical value, so you can see how far off it is at any moment. Each trial fills a 365-slot byte array and stops at the first repeat, since one collision is all a trial is asked for.</li>
@@ -100,7 +100,7 @@
       and P(N) is one minus the probability that all N birthdays are distinct.
     </p>
 
-    <h2>Stack</h2>
+    <h2>Built with</h2>
     <p class="stack">Vite · React 18 · TypeScript (strict) · Tailwind · Recharts. Four colour themes ship with it, Tokyo Night, Miami, Matcha and Gruvbox, remembered between visits. The probability math, the simulator and the seeded sampler all live in one file, <code>src/math.ts</code>. Static bundle on GitHub Pages, so it runs entirely in the browser with no backend.</p>
 
     <div class="cta">

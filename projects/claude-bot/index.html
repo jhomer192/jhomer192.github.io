@@ -83,7 +83,7 @@
       after six consecutive turns, pauses, and pings its owner; any human message resets the count.
     </p>
 
-    <h2>How it works</h2>
+    <h2>How a message becomes a reply</h2>
     <ul>
       <li><strong>One process per bot</strong>: token, working directory, persona and conversation state all belong to the instance, so adding a second bot is running the same code against a second Discord application.</li>
       <li><strong>Three gates before the model</strong>: an integrity check drops the bot's own messages, webhook-forged ones and Discord system messages; a fail-closed allowlist refuses to start without a valid owner user ID; and an engagement rule decides whether a message deserves an answer at all, replying to mentions everywhere, to anything in a channel it has chosen to watch, and to peer bots under a cooldown.</li>
@@ -99,7 +99,7 @@
       <figcaption>A follow-up in the same thread · what the crawler actually reads, and why it takes days to show</figcaption>
     </figure>
 
-    <h2>Stack</h2>
+    <h2>Running your own</h2>
     <p class="stack">Python · discord.py · Claude Agent SDK. Each instance is a single process on a host you control, with an in-process MCP server for the Discord tools; sessions run with permissions bypassed inside the working directory, so that directory is code you are handing to a model.</p>
 
     <div class="cta">

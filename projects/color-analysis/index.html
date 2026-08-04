@@ -75,7 +75,7 @@
       and hand the result straight back.
     </p>
 
-    <h2>How it works</h2>
+    <h2>The read</h2>
     <ul>
       <li><strong>Upload one photo or several</strong>: up to five, 10 MB each, JPEG, PNG or WebP. More than one and the prompt asks Claude to reconcile them into a single read rather than analysing each. A checkbox before you run it decides whether makeup advice comes back at all.</li>
       <li><strong>Claude does the vision read</strong>: an Express server holds the uploads in memory, writes them to temp files, and spawns the Claude CLI in print mode with the <code>Read</code> tool as its only permission, handing it the file path rather than an attachment. It gets 90 seconds before it is killed.</li>
@@ -106,7 +106,7 @@
       suggestions; without it, everything else still works.
     </p>
 
-    <h2>Stack</h2>
+    <h2>Built with</h2>
     <p class="stack">React 19 · Vite 8 · TypeScript · Tailwind v4 on the frontend, with a single-file Express 5 server that drives the Claude CLI. Card export is html-to-image. No database, no auth, and the only test is a live end-to-end script that spends a real Claude call per case.</p>
 
     <div class="cta">

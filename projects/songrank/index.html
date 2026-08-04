@@ -86,7 +86,7 @@
       people open it twice.
     </p>
 
-    <h2>How it works</h2>
+    <h2>Ranking by binary insertion</h2>
     <ul>
       <li><strong>Builds the pool from five signals</strong>: 128 tracks (or 64, if you'd rather), drawn in three widening passes across your all-time top, your last six months, your last four weeks, Spotify's own recap playlists (Wrapped, On Repeat, Repeat Rewind) and the songs that recur across your own playlists. The four-week signal is deliberately capped at five tracks, because a song you found on Tuesday has not earned a place yet. Cross-release duplicates are collapsed by title and lead artist, and no more than three tracks come from one album.</li>
       <li><strong>Ranks by binary insertion into a top 25</strong>: each challenger is placed by binary search against the songs already ranked. Once the list is full its first comparison is against the current number 25, so a song that loses that one vote is out in a single tap. Measured over two thousand randomised pool orders, sorting 128 tracks takes about 380 votes, typically between 313 and 454, against roughly 900 for a full comparison sort.</li>

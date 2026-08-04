@@ -83,7 +83,7 @@
       arrives or gives up.
     </p>
 
-    <h2>How it works</h2>
+    <h2>How it picks a hop</h2>
     <ul>
       <li><strong>Greedy similarity walk</strong>, the default mode: at each page it scores the outbound links by TF-IDF cosine similarity against the target article and jumps to the best unvisited one, repeating until it lands on the goal. It is a heuristic, so the path it returns is usually not the shortest one.</li>
       <li><strong>Reads before it leaps</strong>: for every step it batch-fetches the intro extract of up to 40 candidate links, builds TF-IDF vectors over those intros plus the target, and ranks them, so the choice is based on what each page is actually about.</li>
@@ -93,7 +93,7 @@
       <li><strong>Shortest-path mode</strong>: a toggle in the toolbar swaps the walker for a bidirectional breadth-first search, which expands outward links from the start and backlinks from the target one level at a time until the two frontiers meet. It costs many more API calls, and it returns a genuine shortest path inside the depth cap.</li>
     </ul>
 
-    <h2>Stack</h2>
+    <h2>Built with</h2>
     <p class="stack">Vite · React · TypeScript, talking directly to the MediaWiki API. The TF-IDF tokenizer and sparse cosine similarity are hand-rolled, ported from an earlier Python version of the same idea, and the whole thing ships as a static site on GitHub Pages.</p>
 
     <p class="next"><strong>Not the same project as</strong> <a href="/projects/wikigame/">WikiGame</a>, the daily race a person plays by hand. That one borrows this walker to set its par.</p>

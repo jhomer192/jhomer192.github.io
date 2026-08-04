@@ -74,7 +74,7 @@
       everything you wouldn't, it handles.
     </p>
 
-    <h2>How it works</h2>
+    <h2>From a posting to a submitted application</h2>
     <ul>
       <li><strong>Talk to it in plain text</strong>: send a job URL or "find me jobs" to a Telegram bot; there are no commands or menus, and the <a href="https://github.com/jhomer192/claude-bot" target="_blank" rel="noopener">Telegram-era Claude relay</a> routes your messages to the agent and replies back.</li>
       <li><strong>Reads the posting in a real browser</strong>: Playwright opens the page, the agent parses the description, and it weighs the role against your profile the way you would on a first pass.</li>
@@ -83,7 +83,7 @@
       <li><strong>Knows where to apply</strong>: when a LinkedIn listing points to a direct Greenhouse or Lever form it follows that instead, and it dedupes URLs so you never apply to the same role twice.</li>
     </ul>
 
-    <h2>Stack</h2>
+    <h2>Running it</h2>
     <p class="stack">Claude Code · Playwright · Telegram · DigitalOcean. The agent lives in a Claude Code workspace on a ~$6/month droplet, drives forms through a headless browser, and needs a Claude Pro or Max plan as its brain, no demo to click, because it's a server tool, not a web app.</p>
 
     <p class="next"><strong>Next</strong> support for more application systems beyond Greenhouse, Lever, and Ashby.</p>

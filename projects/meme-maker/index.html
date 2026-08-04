@@ -79,17 +79,29 @@
       upload to, so a picture off your own device has nowhere else to go.
     </p>
 
-    <h2>How it works</h2>
-    <ul>
-      <li><strong>Templates come from Imgflip</strong>: the picker loads Imgflip's public list of the hundred formats people actually use, searchable by name, and the last five you opened move to the front of the grid. For anything not on that list, upload an image from your device.</li>
-      <li><strong>Captions are objects, not slots</strong>: two text boxes start on the image and you can add as many more as you like. Each holds its own text over as many lines as you type, a size from 16 to 96, a color, left, center or right alignment, and a black outline you can switch off.</li>
-      <li><strong>Drag to place</strong>: captions move under a mouse or a finger and stay clamped to the image. Positions are kept as fractions of the canvas rather than pixels, so a layout survives a template of any size.</li>
-      <li><strong>Impact, uppercased</strong>: text renders in Impact at weight 900 and every line is uppercased on the way to the canvas, the way the format expects. Font size scales against a 500-pixel reference width, so the preview and the exported file agree.</li>
-      <li><strong>Download at the template's own size</strong>: export redraws onto an offscreen canvas at the source image's real pixel dimensions and saves that as a PNG. No watermark, no sign-in, no second trip through a compressor.</li>
-      <li><strong>iPhones take a different route</strong>: Safari on iOS ignores the download attribute, so there the finished image opens full screen instead, ready for a long press and Save to Photos.</li>
-    </ul>
+    <h2>Making one</h2>
+    <p>
+      The picker loads Imgflip's public list of the hundred formats people actually use, searchable by
+      name, and the last five you opened move to the front of the grid. For anything not on that list,
+      upload an image from your device.
+    </p>
+    <p>
+      Two caption boxes start on the image and you can add as many more as you like. Each one holds its
+      own text over as many lines as you type, a size from 16 to 96, a color, left, center or right
+      alignment, and a black outline you can switch off. Captions move under a mouse or a finger and
+      stay clamped to the image, and their positions are kept as fractions of the canvas rather than
+      pixels, so a layout survives a template of any size. Text renders in Impact at weight 900 with
+      every line uppercased on the way to the canvas, the way the format expects, and font size scales
+      against a 500-pixel reference width so the preview and the exported file agree.
+    </p>
+    <p>
+      Export redraws onto an offscreen canvas at the source image's real pixel dimensions and saves
+      that as a PNG. No watermark, no sign-in, no second trip through a compressor. Safari on iOS
+      ignores the download attribute, so on an iPhone the finished image opens full screen instead,
+      ready for a long press and Save to Photos.
+    </p>
 
-    <h2>Stack</h2>
+    <h2>Built with</h2>
     <p class="stack">React 19 · TypeScript · Vite. Drawing, hit-testing and export are plain canvas 2D with no image library in the path, and a Vitest suite covers the coordinate math and the text layout. Four dark themes ship with it, Tokyo Night, Miami, Matcha and Gruvbox, remembered between visits. The build is static on GitHub Pages: template images load from Imgflip, and an uploaded image never leaves the page.</p>
 
     <div class="cta">
