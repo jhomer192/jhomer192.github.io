@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>Running Claude coding agents as Discord bots · Jack Homer</title>
+<meta name="description" content="Notes from self-hosting Claude coding agents as Discord bots: one process per bot, message filtering before the model, a watermark so restarts don't replay old requests, and a cap on bot-to-bot replies.">
+<link rel="canonical" href="https://jackhomer.com/writing/claude-bots-in-discord/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Running Claude coding agents as Discord bots">
+<meta property="og:description" content="Notes from self-hosting Claude coding agents as Discord bots: one process per bot, message filtering before the model, a watermark so restarts don't replay old requests, and a cap on bot-to-bot replies.">
+<meta property="og:url" content="https://jackhomer.com/writing/claude-bots-in-discord/">
+<meta property="article:published_time" content="2026-09-05">
+<meta property="article:author" content="Jack Homer">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:image" content="https://jackhomer.com/og/claude-bot.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Running Claude coding agents as Discord bots">
+<meta name="twitter:description" content="Notes from self-hosting Claude coding agents as Discord bots: one process per bot, message filtering before the model, a watermark so restarts don't replay old requests, and a cap on bot-to-bot replies.">
+<meta name="twitter:image" content="https://jackhomer.com/og/claude-bot.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/atlas.css?v=24">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","headline":"Running Claude coding agents as Discord bots","description":"Notes from self-hosting Claude coding agents as Discord bots: one process per bot, message filtering before the model, a watermark so restarts don't replay old requests, and a cap on bot-to-bot replies.","url":"https://jackhomer.com/writing/claude-bots-in-discord/","mainEntityOfPage":"https://jackhomer.com/writing/claude-bots-in-discord/","datePublished":"2026-09-05","dateModified":"2026-09-05","inLanguage":"en","image":"https://jackhomer.com/og/claude-bot.png","author":{"@type":"Person","@id":"https://jackhomer.com/#jack","name":"Jack Homer","url":"https://jackhomer.com","jobTitle":"Forward Deployed Engineer"},"publisher":{"@type":"Person","@id":"https://jackhomer.com/#jack","name":"Jack Homer"},"keywords":["Claude Agent SDK","Discord bot","coding agents","MCP","self-hosting"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jack Homer","item":"https://jackhomer.com"},{"@type":"ListItem","position":2,"name":"Writing","item":"https://jackhomer.com/writing/"},{"@type":"ListItem","position":3,"name":"Claude bots in Discord","item":"https://jackhomer.com/writing/claude-bots-in-discord/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <a class="brand" href="/">Jack Homer</a>
+  <ul>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/projects/">Projects</a></li>
+    <li><a href="/writing/">Writing</a></li>
+    <li><a href="/career/">Career</a></li>
+    <li><a href="/business/">Business</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</nav>
+
+<main id="main" class="chart text-plate">
+  <div class="meander-frame" aria-hidden="true">
+    <span class="strip top"></span><span class="strip bottom"></span>
+    <span class="strip left"></span><span class="strip right"></span>
+  </div>
+  <svg class="corner tl" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner tr" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner bl" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner br" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+
+  <header class="header">
+    <div class="c">
+      <h1>Claude bots in a Discord server</h1>
+      <div class="sub">What it took to keep them from misbehaving</div>
+    </div>
+  </header>
+
+  <section class="proj">
+    <div class="meta">Writing · September 2026</div>
+    <p class="tagline">Talking to the model was the small part. Most of the work was keeping a long-running bot from doing something dumb.</p>
+
+    <p>
+      <a href="/projects/claude-bot/">Claude Discord</a> is a self-hostable Claude bot for a private
+      Discord server. Each process is one bot with its own Discord token, working directory, persona,
+      and conversation state. You can run several in the same server and they can hand work to each
+      other. Here are the parts that took real effort.
+    </p>
+
+    <h2>Why Discord</h2>
+    <p>
+      A Discord server already has channels to separate work, clients on every device I own, and
+      permissions that answer who is allowed to talk to the bot. Inside a channel the bot keeps a
+      live Claude session instead of starting fresh on each message, so a channel reads like a
+      conversation instead of a series of one-off prompts.
+    </p>
+
+    <h2>Filtering before the model</h2>
+    <p>
+      Three checks run before any message costs tokens. First, drop the bot's own messages,
+      webhook-forged messages, and Discord system messages. Second, an owner allowlist; the process
+      refuses to start without a valid owner user ID. Third, an engagement rule: reply to mentions
+      anywhere, reply to anything in a channel the bot has chosen to watch, and reply to other bots
+      only under a cooldown.
+    </p>
+
+    <h2>Restarts</h2>
+    <p>
+      Early on, restarting a bot was risky. To rebuild context it replayed recent channel history,
+      and then it treated that history as new work and answered requests from days earlier instead
+      of the message that had just tagged it. The fix was a persisted watermark. On restart the
+      history is split at the watermark: everything at or before the last reply is labelled as
+      background, and only messages after it are treated as work.
+    </p>
+
+    <h2>Bots talking to bots</h2>
+    <p>
+      With more than one bot in a server they show up in the member list, mention each other by
+      name, and a bot pulled into a channel by a peer will answer there. Left alone, two of them
+      will reply to each other forever. So a bot-to-bot exchange stops after six consecutive turns,
+      pauses, and pings the owner. Any human message resets the count.
+    </p>
+
+    <h2>Session memory</h2>
+    <p>
+      Each channel gets its own <code>ClaudeSDKClient</code>, and each one uses about 190 MB while
+      warm. An LRU pool keeps three alive and evicts the least recently used one under memory
+      pressure. The one rule I had to add: never evict a session that has a turn in progress.
+    </p>
+
+    <h2>Discord tools for the model</h2>
+    <p>
+      An in-process MCP server gives the model tools for Discord itself: read any channel's history,
+      start or stop watching a channel (the watched set survives restarts), post into another
+      channel, and create, rename, move, or delete channels. This is what lets me say "make a
+      channel for the icon work and move this there" and have that be the whole instruction.
+    </p>
+
+    <h2>Smaller things</h2>
+    <p>
+      The bot posts a "working" placeholder and edits the answer into it as it streams. Long
+      answers are split at Discord's 2,000-character limit and attached as a file past 6,000.
+      <code>/stop</code> interrupts the current turn but keeps the session, so context survives a
+      cancel. Auth is an OAuth token from <code>claude setup-token</code>, so usage bills against a
+      Claude plan instead of per-token API credit.
+    </p>
+    <p>
+      Stack: Python, discord.py, and the Claude Agent SDK. Each instance is one process on a host
+      you control.
+    </p>
+  </section>
+
+  <p class="returnto"><a href="/writing/">← all writing</a></p>
+</main>
+
+<footer class="colophon">
+  Jack Homer · Bay Area<br>
+  <a href="/contact/" data-user="jack" data-domain="homerfamily.com" data-show-address>jack at homerfamily.com</a> · <a href="https://github.com/jhomer192">GitHub</a>
+</footer>
+
+<script src="/assets/common.js?v=24"></script>
+
+</body>
+</html>
