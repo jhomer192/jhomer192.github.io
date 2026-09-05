@@ -23,7 +23,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/atlas.css?v=24">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","name":"Writing","description":"Write-ups from the work: multi-agent systems, applied AI, and what actually happens when you put agents in production.","url":"https://jackhomer.com/writing/","author":{"@type":"Person","@id":"https://jackhomer.com/#jack","name":"Jack Homer","url":"https://jackhomer.com"},"hasPart":[{"@type":"BlogPosting","headline":"Restarts resume, not repeat: running Claude agents in a Discord server","url":"https://jackhomer.com/writing/restarts-resume-not-repeat/","datePublished":"2026-09-05","author":{"@id":"https://jackhomer.com/#jack"}},{"@type":"BlogPosting","headline":"Grading system-design interviews with an LLM, without an answer key","url":"https://jackhomer.com/writing/grading-without-an-answer-key/","datePublished":"2026-09-05","author":{"@id":"https://jackhomer.com/#jack"}},{"@type":"BlogPosting","headline":"One button at a time: making local models play Pokémon honestly","url":"https://jackhomer.com/writing/one-button-at-a-time/","datePublished":"2026-09-05","author":{"@id":"https://jackhomer.com/#jack"}},{"@type":"BlogPosting","headline":"A multi-agent translation pipeline: 1,081 documents at $2.31 each","url":"https://jackhomer.com/writing/multi-agent-translation/","datePublished":"2026-08-03","author":{"@id":"https://jackhomer.com/#jack"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jack Homer","item":"https://jackhomer.com"},{"@type":"ListItem","position":2,"name":"Writing","item":"https://jackhomer.com/writing/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","name":"Writing","description":"Write-ups from the work: multi-agent systems, applied AI, and what actually happens when you put agents in production.","url":"https://jackhomer.com/writing/","author":{"@type":"Person","@id":"https://jackhomer.com/#jack","name":"Jack Homer","url":"https://jackhomer.com"},"hasPart":[{"@type":"BlogPosting","headline":"Running Claude coding agents as Discord bots","url":"https://jackhomer.com/writing/claude-bots-in-discord/","datePublished":"2026-09-05","author":{"@id":"https://jackhomer.com/#jack"}},{"@type":"BlogPosting","headline":"How Backpressure grades a system-design interview","url":"https://jackhomer.com/writing/grading-system-design/","datePublished":"2026-09-05","author":{"@id":"https://jackhomer.com/#jack"}},{"@type":"BlogPosting","headline":"Letting a local model press the buttons in Pokémon","url":"https://jackhomer.com/writing/pokemon-one-button/","datePublished":"2026-09-05","author":{"@id":"https://jackhomer.com/#jack"}},{"@type":"BlogPosting","headline":"A multi-agent translation pipeline: 1,081 documents at $2.31 each","url":"https://jackhomer.com/writing/multi-agent-translation/","datePublished":"2026-08-03","author":{"@id":"https://jackhomer.com/#jack"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jack Homer","item":"https://jackhomer.com"},{"@type":"ListItem","position":2,"name":"Writing","item":"https://jackhomer.com/writing/"}]}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -62,20 +62,20 @@
 
     <h2>2026</h2>
     <p>
-      <a href="/writing/restarts-resume-not-repeat/">Restarts resume, not repeat: running Claude agents in a Discord server</a><br>
-      September 2026 · One process per bot, three gates before the model, a persisted watermark so a
-      restart doesn't answer days-old requests, and a six-turn cap on bot-to-bot loops.
+      <a href="/writing/claude-bots-in-discord/">Running Claude coding agents as Discord bots</a><br>
+      September 2026 · One process per bot, message filtering before the model, a watermark so a
+      restart doesn't answer days-old requests, and a six-turn cap on bot-to-bot replies.
     </p>
     <p>
-      <a href="/writing/grading-without-an-answer-key/">Grading system-design interviews with an LLM, without an answer key</a><br>
-      September 2026 · 108 problems, 432 rubric dimensions written as properties rather than
-      products, and a JSON schema pinned to the rubric length so the grader can't collapse the score.
+      <a href="/writing/grading-system-design/">How Backpressure grades a system-design interview</a><br>
+      September 2026 · 108 problems with four weighted rubric dimensions each, criteria written as
+      properties instead of product names, and a JSON schema pinned to the rubric length.
     </p>
     <p>
-      <a href="/writing/one-button-at-a-time/">One button at a time: making local models play Pokémon honestly</a><br>
-      September 2026 · Local models play FireRed and Emerald with exactly one action available,
-      <code>press(button)</code>. Perception split from decision, specialists that advise but never
-      press, and where the ceiling turned out to be.
+      <a href="/writing/pokemon-one-button/">Letting a local model press the buttons in Pokémon</a><br>
+      September 2026 · Local models play FireRed and Emerald with one function available,
+      <code>press(button)</code>. A vision model reads the frame, a text model picks the button,
+      helpers read game memory and only advise.
     </p>
     <p>
       <a href="/writing/multi-agent-translation/">A multi-agent translation pipeline: 1,081 documents at $2.31 each</a><br>
