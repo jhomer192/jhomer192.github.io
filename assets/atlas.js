@@ -140,11 +140,20 @@ const CONSTELLATIONS = [
           'Nothing leaves the phone: the editing is a <canvas> on your own machine, with no server and no account, and a manifest and service worker make it installable to the home screen.',
         ],
         st:'Vanilla JavaScript in one page, no framework and no bundler. Canvas 2D for the editor, a version-keyed service worker for offline use, and @imgly/background-removal pulled from a CDN only if you ask for it. Static on GitHub Pages.'},
+      {nm:'Apartment Finder',   g:'invite-only SF rental search', m:2, k:'gated', cx:560, cy:130, url:'https://5-78-207-54.sslip.io', src:GH+'/apartment-finder', img:'/screenshots/apartment-finder.webp', page:'/projects/apartment-finder/',
+        d:'A private, password-protected apartment search for one group of roommates hunting in San Francisco. It crawls the rental sites nightly, scores every listing for scam risk with reasons you can read, and lets you ask Claude about the whole inventory in plain English.',
+        hi:[
+          'Invite-only: an allowlist of five email addresses is the whole user base. First sign-in is an emailed link; after that a password. Nobody else gets a login page that does anything.',
+          'Scam signals you can audit: photo count, address shape, the same address reposted cheaper, the same lead photo under two addresses, rent far below the neighborhood median. Every card shows which checks it passed, not just a number.',
+          'Honest neighborhood context: DataSF incidents per 100k residents, nearest BART / Muni / Caltrain stop as a straight-line distance, SFMTA metered parking nearby. No invented safety grade and no invented commute minutes; commute hands off to Google Maps.',
+          'Shared by the house: saved listings, notes, tour times with overlap warnings, standing rules (neighborhoods the group has ruled out), and a listing disappears once three roommates thumbs-down it.',
+        ],
+        st:'React · TypeScript · Vite · Express · SQLite · Leaflet · Claude Code (claude -p). Nightly crawl of Redfin, ApartmentList, Zumper and Rent.com into SQLite on a VPS. Source is public; the app itself is invite-only and password protected.'},
     ],
     // The Builder's Loom: outer frame (top beam, posts, bottom beam) + inner warp threads.
     // WikiGame (13) sits on the top beam between 1 and 2, and Sticker Maker (14) on the
     // bottom beam between 8 and 7, so both beams still read straight.
-    edges:[[0,1],[1,13],[13,2],[2,4],[4,8],[8,14],[14,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12],[13,12]],
+    edges:[[0,1],[1,13],[13,2],[2,4],[4,8],[8,14],[14,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12],[13,12],[0,15],[15,10]],
     conj:[[9,1]] },
 
   { id:'corona-laboris', name:'Corona Laboris', sub:'Day Work', section:'/career/',
@@ -189,6 +198,7 @@ const KIND_LABEL = {
   demo:    'Live · open to the public',
   src:     'Source only · no public demo',
   priv:    'Private · self-hosted, no public repo',
+  gated:   'Invite-only · password protected, source on GitHub',
   work:    'Day job · no public link',
   service: 'Service offering',
 };
@@ -336,7 +346,7 @@ function buildConstellation(c, cam, onStarClick){
   c.stars.forEach((s,i)=>{
     const left = labelLeft[i];
     const sg = document.createElementNS(SVGNS,'g');
-    const hollow = (s.k==='src'||s.k==='priv');
+    const hollow = (s.k==='src'||s.k==='priv'||s.k==='gated');
     sg.setAttribute('class','star m'+s.m+(hollow?' src':'')+(left?' right':' left'));
     // role=button, not link: activating a star opens an in-place card (or, on the
     // overview, zooms its constellation) — it never navigates to a URL.
@@ -490,7 +500,7 @@ function openCard(s, greek){
   if(s.st){ stack.textContent = s.st; stack.style.display=''; } else stack.style.display='none';
   const links = o.querySelector('.links'); links.innerHTML = '';
   if(s.page){links.innerHTML += `<a href="${s.page}" data-umami-event="card-link" data-umami-event-target="${s.nm}-page">full write-up →</a>`;}
-  if(s.url){links.innerHTML += `<a href="${s.url}" target="_blank" rel="noopener" data-umami-event="card-link" data-umami-event-target="${s.nm}-demo">visit ↗</a>`;}
+  if(s.url){links.innerHTML += `<a href="${s.url}" target="_blank" rel="noopener" data-umami-event="card-link" data-umami-event-target="${s.nm}-demo">${s.k==='gated'?'sign in ↗':'visit ↗'}</a>`;}
   if(s.src){links.innerHTML += `<a href="${s.src}" target="_blank" rel="noopener" data-umami-event="card-link" data-umami-event-target="${s.nm}-src">source ↗</a>`;}
   o.querySelector('.kind').textContent = KIND_LABEL[s.k] || '';
   o.classList.add('open');
