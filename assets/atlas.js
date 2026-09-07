@@ -140,11 +140,20 @@ const CONSTELLATIONS = [
           'Nothing leaves the phone: the editing is a <canvas> on your own machine, with no server and no account, and a manifest and service worker make it installable to the home screen.',
         ],
         st:'Vanilla JavaScript in one page, no framework and no bundler. Canvas 2D for the editor, a version-keyed service worker for offline use, and @imgly/background-removal pulled from a CDN only if you ask for it. Static on GitHub Pages.'},
+      {nm:'Hanabi',            g:'invite-only Hanabi for iPhone', m:2, k:'invite', cx:565, cy:135, url:'https://hanabi.5-78-207-54.sslip.io', img:'/screenshots/hanabi.webp', page:'/projects/hanabi/',
+        d:'The cooperative fireworks card game, built for a phone screen and a private group of friends. Password-protected: you can only get in with an emailed invite, and every sign-in is a one-time link, so there is nothing to browse without one.',
+        hi:[
+          'Invite only, by email: an allowlist decides who may sign in at all, and the only credential is a one-time magic link that expires. No passwords to leak, no public sign-up, and revoking an address kills its sessions.',
+          'The real rules, plus the expansions: three 1s down to one 5 per colour, clues that must touch a card, three strikes and out, one last round after the deck runs dry. Multicolor as a sixth suit, one-of-each, or wild, and the 5 Flamboyants tiles, are each a toggle at the table.',
+          'Claude at the table: bots fill empty seats and reason about the shared information before they act. Each has a play style, cautious to chaotic, or a paragraph of your own instructions, or it can study a friend\'s finished games and imitate how they play.',
+          'Every game is a record: turn order and who did what are logged as they happen, then a post-game review scores each player\'s clue efficiency, risky plays and discards of critical cards and has Claude coach the table on what to do differently.',
+        ],
+        st:'React 19 · TypeScript · Vite · Tailwind v4 · Express · SQLite · WebSockets · Claude Code. Self-hosted behind Caddy with hashed tokens, signed HttpOnly cookies, rate limits and same-origin checks on every write.'},
     ],
     // The Builder's Loom: outer frame (top beam, posts, bottom beam) + inner warp threads.
     // WikiGame (13) sits on the top beam between 1 and 2, and Sticker Maker (14) on the
     // bottom beam between 8 and 7, so both beams still read straight.
-    edges:[[0,1],[1,13],[13,2],[2,4],[4,8],[8,14],[14,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12],[13,12]],
+    edges:[[0,1],[1,13],[13,2],[2,4],[4,8],[8,14],[14,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12],[13,12],[0,15],[15,10]],
     conj:[[9,1]] },
 
   { id:'corona-laboris', name:'Corona Laboris', sub:'Day Work', section:'/career/',
@@ -189,6 +198,7 @@ const KIND_LABEL = {
   demo:    'Live · open to the public',
   src:     'Source only · no public demo',
   priv:    'Private · self-hosted, no public repo',
+  invite:  'Password-protected · invite-only, sign in by emailed link',
   work:    'Day job · no public link',
   service: 'Service offering',
 };
