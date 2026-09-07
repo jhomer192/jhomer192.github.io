@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>Letting a local model press the buttons in Pokémon · Jack Homer</title>
+<meta name="description" content="Notes from running local models through Pokémon FireRed and Emerald where the model's only action is pressing a button. Vision model, deciding model, memory-reading helpers, and what broke.">
+<link rel="canonical" href="https://jackhomer.com/writing/pokemon-one-button/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Letting a local model press the buttons in Pokémon">
+<meta property="og:description" content="Notes from running local models through Pokémon FireRed and Emerald where the model's only action is pressing a button. Vision model, deciding model, memory-reading helpers, and what broke.">
+<meta property="og:url" content="https://jackhomer.com/writing/pokemon-one-button/">
+<meta property="article:published_time" content="2026-09-05">
+<meta property="article:author" content="Jack Homer">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:image" content="https://jackhomer.com/og/pokemon-agent.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Letting a local model press the buttons in Pokémon">
+<meta name="twitter:description" content="Notes from running local models through Pokémon FireRed and Emerald where the model's only action is pressing a button. Vision model, deciding model, memory-reading helpers, and what broke.">
+<meta name="twitter:image" content="https://jackhomer.com/og/pokemon-agent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/atlas.css?v=24">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","headline":"Letting a local model press the buttons in Pokémon","description":"Notes from running local models through Pokémon FireRed and Emerald where the model's only action is pressing a button. Vision model, deciding model, memory-reading helpers, and what broke.","url":"https://jackhomer.com/writing/pokemon-one-button/","mainEntityOfPage":"https://jackhomer.com/writing/pokemon-one-button/","datePublished":"2026-09-05","dateModified":"2026-09-05","inLanguage":"en","image":"https://jackhomer.com/og/pokemon-agent.png","author":{"@type":"Person","@id":"https://jackhomer.com/#jack","name":"Jack Homer","url":"https://jackhomer.com","jobTitle":"Forward Deployed Engineer"},"publisher":{"@type":"Person","@id":"https://jackhomer.com/#jack","name":"Jack Homer"},"keywords":["LLM agents","multi-agent systems","local models","Ollama","Pokémon","mGBA"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jack Homer","item":"https://jackhomer.com"},{"@type":"ListItem","position":2,"name":"Writing","item":"https://jackhomer.com/writing/"},{"@type":"ListItem","position":3,"name":"Pokémon, one button at a time","item":"https://jackhomer.com/writing/pokemon-one-button/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <a class="brand" href="/">Jack Homer</a>
+  <ul>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/projects/">Projects</a></li>
+    <li><a href="/writing/">Writing</a></li>
+    <li><a href="/career/">Career</a></li>
+    <li><a href="/business/">Business</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</nav>
+
+<main id="main" class="chart text-plate">
+  <div class="meander-frame" aria-hidden="true">
+    <span class="strip top"></span><span class="strip bottom"></span>
+    <span class="strip left"></span><span class="strip right"></span>
+  </div>
+  <svg class="corner tl" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner tr" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner bl" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner br" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+
+  <header class="header">
+    <div class="c">
+      <h1>One button at a time</h1>
+      <div class="sub">Local models playing Pokémon FireRed and Emerald</div>
+    </div>
+  </header>
+
+  <section class="proj">
+    <div class="meta">Writing · September 2026</div>
+    <p class="tagline">The model gets one function: press(button). I wanted to see how far that goes.</p>
+
+    <p>
+      There are a lot of demos of language models playing Pokémon. Most of them hand the model
+      high-level functions like "fight this battle" or "walk to the next gym," and the model calls
+      them in order. That works, and it is a fair way to build a product, but it mostly tests the
+      person who wrote the functions. I wanted to test the model. So in my
+      <a href="/projects/pokemon-agent/">Pokémon agent</a> the model has one function,
+      <code>press(button)</code>, and nothing else. There is no macro for a battle turn, a menu, or
+      a route. If the character walks across Kanto, every step was a press the model asked for.
+    </p>
+
+    <h2>Two models, plus helpers</h2>
+    <p>
+      One model can't do this alone at the sizes I can run at home. The 7B vision model
+      (<code>qwen2.5vl:7b</code>) is fine at reading a frame and bad at planning. The 14B and 27B
+      text models (<code>qwen2.5:14b</code>, <code>qwen3.6:27b</code>) plan reasonably and can't see
+      pixels. So the vision model's job is to turn the frame into a short structured description:
+      what kind of screen this is, any dialogue text, where the menu cursor is, HP, move PP. The
+      text model reads that description and replies with a button and a sentence saying why.
+    </p>
+    <p>
+      Around those two there are a few helper agents that read the emulator's memory for things a
+      screenshot doesn't show. One computes a route through the current map, because the barriers
+      are drawn at load time and the vision model can't reliably tell a ledge from a path. One
+      derives a level cap from the next major trainer's party data. One scores catches and party
+      composition. One checks whether the wild Pokémon on screen is shiny, which is a 1 in 8192
+      event you would otherwise miss.
+    </p>
+    <p>
+      All of that is delivered as text in the observation, and the deciding model can ignore it.
+      The helpers never press anything. I audited a run to see where presses came from and about
+      99% were the deciding model. The rest were bookkeeping the game forces on you, like advancing
+      a text box that repeats.
+    </p>
+
+    <h2>The rule I kept wanting to break</h2>
+    <p>
+      When the model walks into the same wall twelve times in a row, the obvious fix is to let the
+      pathfinder take the controller for a few steps. I did that more than once. Each time the run
+      went better and the experiment got less interesting, because now I was measuring my
+      pathfinder. I ended up with a firm line: pathfinding, battle state, and level caps are advice
+      in the prompt. Move choice, switching, healing, and where to walk are the model's.
+    </p>
+    <p>
+      Keeping the harness dumb had a side benefit. Nothing in it knows which cartridge is loaded, so
+      the same code runs FireRed and Emerald at the same time. I run three instances, and they
+      relaunch themselves if a run gets stuck.
+    </p>
+
+    <h2>Logging</h2>
+    <p>
+      A run takes days. Nobody is going to sit and watch it. Every line of dialogue the game prints
+      is logged, and every decision writes one record: what the model was shown, what it answered,
+      which buttons fired, and the game state before and after. There is a browser panel that
+      streams the same data live, but I mostly use the trace afterwards to figure out why a run
+      stalled.
+    </p>
+
+    <h2>Results so far</h2>
+    <p>
+      It has beaten Brock from the start of the game, and it has beaten Lorelei of the Elite Four
+      with all six party members still standing. Before that Lorelei win there was a loss where the
+      14B model stayed in a bad matchup too long and lost a Pokémon it should have switched out.
+      Swapping to the 27B model fixed it. I didn't change the harness. That is the result I was
+      hoping for: when it fails, it fails because the model isn't deep enough, and a better model
+      fixes it.
+    </p>
+
+    <h2>Cost</h2>
+    <p>
+      Python, mGBA, and Ollama, all on one machine with my own GPU. No API key and no per-token
+      bill; the running cost is electricity. This matters more than it sounds. A decision per frame
+      over a multi-day run would be expensive against a hosted API, and I would have been tempted
+      to add macros just to cut the bill.
+    </p>
+  </section>
+
+  <p class="returnto"><a href="/writing/">← all writing</a></p>
+</main>
+
+<footer class="colophon">
+  Jack Homer · Bay Area<br>
+  <a href="/contact/" data-user="jack" data-domain="homerfamily.com" data-show-address>jack at homerfamily.com</a> · <a href="https://github.com/jhomer192">GitHub</a>
+</footer>
+
+<script src="/assets/common.js?v=24"></script>
+
+</body>
+</html>
