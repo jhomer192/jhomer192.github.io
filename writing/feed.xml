@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-maintained, like sitemap-apps.xml. Add an <item> per new write-up. -->
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Jack Homer — Writing</title>
+  <link>https://jackhomer.com/writing/</link>
+  <atom:link href="https://jackhomer.com/writing/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Write-ups from the work: multi-agent systems, applied AI, and what actually happens when you put agents in production.</description>
+  <language>en-us</language>
+  <item>
+    <title>A multi-agent translation pipeline: 1,081 documents at $2.31 each</title>
+    <link>https://jackhomer.com/writing/multi-agent-translation/</link>
+    <guid isPermaLink="true">https://jackhomer.com/writing/multi-agent-translation/</guid>
+    <pubDate>Mon, 03 Aug 2026 00:00:00 GMT</pubDate>
+    <description>1,081 documents translated English to Italian in 2.5 weeks for $2,495 total, with a translator/critic/arbitrator loop, against a $245-per-document vendor quote.</description>
+  </item>
+</channel>
+</rss>
