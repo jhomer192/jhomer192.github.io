@@ -63,7 +63,7 @@
 
     <figure class="media">
       <img src="/screenshots/apartment-finder.webp" alt="Apartment Finder screenshot" width="1280" height="640" decoding="async">
-      <figcaption>The list view · filter pills, scam badge, and the map alongside</figcaption>
+      <figcaption>Signed in · Ask Claude up top, filter pills, photo cards and the map alongside</figcaption>
     </figure>
 
     <p>
@@ -87,6 +87,16 @@
       <li><strong>Claude over the inventory</strong>: natural-language questions are answered by Claude reading the stored listings through a fixed set of tools, so it ranks and filters real rows and says so when a constraint (pet policy, say) isn't something any source publishes.</li>
       <li><strong>Shared by the house</strong>: saved listings with notes and tour times (with overlap warnings), standing rules like neighborhoods the group has ruled out, named share groups, and a listing drops out of the feed once three roommates thumbs-down it.</li>
     </ul>
+
+    <figure class="media">
+      <img src="/screenshots/apartment-finder-detail.webp" alt="Two listing cards expanded to show the scam checks each passed, a street-level map, and the nearest Muni stop" width="1280" height="640" loading="lazy" decoding="async">
+      <figcaption>Details open · every check the listing passed, the block on a map, the nearest train</figcaption>
+    </figure>
+
+    <figure class="media">
+      <img src="/screenshots/apartment-finder-cards.webp" alt="Photo-led listing cards beside a map with price pins" width="1280" height="640" loading="lazy" decoding="async">
+      <figcaption>Browsing · photo cards on the left, price pins on the right</figcaption>
+    </figure>
 
     <h2>What it's made of</h2>
     <p class="stack">React · TypeScript · Vite · Tailwind · Leaflet on the front; Express · SQLite (better-sqlite3) · Node 22 on the back; Claude Code (<code>claude -p</code>) for the assistant. One process on a VPS behind HTTPS, nightly crawl in-process, secrets in the environment and never in the repo. Listing text is treated as hostile input end to end.</p>
