@@ -140,6 +140,15 @@ const CONSTELLATIONS = [
           'Nothing leaves the phone: the editing is a <canvas> on your own machine, with no server and no account, and a manifest and service worker make it installable to the home screen.',
         ],
         st:'Vanilla JavaScript in one page, no framework and no bundler. Canvas 2D for the editor, a version-keyed service worker for offline use, and @imgly/background-removal pulled from a CDN only if you ask for it. Static on GitHub Pages.'},
+      {nm:'Tabletop Portal',   g:'where to play 92 board games online', m:2, k:'demo', cx:600, cy:95, url:D+'/board-game-portal/', src:GH+'/board-game-portal', img:'/screenshots/board-game-portal.webp', page:'/projects/board-game-portal/',
+        d:'A directory of 92 board games you can play online right now. Search and filter by player count, play time, complexity and price, read a short write-up of each, then jump straight to the site that runs it best. It hosts no games itself.',
+        hi:[
+          'Ninety-two games across ten categories, from Codenames and Avalon to Azul and Catan, each with its player range, the counts it is best at, minutes per game and a 1 to 5 complexity rating.',
+          'Every place to play a game, best one first. A test suite keeps the catalog honest: https links only, at least one per game, and recommended counts inside the player range.',
+          'Discover mode: say how many of you there are and how long you have; it shuffles the matches and puts the games that are best at exactly your count on top.',
+          'A spotlight game that changes daily, shelves such as "bluffing and betrayal" and "just the two of you", and a screenshot of the destination site so nothing is a surprise.',
+        ],
+        st:'React 19 · TypeScript · Vite · Tailwind CSS v4. Client-only, no backend, no accounts; the catalog is a typed module with a Vitest suite. Static on GitHub Pages.'},
       {nm:'Apartment Finder',   g:'invite-only SF rental search', m:2, k:'gated', cx:560, cy:130, url:'https://5-78-207-54.sslip.io', src:GH+'/apartment-finder', img:'/screenshots/apartment-finder.webp', page:'/projects/apartment-finder/',
         d:'A private, password-protected apartment search for one group of roommates hunting in San Francisco. It crawls the rental sites nightly, scores every listing for scam risk with reasons you can read, and lets you ask Claude about the whole inventory in plain English.',
         hi:[
@@ -162,7 +171,7 @@ const CONSTELLATIONS = [
     // The Builder's Loom: outer frame (top beam, posts, bottom beam) + inner warp threads.
     // WikiGame (13) sits on the top beam between 1 and 2, and Sticker Maker (14) on the
     // bottom beam between 8 and 7, so both beams still read straight.
-    edges:[[0,1],[1,13],[13,2],[2,4],[4,8],[8,14],[14,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12],[13,12],[0,15],[15,10],[15,16]],
+    edges:[[0,1],[1,13],[13,2],[2,4],[4,8],[8,14],[14,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12],[13,12],[0,16],[16,10],[16,17],[1,15],[15,16]],
     conj:[[9,1]] },
 
   { id:'corona-laboris', name:'Corona Laboris', sub:'Day Work', section:'/career/',
