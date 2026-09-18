@@ -1,0 +1,1 @@
+- Gather available analytics and browser data directly; do not assign Jack exports or research when he asks for autonomous implementation.

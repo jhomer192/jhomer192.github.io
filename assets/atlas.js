@@ -140,10 +140,10 @@ const CONSTELLATIONS = [
           'Nothing leaves the phone: the editing is a <canvas> on your own machine, with no server and no account, and a manifest and service worker make it installable to the home screen.',
         ],
         st:'Vanilla JavaScript in one page, no framework and no bundler. Canvas 2D for the editor, a version-keyed service worker for offline use, and @imgly/background-removal pulled from a CDN only if you ask for it. Static on GitHub Pages.'},
-      {nm:'Tabletop Portal',   g:'where to play 92 board games online', m:2, k:'demo', cx:600, cy:95, url:D+'/board-game-portal/', src:GH+'/board-game-portal', img:'/screenshots/board-game-portal.webp', page:'/projects/board-game-portal/',
-        d:'A directory of 92 board games you can play online right now. Search and filter by player count, play time, complexity and price, read a short write-up of each, then jump straight to the site that runs it best. It hosts no games itself.',
+      {nm:'Tabletop Portal',   g:'where to play board games online', m:2, k:'demo', cx:600, cy:95, url:D+'/board-game-portal/', src:GH+'/board-game-portal', img:'/screenshots/board-game-portal.webp', page:'/projects/board-game-portal/',
+        d:'A directory of board games you can play online right now. Search and filter by player count, play time, complexity and price, read a short write-up of each, then jump straight to the site that runs it best. It hosts no games itself.',
         hi:[
-          'Ninety-two games across ten categories, from Codenames and Avalon to Azul and Catan, each with its player range, the counts it is best at, minutes per game and a 1 to 5 complexity rating.',
+          'Games across ten categories, from Codenames and Avalon to Azul and Catan, each with its player range, the counts it is best at, minutes per game and a 1 to 5 complexity rating.',
           'Every place to play a game, best one first. A test suite keeps the catalog honest: https links only, at least one per game, and recommended counts inside the player range.',
           'Discover mode: say how many of you there are and how long you have; it shuffles the matches and puts the games that are best at exactly your count on top.',
           'A spotlight game that changes daily, shelves such as "bluffing and betrayal" and "just the two of you", and a screenshot of the destination site so nothing is a surprise.',
