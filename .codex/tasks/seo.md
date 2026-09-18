@@ -43,5 +43,8 @@ Portfolio: 30 HTML entry pages checked for metadata, headings, structured data a
 | polygon-stickers | `b850e93` |
 | board-game-portal | `ca9fe13` |
 
-## Publication boundary
+## Publication boundary (superseded by authorization below)
 No commits have been pushed and no site has been deployed. The accepted plan reserved publication for final approval. When authorized, check remote heads for concurrent changes before publishing. Six apps have Pages workflows supporting main (Connections, WikiGame, Game of Life, Nuzlocke, Clocktower, Songrank); the other apps use branch-based/static publication and must follow their own Pages configuration. Never run deploy scripts as a test. Verify actual deployed HTML and app behavior afterward; then use Search Console directly for measurement. Do not ask Jack to export analytics.
+
+## Authorized publication — 2026-09-18
+Jack explicitly authorized pushing and deploying all prepared changes and prioritized the bare-name query “Jack Homer.” Publish current source/artifacts, verify every live app and portfolio page, inspect the homepage in Search Console and request indexing after deployment, and check existing identity links. Do not claim or guarantee a #1 ranking. No outreach messages are authorized.

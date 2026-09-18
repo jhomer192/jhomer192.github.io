@@ -1,1 +1,2 @@
 - Gather available analytics and browser data directly; do not assign Jack exports or research when he asks for autonomous implementation.
+- Once Jack authorizes publishing, carry source pushes, deployments, live verification, and indexing submissions through without asking him to reconfirm each step.
