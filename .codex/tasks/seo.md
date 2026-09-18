@@ -48,3 +48,35 @@ No commits have been pushed and no site has been deployed. The accepted plan res
 
 ## Authorized publication — 2026-09-18
 Jack explicitly authorized pushing and deploying all prepared changes and prioritized the bare-name query “Jack Homer.” Publish current source/artifacts, verify every live app and portfolio page, inspect the homepage in Search Console and request indexing after deployment, and check existing identity links. Do not claim or guarantee a #1 ranking. No outreach messages are authorized.
+
+## Published and verified — 2026-09-18
+The portfolio and all 11 applications are published. Every app returns HTTP 200 with the new static guide and correct self-canonical; referenced local styles/scripts load. Live portfolio desktop/mobile checks pass with working chart/list navigation, no horizontal overflow, and no page errors. Source changes and generated artifact publications preserved remote work. Public GitHub profile already names Jack Homer and links to jackhomer.com; all 11 project READMEs now explicitly link the author name to the personal homepage. App sitemap lastmod dates now match the actual 2026-09-18 content changes.
+
+Successful deployment runs:
+- Portfolio: 35402946662
+- Connections Maker: 35402913010
+- Wikipedia Game Solver: 35402942950
+- WikiGame: 35402917819
+- Birthday Paradox: 35402965998
+- Game of Life: 35402997815
+- Meme Generator: 35402970934
+- Nuzlocke Tracker: 35402947910
+- Clocktower: 35402932735
+- Songrank: 35402935352
+- Sticker Maker: 35402940408
+- Tabletop Portal: 35402965215
+
+Search Console exact-query baseline for “jack homer” (2026-07-27–2026-09-16): 1 click, 10 impressions, 10% CTR, average position 21.5. This is a small historical sample, not a new ranking measurement. Homepage inspection says “URL is on Google”; the live test passed with “URL is available to Google” and “Page can be indexed.” Manual indexing requests failed twice with Google's “Oops! Something went wrong” / “We had a problem submitting your indexing request. Please try again later.” No successful queue submission is claimed. Existing successful sitemaps remain available for normal discovery; Google controls recrawl timing and rankings.
+
+Author-link source commits:
+- connections-maker: `01ca388`
+- wikipedia-game-solver: `a2757cb`
+- wikigame: `d286e2d`
+- birthday-paradox: `8931677`
+- game-of-life: `c1c7ad6`
+- meme-generator: `39d4b28`
+- nuzlocke-tracker: `a9ed90f`
+- clocktower: `f57ba09`
+- songrank: `6bab3be`
+- polygon-stickers: `b41c3db`
+- board-game-portal: `615336b`
