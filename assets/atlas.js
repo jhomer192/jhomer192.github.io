@@ -159,7 +159,7 @@ const CONSTELLATIONS = [
         ],
         st:'React · TypeScript · Vite · Express · SQLite · Leaflet · Claude Code (claude -p). Nightly crawl of Redfin, ApartmentList, Zumper and Rent.com into SQLite on a VPS. Source is public; the app itself is invite-only and password protected.'},
       {nm:'Hanabi',            g:'invite-only Hanabi for iPhone', m:2, k:'invite', cx:520, cy:172, url:'https://hanabi.5-78-207-54.sslip.io', img:'/screenshots/hanabi.webp', page:'/projects/hanabi/',
-        d:'The cooperative fireworks card game, built for a phone screen and a private group of friends. Password-protected: you can only get in with an emailed invite, and every sign-in is a one-time link, so there is nothing to browse without one.',
+        d:'The cooperative fireworks card game, built for a phone screen and a private group of friends. Private: you can only get in with an emailed invite, and every sign-in is a one-time link, so there is nothing to browse without one.',
         hi:[
           'Invite only, by email: an allowlist decides who may sign in at all, and the only credential is a one-time magic link that expires. No passwords to leak, no public sign-up, and revoking an address kills its sessions.',
           'The real rules, plus the expansions: three 1s down to one 5 per colour, clues that must touch a card, three strikes and out, one last round after the deck runs dry. Multicolor as a sixth suit, one-of-each, or wild, and the 5 Flamboyants tiles, are each a toggle at the table.',
@@ -217,7 +217,7 @@ const KIND_LABEL = {
   src:     'Source only · no public demo',
   priv:    'Private · self-hosted, no public repo',
   gated:   'Invite-only · password protected, source on GitHub',
-  invite:  'Password-protected · invite-only, sign in by emailed link',
+  invite:  'Invite-only · sign in by emailed link',
   work:    'Day job · no public link',
   service: 'Service offering',
 };
