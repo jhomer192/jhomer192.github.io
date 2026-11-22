@@ -28,11 +28,11 @@
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="alternate" type="application/rss+xml" title="Jack Homer — Writing" href="/writing/feed.xml">
 <meta name="google-site-verification" content="uqu1S1lRDaHecIeFyDVp5veulLDtZOlgJMWbreIkkxQ" />
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://jackhomer.com/#jack","name":"Jack Homer","givenName":"Jack","familyName":"Homer","image":"https://jackhomer.com/og.png","mainEntityOfPage":"https://jackhomer.com/about/","url":"https://jackhomer.com","jobTitle":"Forward Deployed Engineer","worksFor":{"@type":"Organization","@id":"https://jackhomer.com/#c3ai","name":"C3 AI","url":"https://c3.ai","sameAs":["https://en.wikipedia.org/wiki/C3.ai","https://www.linkedin.com/company/c3-ai"],"address":{"@type":"PostalAddress","addressLocality":"Redwood City","addressRegion":"CA","addressCountry":"US"}},"alumniOf":{"@type":"CollegeOrUniversity","name":"Virginia Tech","url":"https://vt.edu"},"sameAs":["https://github.com/jhomer192","https://www.linkedin.com/in/jack-homer-407105217","https://www.instagram.com/jack.homerr/","https://dev.to/jackhomer","https://gravatar.com/jackhomer","https://hashnode.com/@jackhomer","https://jackhomer.hashnode.dev"],"knowsAbout":["Forward Deployed Engineering","Applied AI","Multi-agent systems","Large language models","Software Engineering","TypeScript","Python","React"],"homeLocation":{"@type":"Place","address":{"@type":"PostalAddress","addressLocality":"Menlo Park","addressRegion":"CA","addressCountry":"US"}},"workLocation":{"@type":"Place","name":"C3 AI","address":{"@type":"PostalAddress","addressLocality":"Redwood City","addressRegion":"CA","addressCountry":"US"}},"address":{"@type":"PostalAddress","addressLocality":"Menlo Park","addressRegion":"CA","addressCountry":"US"}},{"@type":"WebSite","@id":"https://jackhomer.com/#site","url":"https://jackhomer.com","name":"Jack Homer","description":"Jack Homer is a Forward Deployed Engineer at C3 AI, technical lead on U.S. Marine Corps enterprise AI programs. Multi-agent systems and agentic tooling.","inLanguage":"en","publisher":{"@id":"https://jackhomer.com/#jack"}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://jackhomer.com/#jack","name":"Jack Homer","disambiguatingDescription":"Software engineer; Forward Deployed Engineer at C3 AI (GitHub jhomer192)","givenName":"Jack","familyName":"Homer","image":"https://jackhomer.com/og.png","mainEntityOfPage":"https://jackhomer.com/about/","url":"https://jackhomer.com","jobTitle":"Forward Deployed Engineer","worksFor":{"@type":"Organization","@id":"https://jackhomer.com/#c3ai","name":"C3 AI","url":"https://c3.ai","sameAs":["https://en.wikipedia.org/wiki/C3.ai","https://www.linkedin.com/company/c3-ai"],"address":{"@type":"PostalAddress","addressLocality":"Redwood City","addressRegion":"CA","addressCountry":"US"}},"alumniOf":{"@type":"CollegeOrUniversity","name":"Virginia Tech","url":"https://vt.edu"},"sameAs":["https://github.com/jhomer192","https://www.linkedin.com/in/jack-homer-407105217","https://www.instagram.com/jack.homerr/","https://dev.to/jackhomer","https://gravatar.com/jackhomer","https://hashnode.com/@jackhomer","https://jackhomer.hashnode.dev"],"knowsAbout":["Forward Deployed Engineering","Applied AI","Multi-agent systems","Large language models","Software Engineering","TypeScript","Python","React"],"homeLocation":{"@type":"Place","address":{"@type":"PostalAddress","addressLocality":"Menlo Park","addressRegion":"CA","addressCountry":"US"}},"workLocation":{"@type":"Place","name":"C3 AI","address":{"@type":"PostalAddress","addressLocality":"Redwood City","addressRegion":"CA","addressCountry":"US"}},"address":{"@type":"PostalAddress","addressLocality":"Menlo Park","addressRegion":"CA","addressCountry":"US"}},{"@type":"WebSite","@id":"https://jackhomer.com/#site","url":"https://jackhomer.com","name":"Jack Homer","description":"Jack Homer is a Forward Deployed Engineer at C3 AI, technical lead on U.S. Marine Corps enterprise AI programs. Multi-agent systems and agentic tooling.","inLanguage":"en","publisher":{"@id":"https://jackhomer.com/#jack"}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/atlas.css?v=28">
+<link rel="stylesheet" href="/assets/atlas.css?v=32">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
 </head>
 <body>
@@ -65,6 +65,7 @@
       <h1>Jack Homer</h1>
       <div class="sub">Software engineer · Bay Area</div>
       <button id="viewtoggle" class="viewtoggle" type="button" aria-pressed="false">View as list →</button>
+      <div id="filterbar" class="filterbar" role="group" aria-label="Filter projects" hidden></div>
     </div>
   </header>
 
@@ -95,7 +96,7 @@
     </ul>
 
     <h3>Side projects</h3>
-    <ul class="ix">
+    <ul class="ix" data-filterable>
       <li><a href="/songrank/">Songrank</a>, Spotify song ranking with adaptive comparisons and bracket export. <a class="ix-more" href="/projects/songrank/">write-up</a></li>
       <li><a href="/wikigame/">WikiGame</a>, daily Wikipedia race: the same two articles for everyone, 1,822 curated challenges, and a bot that sets the par. <a class="ix-more" href="/projects/wikigame/">write-up</a></li>
       <li><a href="/wikipedia-game-solver/">Wikipedia Game Solver</a>, walks the links from one article to another by text similarity, or runs a bidirectional search for the shortest path. <a class="ix-more" href="/projects/wikipedia-game-solver/">write-up</a></li>
@@ -105,8 +106,12 @@
       <li><a href="/connections-maker/">Connections Maker</a>, build-your-own NYT Connections, shared in a link. <a class="ix-more" href="/projects/connections-maker/">write-up</a></li>
       <li><a href="/game-of-life/">Game of Life</a>, Conway's Game of Life in the browser. <a class="ix-more" href="/projects/game-of-life/">write-up</a></li>
       <li><a href="/birthday-paradox/">Birthday Paradox</a>, interactive probability visualizer. <a class="ix-more" href="/projects/birthday-paradox/">write-up</a></li>
-      <li><a href="/polygon-stickers/">Sticker Maker</a>, turn a photo into an iOS sticker in the browser: cut the background out on your phone, save it to Photos, and iOS lifts it into the sticker drawer. <a class="ix-more" href="/projects/polygon-stickers/">write-up</a></li>
+      <li><a href="/polygon-stickers/">Polygon Stickers</a>, turn a photo into an iOS sticker in the browser: cut the background out on your phone, save it to Photos, and iOS lifts it into the sticker drawer. <a class="ix-more" href="/projects/polygon-stickers/">write-up</a></li>
       <li><a href="/board-game-portal/">Tabletop Portal</a>, a directory of board games you can play online, filtered by player count, time, and complexity, each linking to the best existing implementation. <a class="ix-more" href="/projects/board-game-portal/">write-up</a></li>
+      <li><a href="https://callit.jackhomer.com">Call It</a>, prediction markets for a group of friends, played with points instead of money; sign up with a phone number and invite people by link. <a class="ix-more" href="/projects/call-it/">write-up</a></li>
+      <li><a href="https://stickers.jackhomer.com">Sticker Maker</a>, cut anything out of a photo and turn it into a sticker, with exports sized for Discord, Telegram and WhatsApp; no account. <a class="ix-more" href="/projects/sticker-maker/">write-up</a></li>
+      <li><a href="/hotel-finder/">Hotel Finder</a>, hotels from OpenStreetMap in 49 cities, up to 200 per city, on a map with star filters and booking links. <a class="ix-more" href="/projects/hotel-finder/">write-up</a></li>
+      <li><a href="/flight-deals/">Flight Deals</a>, a fare-watch prototype on simulated prices: watches, a deal feed and 30-day price history. <a class="ix-more" href="/projects/flight-deals/">write-up</a></li>
       <li><a href="https://hanabi.5-78-207-54.sslip.io" rel="noopener">Hanabi</a>, the cooperative fireworks card game for iPhone, with Claude bots and post-game coaching. Invite-only: you need an emailed invite to sign in. <a class="ix-more" href="/projects/hanabi/">write-up</a></li>
       <li><a href="https://github.com/jhomer192/auto-applier">Auto Applier</a>, text it a job link and an agent reads the posting, fills out the application, and submits it. <a class="ix-more" href="/projects/auto-applier/">write-up</a></li>
       <li><a href="https://github.com/jhomer192/claude-discord">Claude Discord</a>, self-hostable Claude bots in a private Discord server, one process per bot; built most of the rest. <a class="ix-more" href="/projects/claude-bot/">write-up</a></li>
@@ -114,6 +119,8 @@
       <li><a href="https://github.com/jhomer192/backpressure">Backpressure</a>, practice system-design interviews solo; diagram on a canvas, an AI interviewer grills it, and you get a scored verdict. Free and open source. <a class="ix-more" href="/projects/backpressure/">write-up</a></li>
       <li><a href="/projects/pokemon-agent/">Pokémon Agent</a>, a language model on my own GPU plays Pokémon FireRed and Emerald unassisted, one button press at a time; it has beaten Brock and Elite Four Lorelei.</li>
       <li><a href="https://5-78-207-54.sslip.io" rel="nofollow noopener">Apartment Finder</a>, a password-protected, invite-only apartment search for my roommates in SF: nightly crawl of the rental sites, scam-risk signals you can read, real neighborhood data, and Claude over the whole inventory. <a class="ix-more" href="/projects/apartment-finder/">write-up</a></li>
+      <li><a href="/projects/holdbreaker/">Holdbreaker</a>, a phone app that waits on hold for you and rings you when a person picks up; in private testing on a simulated line. <a class="ix-more" href="/projects/holdbreaker/">write-up</a></li>
+      <li><a href="/projects/secrets-vault/">Secrets Vault</a>, a personal secrets manager that lets AI coding agents use credentials without printing them, with a Face ID phone app. <a class="ix-more" href="/projects/secrets-vault/">write-up</a></li>
     </ul>
 
     <h3>Tableside, my web studio</h3>
@@ -133,7 +140,7 @@
 </footer>
 
 <script src="/assets/common.js?v=27"></script>
-<script src="/assets/atlas.js?v=29"></script>
+<script src="/assets/atlas.js?v=32"></script>
 <script>renderSky({mode:'overview'});</script>
 
 </body>

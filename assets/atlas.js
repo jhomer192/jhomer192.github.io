@@ -130,7 +130,7 @@ const CONSTELLATIONS = [
           'Spoiler-free sharing: results copy out as a hop count, a time and a row of squares, with the article names left out.',
         ],
         st:'React · TypeScript · Vite · Tailwind, calling the MediaWiki Action and REST APIs from the browser. No backend, no key.'},
-      {nm:'Sticker Maker',      g:'photo to iOS sticker', m:2, k:'demo', cx:755, cy:335, lp:'L', url:D+'/polygon-stickers', src:GH+'/polygon-stickers', img:'/screenshots/polygon-stickers.webp', page:'/projects/polygon-stickers/',
+      {nm:'Polygon Stickers',   g:'photo to iOS sticker', m:2, k:'demo', cx:755, cy:335, lp:'L', url:D+'/polygon-stickers', src:GH+'/polygon-stickers', img:'/screenshots/polygon-stickers.webp', page:'/projects/polygon-stickers/',
         d:'Turn a photo or a screenshot into an iOS sticker in the browser, with no App Store download and no Apple Developer account. Cut the background out on your phone, save the result to Photos, and iOS lifts it into the sticker drawer.',
         hi:[
           'It hands off to iOS instead of faking it: Apple only adds a sticker to the drawer through your own long-press in Photos, so the export flattens the cut-out onto flat lime green, writes a 1024×1024 JPEG, and opens the share sheet. The lime is deliberate, because Photos strips transparency from a PNG saved out of Safari and the subject-lift model needs a foreground sitting on a background to have anything to separate.',
@@ -167,11 +167,70 @@ const CONSTELLATIONS = [
           'Every game is a record: turn order and who did what are logged as they happen, then a post-game review scores each player\'s clue efficiency, risky plays and discards of critical cards and has Claude coach the table on what to do differently.',
         ],
         st:'React 19 · TypeScript · Vite · Tailwind v4 · Express · SQLite · WebSockets · Claude Code. Self-hosted behind Caddy with hashed tokens, signed HttpOnly cookies, rate limits and same-origin checks on every write.'},
+      {nm:'Call It', g:'prediction leagues for friends', m:2, k:'demo', cx:870, cy:180, lp:'L', url:'https://callit.jackhomer.com', img:'/screenshots/call-it.webp', page:'/projects/call-it/',
+        d:'Prediction markets for a group of friends, played with points instead of money. Start a league, invite people by link, post a question with two to ten possible answers, and trade shares in each answer until an admin settles it. Signing up takes a US phone number.',
+        hi:[
+          'Prices move with the trading: new bets run on a logarithmic market scoring rule (LMSR), so buying an answer raises its price and every price reads as the group\'s current odds. A share pays one point if its answer wins. You get a quote before you trade and can sell back at any time.',
+          'League admin: the owner picks a starting balance from 100 to 100,000 points; admins close, reopen, resolve or void bets, and a void refunds everyone; members can be removed and restored.',
+          'Seasons: ending one voids the open bets, saves the standings and awards, and starts everyone fresh. The leaderboard ranks players by net worth.',
+          'Live updates: trades and settlements appear on every open screen as they happen. Invites go out by link, QR code or username search.',
+          'No real money anywhere. Points cannot be bought, sold or cashed out.',
+        ],
+        st:'React 19 · Vite · a plain Node server · Postgres on Supabase, with Supabase phone sign-in (password plus an SMS code). Self-hosted behind Caddy. An iPhone build is in progress.'},
+      {nm:'Sticker Maker', g:'cut-out stickers from any photo', m:2, k:'demo', cx:720, cy:250, url:'https://stickers.jackhomer.com', img:'/screenshots/sticker-maker.webp', page:'/projects/sticker-maker/',
+        d:'Cut anything out of a photo and turn it into a sticker. Tap the subject and a model running on your phone lifts it out; brush, lasso and wand tools fix the edges. Copy or share it anywhere, or export files sized for Discord, Telegram or WhatsApp. No account.',
+        hi:[
+          'The cut-out runs on your device: MediaPipe\'s interactive segmenter, self-hosted and downloaded only the first time you use it, takes a tap on the subject and returns a mask.',
+          'Tools to fix the mask: lift, brush, lasso and a colour wand, plus text, crop and a zoomed precision mode. The photo and the mask are stored separately, so any edit can be redone later without losing quality.',
+          'Import from a screenshot: point it at a screenshot of a sticker drawer and it pulls out every sticker in it.',
+          'Exports sized for each app: Discord emoji and stickers, 512-pixel Telegram stickers and WhatsApp, saved as image files or sent through the share sheet. Adding them to the chat app is still a step you do there.',
+          'Packs to share: publish a pack and you get a link. A public pack shows up in Explore only after review, and anyone can report one.',
+          'Private by default: editing happens on the phone, and nothing is uploaded until you choose to publish.',
+        ],
+        st:'React 19 · TypeScript · Vite · MediaPipe in the browser; Node 24 with node:sqlite behind Caddy for shared packs. A native iPhone version with an iMessage sticker extension is in progress.'},
+      {nm:'Hotel Finder', g:'real hotels on a map, from OpenStreetMap', m:3, k:'demo', cx:650, cy:140, lp:'R', url:D+'/hotel-finder/', src:GH+'/hotel-finder', img:'/screenshots/hotel-finder.webp', page:'/projects/hotel-finder/',
+        d:'Pick one of 49 cities and see its hotels on a map and in a list, pulled live from OpenStreetMap. Filter by star rating, sort by distance, stars or name, then jump to Booking.com or Hotels.com with your dates filled in. It shows where the hotels are, not what they cost.',
+        hi:[
+          'Data: one Overpass API query fetches the hotels OpenStreetMap lists in a box roughly 11 km across the city centre, capped at 200, and keeps the result for a day.',
+          'Star filter: OpenStreetMap records a star rating for only some hotels, so the rest are marked unknown rather than guessed.',
+          'Map and list side by side on Leaflet, with each pin coloured by rating.',
+          'Booking hand-off: every hotel links to a Booking.com or Hotels.com search with your check-in and check-out dates already set.',
+          'No prices. OpenStreetMap has none, and the app does not pretend otherwise.',
+        ],
+        st:'React · TypeScript · Vite · Leaflet. Static on GitHub Pages: no backend and no API key, with hotel data from the OpenStreetMap Overpass API.'},
+      {nm:'Flight Deals', g:'fare-watch prototype, simulated prices', m:3, k:'demo', cx:960, cy:60, lp:'L', url:D+'/flight-deals/', src:GH+'/flight-deals', img:'/screenshots/flight-deals.webp', page:'/projects/flight-deals/',
+        d:'A prototype of a fare watcher. Set a home airport, a destination or "anywhere", a budget and dates, and it lists the fares under your budget with a 30-day price history. The public version runs on simulated prices; it is a prototype of the interface, and a banner in the app says so.',
+        hi:[
+          'Watches: pick airports from an autocomplete list of 507, filter by day of the week, and set separate return dates.',
+          'A deal feed sorted by savings, a 30-day price line with the low, average and high for each route, and a dashboard showing the cheapest deal and the average saving.',
+          'Simulated prices: a seeded generator gives each route and day the same price on every visit, with the occasional 30 to 50 percent drop so there is something to find. A provider for the Amadeus API is written but not switched on in the public build.',
+          'Book links hand off to Google Flights or Kayak. Everything is kept in your browser: no accounts and no alerts.',
+        ],
+        st:'React 19 · TypeScript · Vite · Tailwind v4. Front end only, with state in localStorage. Static on GitHub Pages.'},
+      {nm:'Holdbreaker', g:'waits on hold so you do not have to', m:2, k:'priv', cx:480, cy:320, lp:'R', page:'/projects/holdbreaker/',
+        d:'A phone app that calls a company for you, works through the phone menu, waits on hold, and rings you the moment a person picks up. It is in private testing against a simulated phone line and has not called a real company yet.',
+        hi:[
+          'One box to start: type the company, the number and what you need, and Claude asks only for what is missing.',
+          'Menus without handing over your data: known menus are answered by rules and by playbooks shared between calls first. Claude chooses a menu option only through a narrow tool call, and account numbers are entered by code from an encrypted vault, so the model never sees them.',
+          'Hold detection runs on the server, combining voice-activity and hold-music signals, and needs several of them before it decides a person is on the line.',
+          'The handoff: it calls you from a saved contact and connects you when you press 1. Apart from a brief automated greeting that says it is an automated assistant, it does not talk to the representative.',
+          'Privacy: no audio is recorded, and transcription stops once a person may be on the line. A legal review comes before any public launch.',
+        ],
+        st:'Next.js, installable as a web app, with a thin iPhone wrapper · a Python call worker · Postgres · Twilio Voice and Verify · Deepgram speech recognition · Claude Sonnet for intake and menu choices.'},
+      {nm:'Secrets Vault', g:'credentials agents can use, not read', m:3, k:'priv', cx:855, cy:290, lp:'L', page:'/projects/secrets-vault/',
+        d:'A personal secrets manager built so AI coding agents can use credentials without printing them. Agents run commands with the secrets they need injected and scrubbed from the output; revealing a value takes a person, or Face ID on the owner\'s phone. A personal tool, not a product.',
+        hi:[
+          'Run, do not read: a command runs with the secrets it needs in its environment, and any secret value that shows up in its output comes back as a [REDACTED:NAME] marker instead.',
+          'No read command on purpose, and agents are blocked from opening the encrypted store or dotenv files directly.',
+          'An iPhone app behind Face ID: when it opens, every time you return to it, and before every reveal. The newest version keeps the vault key in the phone\'s keychain, tied to the current Face ID enrolment.',
+          'Scope: it stops accidental reads and secrets leaking into agent transcripts. It is not a defence against a hostile program running as the same user, and its own documentation says so.',
+        ],
+        st:'A Python command-line tool and encrypted store · a small Zig server · an Expo React Native iPhone app with a Swift keychain module · ChaCha20-Poly1305 and Ed25519. Private, and not available to others.'},
     ],
     // The Builder's Loom: outer frame (top beam, posts, bottom beam) + inner warp threads.
-    // WikiGame (13) sits on the top beam between 1 and 2, and Sticker Maker (14) on the
+    // WikiGame (13) sits on the top beam between 1 and 2, and Polygon Stickers (14) on the
     // bottom beam between 8 and 7, so both beams still read straight.
-    edges:[[0,1],[1,13],[13,2],[2,4],[4,8],[8,14],[14,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12],[13,12],[0,16],[16,10],[16,17],[1,15],[15,16]],
+    edges:[[0,1],[1,13],[13,2],[2,4],[4,8],[8,14],[14,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12],[13,12],[0,16],[16,10],[16,17],[1,15],[15,16],[18,4],[19,6],[20,15],[21,2],[22,5],[23,12]],
     conj:[[9,1]] },
 
   { id:'corona-laboris', name:'Corona Laboris', sub:'Day Work', section:'/career/',
@@ -221,6 +280,17 @@ const KIND_LABEL = {
   work:    'Day job · no public link',
   service: 'Service offering',
 };
+
+// Project filters. Each entry is one pill in the page's filter bar; a star
+// matches when test(star) is true. Rows in a [data-filterable] list are matched
+// to stars at runtime by their links (a star's page or url), so adding a filter
+// is one line here and nothing in the HTML. e.g. a later App Store pill:
+//   appstore: {label:'On the App Store', none:'not on the App Store', test: s => !!s.appStore},
+const FILTERS = {
+  // web: a filled star with a public URL: it opens in a browser (some ask you to sign up)
+  web: {label:'Open in browser', none:'not open in a browser', test: s => s.k==='demo' && !!s.url},
+};
+const filterKeys = s => Object.keys(FILTERS).filter(k=>FILTERS[k].test(s)).join(' ');
 
 // ---------- helpers ----------
 function radiusFor(m){return m===1?5.5:m===2?4.2:m===3?3:2}
@@ -298,7 +368,8 @@ function renderGrid(cam){
 function buildConstellation(c, cam, onStarClick){
   // Bayer letters by magnitude (brightest = α)
   const order = c.stars.map((s,i)=>i).sort((a,b)=>c.stars[a].m - c.stars[b].m);
-  const greekOf = {}; order.forEach((idx,rank)=>greekOf[idx] = GREEK[rank]);
+  // past 24 stars the letters repeat with a numeral (α2, β2, …) instead of "undefined"
+  const greekOf = {}; order.forEach((idx,rank)=>greekOf[idx] = GREEK[rank % 24] + (rank >= 24 ? (rank/24|0)+1 : ''));
 
   const g = document.createElementNS(SVGNS,'g');
   g.setAttribute('class','cons'); g.setAttribute('data-id', c.id);
@@ -351,22 +422,37 @@ function buildConstellation(c, cam, onStarClick){
     if (s.cx < 120) return false;           // near left edge → label right
     return s.cx < cen[0];
   });
+  // Nudge labels apart only where they actually collide: two labels conflict
+  // when their (estimated) text boxes overlap horizontally and sit closer than
+  // LABEL_GAP vertically. Labels far apart in x never push each other, so a
+  // dense figure doesn't cascade its labels off the bottom of the box.
   const ldy = new Array(c.stars.length).fill(0);
-  const LABEL_GAP = 22;
-  [true,false].forEach(want=>{
-    const idxs = c.stars.map((s,i)=>i).filter(i=>labelLeft[i]===want)
-                        .sort((a,b)=>c.stars[a].cy - c.stars[b].cy);
-    for(let k=1;k<idxs.length;k++){
-      const prev=idxs[k-1], cur=idxs[k];
-      const gap = (c.stars[cur].cy + ldy[cur]) - (c.stars[prev].cy + ldy[prev]);
-      if(gap < LABEL_GAP) ldy[cur] += (LABEL_GAP - gap);
+  const LABEL_GAP = 22, CHAR_W = 6.2;
+  const span = i => {
+    const s = c.stars[i], off = radiusFor(s.m) + 5, w = s.nm.length * CHAR_W;
+    const tx = labelLeft[i] ? s.cx - off : s.cx + off;
+    return labelLeft[i] ? [tx - w, tx] : [tx, tx + w];
+  };
+  const placed = [];
+  c.stars.map((s,i)=>i).sort((a,b)=>c.stars[a].cy - c.stars[b].cy).forEach(i=>{
+    const [x0,x1] = span(i);
+    let y = c.stars[i].cy, moved = true;
+    while(moved){
+      moved = false;
+      for(const p of placed){
+        if(p.x1 + 4 < x0 || x1 + 4 < p.x0) continue;      // no horizontal overlap
+        if(Math.abs(y - p.y) < LABEL_GAP){ y = p.y + LABEL_GAP; moved = true; }
+      }
     }
+    ldy[i] = y - c.stars[i].cy;
+    placed.push({x0, x1, y});
   });
   c.stars.forEach((s,i)=>{
     const left = labelLeft[i];
     const sg = document.createElementNS(SVGNS,'g');
     const hollow = (s.k==='src'||s.k==='priv'||s.k==='gated');
     sg.setAttribute('class','star m'+s.m+(hollow?' src':'')+(left?' right':' left'));
+    sg.dataset.f = filterKeys(s);
     // role=button, not link: activating a star opens an in-place card (or, on the
     // overview, zooms its constellation) — it never navigates to a URL.
     sg.setAttribute('role','button'); sg.setAttribute('tabindex','0');
@@ -652,6 +738,78 @@ function decorate(wrap, svg, cam){
 }
 
 // ---------- public API ----------
+// ---------- project filters ----------
+// #filterbar (static in the page, hidden until JS runs) gets one pill per
+// FILTERS entry plus "All". One filter is active at a time; non-matching stars
+// dim and non-matching rows in any [data-filterable] list hide. The active key
+// lives in ?filter=<key> so a filtered view can be shared.
+let filterReady = false, filterStatus = null;
+// canonical form of a link, so a row's href can be matched to a star's page/url
+const linkKey = h => { try { const u = new URL(h, location.href); return u.host + u.pathname.replace(/\/?$/, '/'); } catch(e){ return ''; } };
+function applyFilter(key){
+  document.body.dataset.filter = key || '';
+  const f = key ? FILTERS[key] : null;
+  // a constellation with no match at all dims as a whole (title included);
+  // inside one that has matches, only the non-matching stars dim
+  document.querySelectorAll('.cons').forEach(g=>{
+    const stars = [...g.querySelectorAll('.star')];
+    const hit = st => (st.dataset.f||'').split(' ').includes(key);
+    const none = !!key && !stars.some(hit);
+    g.classList.toggle('off', none);
+    stars.forEach(st=>{
+      const off = !!key && !none && !hit(st);
+      st.classList.toggle('off', off);
+      off || none ? st.setAttribute('aria-description', f.none) : st.removeAttribute('aria-description');
+    });
+  });
+  document.querySelectorAll('[data-filterable] > li').forEach(li=>{
+    const off = !!key && !(li.dataset.f||'').split(' ').includes(key);
+    li.classList.toggle('off', off);
+  });
+  document.querySelectorAll('#filterbar button').forEach(b=>
+    b.setAttribute('aria-pressed', (b.dataset.key||'')===(key||'') ? 'true':'false'));
+  if(filterStatus) filterStatus.textContent = key ? `Showing ${document.querySelectorAll('.star[data-f~="'+key+'"]').length} projects: ${f.label.toLowerCase()}` : 'Showing all projects';
+}
+function initFilters(){
+  if(filterReady) return; filterReady = true;
+  const bar = document.getElementById('filterbar');
+  if(!bar) return;
+  const all = CONSTELLATIONS.flatMap(c=>c.stars);
+  // tag list rows from star data: a row matches a star if any of its links
+  // points at that star's write-up page or its live url
+  const byLink = new Map();
+  all.forEach(st=>[st.page, st.url].forEach(h=>{ if(h) byLink.set(linkKey(h), st); }));
+  document.querySelectorAll('[data-filterable] > li').forEach(li=>{
+    const st = [...li.querySelectorAll('a[href]')].map(a=>byLink.get(linkKey(a.getAttribute('href')))).find(Boolean);
+    li.dataset.f = st ? filterKeys(st) : '';
+  });
+  const projects = CONSTELLATIONS.find(c=>c.id==='opera-minora').stars;
+  const mk = (key,label)=>{
+    const b = document.createElement('button');
+    b.type='button'; b.className='viewtoggle'; b.dataset.key=key; b.textContent=label;
+    b.addEventListener('click', ()=>{
+      applyFilter(key); setParam(key);
+      track('filter', {key: key||'all'});
+    });
+    bar.appendChild(b);
+  };
+  const setParam = key=>{
+    const u = new URL(location.href);
+    key ? u.searchParams.set('filter',key) : u.searchParams.delete('filter');
+    history.replaceState(history.state, '', u);
+  };
+  mk('', `All (${projects.length})`);
+  for(const [k,f] of Object.entries(FILTERS)) mk(k, `${f.label} (${projects.filter(f.test).length})`);
+  bar.hidden = false;
+  const q = new URLSearchParams(location.search).get('filter');
+  const ok = q !== null && Object.hasOwn(FILTERS, q);
+  if(q !== null && !ok) setParam('');          // drop an unknown ?filter= from the URL
+  applyFilter(ok ? q : '');
+  // live region added after the initial state, so only clicks are announced
+  filterStatus = document.createElement('span'); filterStatus.className = 'sr-only';
+  filterStatus.setAttribute('aria-live','polite'); bar.appendChild(filterStatus);
+}
+
 // renderSky({mode, focus, onConstellationClick})
 // mode: 'overview' shows all three with click-to-zoom; 'single' shows just one constellation, centered.
 // focus: constellation id (for single mode, or initial zoom in overview mode)
@@ -975,6 +1133,8 @@ window.renderSky = function(opts){
       nodes[focus].node.classList.add('lit','entered');
     });
   }
+
+  initFilters();
 
   // '?' toggles the keyboard/navigation help on any chart page (ignore while typing)
   document.addEventListener('keydown', e=>{

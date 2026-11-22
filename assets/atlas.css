@@ -685,3 +685,17 @@ html[data-band="night"]{ --paper:#efe9da; --paper2:#e8e0cd; --ink:#080807; --ink
   .graticule .bgstar{animation:none}
   .cons .edge,.cons .hull{filter:none}
 }
+
+/* project filters (#filterbar, built by atlas.js) */
+.filterbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.filterbar[hidden]{display:none}
+.filterbar .viewtoggle{margin:0}
+.filterbar .viewtoggle[aria-pressed="true"]{border-color:currentColor;font-weight:500;text-decoration:underline;text-underline-offset:3px}
+.star{transition:opacity .25s ease}
+.star.off{opacity:.16}
+.cons.off{opacity:.16;transition:opacity .25s ease}
+/* a constellation you have entered is never dimmed, even if nothing in it matches */
+.cons.entered.off{opacity:1}
+[data-filterable] > li.off{display:none}
+/* phone screenshots: keep portrait shots phone-sized instead of column-wide */
+.proj figure.media.tall{max-width:320px}

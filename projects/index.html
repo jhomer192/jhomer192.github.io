@@ -28,7 +28,7 @@
 <meta name="twitter:description" content="Jack Homer's side projects: a daily Wikipedia race, a Wikipedia Game solver, Songrank, Conway's Game of Life, Clocktower tools, and more.">
 <meta name="twitter:image" content="https://jackhomer.com/og.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/atlas.css?v=28">
+<link rel="stylesheet" href="/assets/atlas.css?v=32">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jack Homer","item":"https://jackhomer.com"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://jackhomer.com/projects/"}]}]}</script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
 </head>
@@ -61,6 +61,7 @@
     <div class="c">
       <h1>Side projects</h1>
       <div class="sub">Built on nights and weekends</div>
+      <div id="filterbar" class="filterbar" role="group" aria-label="Filter projects" hidden></div>
     </div>
   </header>
 
@@ -69,7 +70,7 @@
 
 <section class="scroll">
   <p class="lede">
-    Eighteen side projects. The brightest stars are Songrank and the two Wikipedia-game
+    Twenty-four side projects. The brightest stars are Songrank and the two Wikipedia-game
     projects, the ones with the most real traffic, and Claude Discord, the agent that
     built most of the rest. Everything else is tools, toys, and experiments. Click a star to
     open it.
@@ -80,8 +81,8 @@
     Dashed line: built by another project.
   </p>
   <hr class="rule">
-  <p class="ix-head">All eighteen, in full</p>
-  <ul class="proj-index">
+  <p class="ix-head">All twenty-four, in full</p>
+  <ul class="proj-index" data-filterable>
     <li><a href="/projects/backpressure/">Backpressure</a> <span class="g">system-design trainer</span></li>
     <li><a href="/projects/songrank/">Songrank</a> <span class="g">spotify song ranker · <a href="/songrank/">Rank Spotify songs</a></span></li>
     <li><a href="/projects/wikigame/">WikiGame</a> <span class="g">daily wikipedia race · <a href="/wikigame/">Play the daily Wikipedia race</a></span></li>
@@ -92,14 +93,20 @@
     <li><a href="/projects/connections-maker/">Connections Maker</a> <span class="g">word-puzzle builder · <a href="/connections-maker/">Create a Connections puzzle</a></span></li>
     <li><a href="/projects/game-of-life/">Game of Life</a> <span class="g">cellular automaton · <a href="/game-of-life/">Run Conway’s Game of Life</a></span></li>
     <li><a href="/projects/birthday-paradox/">Birthday Paradox</a> <span class="g">probability visualizer · <a href="/birthday-paradox/">Try the birthday simulator</a></span></li>
-    <li><a href="/projects/polygon-stickers/">Sticker Maker</a> <span class="g">photo to iOS sticker · <a href="/polygon-stickers/">Make a photo sticker</a></span></li>
+    <li><a href="/projects/polygon-stickers/">Polygon Stickers</a> <span class="g">photo to iOS sticker · <a href="/polygon-stickers/">Make a photo sticker</a></span></li>
     <li><a href="/projects/board-game-portal/">Tabletop Portal</a> <span class="g">where to play board games online · <a href="/board-game-portal/">Find board games to play online</a></span></li>
+    <li><a href="/projects/call-it/">Call It</a> <span class="g">prediction leagues for friends · <a href="https://callit.jackhomer.com">Start a league</a></span></li>
+    <li><a href="/projects/sticker-maker/">Sticker Maker</a> <span class="g">cut-out stickers from any photo · <a href="https://stickers.jackhomer.com">Make a sticker</a></span></li>
+    <li><a href="/projects/hotel-finder/">Hotel Finder</a> <span class="g">real hotels on a map · <a href="/hotel-finder/">Find hotels</a></span></li>
+    <li><a href="/projects/flight-deals/">Flight Deals</a> <span class="g">fare-watch prototype, simulated prices · <a href="/flight-deals/">Try the prototype</a></span></li>
     <li><a href="/projects/hanabi/">Hanabi</a> <span class="g">invite-only Hanabi for iPhone · sign in by emailed link</span></li>
     <li><a href="/projects/auto-applier/">Auto Applier</a> <span class="g">job-apply agent</span></li>
     <li><a href="/projects/claude-bot/">Claude Discord</a> <span class="g">Claude bots in a private server</span></li>
     <li><a href="/projects/color-analysis/">Color Analysis</a> <span class="g">12-season color analysis</span></li>
     <li><a href="/projects/pokemon-agent/">Pokémon Agent</a> <span class="g">local models play FireRed and Emerald</span></li>
     <li><a href="/projects/apartment-finder/">Apartment Finder</a> <span class="g">invite-only SF rental search · <a href="https://5-78-207-54.sslip.io" rel="nofollow noopener">sign in ↗</a></span></li>
+    <li><a href="/projects/holdbreaker/">Holdbreaker</a> <span class="g">waits on hold so you do not have to · private testing</span></li>
+    <li><a href="/projects/secrets-vault/">Secrets Vault</a> <span class="g">credentials agents can use, not read · personal tool</span></li>
   </ul>
   <p style="margin-top:24px"><a href="/">← back home</a> · <a rel="me" href="https://github.com/jhomer192">all repos on GitHub ↗</a></p>
 </section>
@@ -110,7 +117,7 @@
 </footer>
 
 <script src="/assets/common.js?v=27"></script>
-<script src="/assets/atlas.js?v=29"></script>
+<script src="/assets/atlas.js?v=32"></script>
 <script>renderSky({mode:'single', focus:'opera-minora'});</script>
 
 </body>

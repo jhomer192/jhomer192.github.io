@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>Flight Deals · Jack Homer</title>
+<meta name="description" content="A fare-watch prototype running on simulated prices: watches, a deal feed and 30-day price history. A prototype of the interface, not a booking tool.">
+<meta name="author" content="Jack Homer">
+<link rel="canonical" href="https://jackhomer.com/projects/flight-deals/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flight Deals · Jack Homer">
+<meta property="og:description" content="A fare-watch prototype running on simulated prices: watches, a deal feed and 30-day price history. A prototype of the interface, not a booking tool.">
+<meta property="og:url" content="https://jackhomer.com/projects/flight-deals/">
+<meta property="og:site_name" content="Jack Homer">
+<meta property="og:locale" content="en_US">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:image" content="https://jackhomer.com/og/flight-deals.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Flight Deals with one watch from SFO to Tokyo under $900, showing a simulated $805 fare and a demo-mode banner">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jackhomer.com/og/flight-deals.png">
+<meta name="twitter:image:alt" content="Flight Deals with one watch from SFO to Tokyo under $900, showing a simulated $805 fare and a demo-mode banner">
+<meta name="twitter:title" content="Flight Deals · Jack Homer">
+<meta name="twitter:description" content="A fare-watch prototype running on simulated prices: watches, a deal feed and 30-day price history. A prototype of the interface, not a booking tool.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/atlas.css?v=32">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "Flight Deals", "description": "A fare-watch prototype running on simulated prices: watches, a deal feed and 30-day price history. A prototype of the interface, not a booking tool.", "url": "https://jackhomer.com/flight-deals/", "author": {"@type": "Person", "@id": "https://jackhomer.com/#jack", "name": "Jack Homer", "url": "https://jackhomer.com"}, "mainEntityOfPage": "https://jackhomer.com/projects/flight-deals/", "applicationCategory": "WebApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "image": "https://jackhomer.com/og/flight-deals.png", "isBasedOn": "https://github.com/jhomer192/flight-deals"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Jack Homer", "item": "https://jackhomer.com"}, {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://jackhomer.com/projects/"}, {"@type": "ListItem", "position": 3, "name": "Flight Deals", "item": "https://jackhomer.com/projects/flight-deals/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <a class="brand" href="/">Jack Homer</a>
+  <ul>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/projects/">Projects</a></li>
+    <li><a href="/writing/">Writing</a></li>
+    <li><a href="/career/">Career</a></li>
+    <li><a href="/business/">Business</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</nav>
+
+<main id="main" class="chart text-plate">
+  <div class="meander-frame" aria-hidden="true">
+    <span class="strip top"></span><span class="strip bottom"></span>
+    <span class="strip left"></span><span class="strip right"></span>
+  </div>
+  <svg class="corner tl" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner tr" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner bl" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner br" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+
+  <header class="header">
+    <div class="c">
+      <h1>Flight Deals</h1>
+      <div class="sub">fare-watch prototype, simulated prices</div>
+    </div>
+  </header>
+
+  <section class="proj">
+    <div class="meta">Side project · 2026 · <strong>Prototype, simulated prices</strong></div>
+    <p class="tagline">A prototype of a fare watcher. Set a home airport, a destination or &quot;anywhere&quot;, a budget and dates, and it lists the fares under your budget with a 30-day price history. The public version runs on simulated prices; it is a prototype of the interface, and a banner in the app says so.</p>
+
+    <figure class="media">
+      <img src="/screenshots/flight-deals.webp" alt="Flight Deals with one watch from SFO to Tokyo under $900, showing a simulated $805 fare and a demo-mode banner" width="1280" height="800" decoding="async">
+      <figcaption>One watch, SFO to Tokyo · the banner says it: prices are simulated</figcaption>
+    </figure>
+
+    <p>
+      The useful part of a fare alert is the screen it lands you on: what the fare is, how it
+      compares with the last month, and whether it is worth acting on. This prototype is that
+      screen, built against simulated prices so the interface can be tried without an API key.
+    </p>
+
+    <h2>What it does</h2>
+    <ul>
+      <li><strong>Watches</strong>: pick airports from an autocomplete list of 507, filter by day of the week, and set separate return dates.</li>
+      <li>A deal feed sorted by savings, a 30-day price line with the low, average and high for each route, and a dashboard showing the cheapest deal and the average saving.</li>
+      <li><strong>Simulated prices</strong>: a seeded generator gives each route and day the same price on every visit, with the occasional 30 to 50 percent drop so there is something to find. A provider for the Amadeus API is written but not switched on in the public build.</li>
+      <li>Book links hand off to Google Flights or Kayak. Everything is kept in your browser: no accounts and no alerts.</li>
+    </ul>
+
+    <h2>Built with</h2>
+    <p class="stack">React 19 · TypeScript · Vite · Tailwind v4. Front end only, with state in localStorage. Static on GitHub Pages.</p>
+
+    <p class="next"><strong>Prototype</strong> The prices are not real. Use it to see the interface, not to book a trip.</p>
+
+    <div class="cta">
+      <a href="https://jackhomer.com/flight-deals/" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="flight-deals-demo">Try the prototype ↗</a>
+      <a href="https://github.com/jhomer192/flight-deals" target="_blank" rel="noopener" data-umami-event="proj-link" data-umami-event-target="flight-deals-src">Source on GitHub ↗</a>
+    </div>
+  </section>
+
+  <p class="returnto"><a href="/projects/">← all projects</a></p>
+</main>
+
+<footer class="colophon">
+  Jack Homer · Bay Area<br>
+  <a href="/contact/" data-user="jack" data-domain="homerfamily.com" data-show-address>jack at homerfamily.com</a> · <a href="https://github.com/jhomer192">GitHub</a>
+</footer>
+
+<script src="/assets/common.js?v=27"></script>
+
+</body>
+</html>

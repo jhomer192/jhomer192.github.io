@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>Secrets Vault · Jack Homer</title>
+<meta name="description" content="A personal secrets manager that lets AI coding agents use credentials without printing them, with a Face ID iPhone app. Private, not a product.">
+<meta name="author" content="Jack Homer">
+<link rel="canonical" href="https://jackhomer.com/projects/secrets-vault/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Secrets Vault · Jack Homer">
+<meta property="og:description" content="A personal secrets manager that lets AI coding agents use credentials without printing them, with a Face ID iPhone app. Private, not a product.">
+<meta property="og:url" content="https://jackhomer.com/projects/secrets-vault/">
+<meta property="og:site_name" content="Jack Homer">
+<meta property="og:locale" content="en_US">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:image" content="https://jackhomer.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Jack Homer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jackhomer.com/og.png">
+<meta name="twitter:image:alt" content="Jack Homer">
+<meta name="twitter:title" content="Secrets Vault · Jack Homer">
+<meta name="twitter:description" content="A personal secrets manager that lets AI coding agents use credentials without printing them, with a Face ID iPhone app. Private, not a product.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/atlas.css?v=32">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="__UMAMI_WEBSITE_ID__"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "Secrets Vault", "description": "A personal secrets manager that lets AI coding agents use credentials without printing them, with a Face ID iPhone app. Private, not a product.", "url": "https://jackhomer.com/projects/secrets-vault/", "author": {"@type": "Person", "@id": "https://jackhomer.com/#jack", "name": "Jack Homer", "url": "https://jackhomer.com"}, "mainEntityOfPage": "https://jackhomer.com/projects/secrets-vault/", "applicationCategory": "DeveloperApplication", "image": "https://jackhomer.com/og.png"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Jack Homer", "item": "https://jackhomer.com"}, {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://jackhomer.com/projects/"}, {"@type": "ListItem", "position": 3, "name": "Secrets Vault", "item": "https://jackhomer.com/projects/secrets-vault/"}]}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Primary">
+  <a class="brand" href="/">Jack Homer</a>
+  <ul>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/projects/">Projects</a></li>
+    <li><a href="/writing/">Writing</a></li>
+    <li><a href="/career/">Career</a></li>
+    <li><a href="/business/">Business</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</nav>
+
+<main id="main" class="chart text-plate">
+  <div class="meander-frame" aria-hidden="true">
+    <span class="strip top"></span><span class="strip bottom"></span>
+    <span class="strip left"></span><span class="strip right"></span>
+  </div>
+  <svg class="corner tl" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner tr" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner bl" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+  <svg class="corner br" viewBox="0 0 28 28" aria-hidden="true"><path d="M2 14 Q2 2 14 2 M14 2 Q14 8 2 14" fill="none" stroke="#0a0a0a" stroke-width="1"/><circle cx="2" cy="14" r="1.2" fill="#0a0a0a"/></svg>
+
+  <header class="header">
+    <div class="c">
+      <h1>Secrets Vault</h1>
+      <div class="sub">credentials agents can use, not read</div>
+    </div>
+  </header>
+
+  <section class="proj">
+    <div class="meta">Personal tool · 2026 · <strong>Private</strong></div>
+    <p class="tagline">A personal secrets manager built so AI coding agents can use credentials without printing them. Agents run commands with the secrets they need injected and scrubbed from the output; revealing a value takes a person, or Face ID on the owner&#x27;s phone. A personal tool, not a product.</p>
+
+    <p>
+      AI coding agents need API keys to do their work. The easy way to give them one is to paste it somewhere they can read, at which point it ends up in a
+      transcript, a log, or a commit. This tool lets the agent use a secret while making it unlikely to print it.
+    </p>
+
+    <h2>How it works</h2>
+    <ul>
+      <li><strong>Run, do not read</strong>: a command runs with the secrets it needs in its environment, and any secret value that shows up in its output comes back as a [REDACTED:NAME] marker instead.</li>
+      <li>No read command on purpose, and agents are blocked from opening the encrypted store or dotenv files directly.</li>
+      <li><strong>An iPhone app behind Face ID</strong>: when it opens, every time you return to it, and before every reveal. The newest version keeps the vault key in the phone&#x27;s keychain, tied to the current Face ID enrolment.</li>
+      <li><strong>Scope</strong>: it stops accidental reads and secrets leaking into agent transcripts. It is not a defence against a hostile program running as the same user, and its own documentation says so.</li>
+    </ul>
+
+    <h2>Built with</h2>
+    <p class="stack">A Python command-line tool and encrypted store · a small Zig server · an Expo React Native iPhone app with a Swift keychain module · ChaCha20-Poly1305 and Ed25519. Private, and not available to others.</p>
+
+    <p class="next"><strong>Private</strong> A personal tool. It is not packaged, published or open to others.</p>
+  </section>
+
+  <p class="returnto"><a href="/projects/">← all projects</a></p>
+</main>
+
+<footer class="colophon">
+  Jack Homer · Bay Area<br>
+  <a href="/contact/" data-user="jack" data-domain="homerfamily.com" data-show-address>jack at homerfamily.com</a> · <a href="https://github.com/jhomer192">GitHub</a>
+</footer>
+
+<script src="/assets/common.js?v=27"></script>
+
+</body>
+</html>
