@@ -776,6 +776,36 @@ function applyFilter(key){
   if(state) state.textContent = key ? `Showing ${document.querySelectorAll('#sky-wrap .star[data-f~="'+key+'"]').length} of ${document.querySelectorAll('#sky-wrap .star').length} · tap again to clear` : '';
   if(filterStatus) filterStatus.textContent = key ? `Showing ${document.querySelectorAll('#sky-wrap .star[data-f~="'+key+'"]').length} of ${document.querySelectorAll('#sky-wrap .star').length}: ${f.label.toLowerCase()}` : 'Showing all';
 }
+// the legend is engraved on the chart: a cartouche in open sky on the wide
+// overview, a key along the foot of the plate where the sky is full (single-plate
+// pages, phones). In list view the chart is hidden, so it moves to the header.
+// the cartouche needs ~760px of chart to sit clear of the stars; below that, use the foot
+const narrowMQ = matchMedia('(max-width:800px)');
+let footRO = null;
+function placeLegend(){
+  const bar = document.getElementById('filterbar'), sky = document.getElementById('sky-wrap');
+  if(!bar || !sky) return;
+  const list = document.body.classList.contains('listmode');
+  const home = list ? document.querySelector('.header .c') : sky;
+  // first child of the chart, so it comes before the stars in Tab order
+  if(home && bar.parentNode !== home) list ? home.appendChild(bar) : home.insertBefore(bar, home.firstChild);
+  const foot = !list && (narrowMQ.matches || !!sky.querySelector('.sky-svg.single-mode'));
+  bar.classList.toggle('plate-foot', foot);
+  sky.classList.toggle('has-foot', foot);
+  if(!footRO){
+    footRO = new ResizeObserver(()=>{
+      setFoot(sky, bar.classList.contains('plate-foot') && bar.parentNode === sky ? bar.offsetHeight : 0);
+    });
+    footRO.observe(bar);
+    narrowMQ.addEventListener('change', placeLegend);
+  }
+  setFoot(sky, foot ? bar.offsetHeight : 0);
+}
+// pad the frame by the key's height; --foot lets the compass ride above it
+function setFoot(sky, h){
+  sky.style.paddingBottom = h ? h+'px' : '';
+  sky.style.setProperty('--foot', h+'px');
+}
 function initFilters(){
   if(filterReady) return; filterReady = true;
   const bar = document.getElementById('filterbar');
@@ -790,8 +820,8 @@ function initFilters(){
     li.dataset.f = st ? filterKeys(st) : '';
   });
   // an old atlas key: title, then one row per sign with a dotted leader to its count
-  bar.innerHTML = '<div class="key-title"><span aria-hidden="true">❧</span> Legend <span aria-hidden="true" class="flip">❧</span></div>'
-    + '<div class="key-sub">Tap a row to filter the chart</div><div class="key-rows"></div><div class="key-state" aria-hidden="true"></div>';
+  bar.innerHTML = '<div class="key-title">Explicatio Signorum</div>'
+    + '<div class="key-sub">Key to the stars · tap a sign</div><div class="key-rows"></div><div class="key-state" aria-hidden="true"></div>';
   const rows = bar.querySelector('.key-rows');
   const mk = (key,sign,label,n)=>{
     const b = document.createElement('button');
@@ -805,9 +835,9 @@ function initFilters(){
       const k = (document.body.dataset.filter===key) ? '' : key;   // tap again to clear
       applyFilter(k); setParam(k);
       track('filter', {key: k||'all'});
-      // on a phone the chart sits below the legend: bring it into view so the tap visibly does something
+      // with the key under the chart (phones, full plates): if the chart has scrolled off, bring it back so the tap visibly does something
       const sky = document.getElementById('sky-wrap');
-      if(sky && k && matchMedia('(max-width:720px)').matches && sky.getBoundingClientRect().top > innerHeight*0.45)
+      if(sky && k && bar.classList.contains('plate-foot') && sky.getBoundingClientRect().top < 0)
         sky.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start'});
     });
     rows.appendChild(b);
@@ -825,6 +855,7 @@ function initFilters(){
   note.innerHTML = '<span class="sign sign-dash" aria-hidden="true"></span>Built by another project';
   bar.appendChild(note);
   bar.hidden = false;
+  placeLegend();
   const q = new URLSearchParams(location.search).get('filter');
   const ok = q !== null && Object.hasOwn(FILTERS, q);
   if(q !== null && !ok) setParam('');          // drop an unknown ?filter= from the URL
@@ -1081,12 +1112,12 @@ window.renderSky = function(opts){
     // pageview, and only for interaction inside the chart itself.
     let touched = false;
     const firstTouch = (e)=>{
-      if(touched) return;
+      if(touched || e.target.closest?.('#filterbar')) return;
       touched = true;
       track('sky-first-interaction', {via: e.type});
     };
     ['pointerdown','keydown','touchstart'].forEach(ev=>
-      wrap.addEventListener(ev, firstTouch, {once:true, passive:true}));
+      wrap.addEventListener(ev, firstTouch, {passive:true}));
 
     // list-view toggle (Sky / List)
     const vt = document.getElementById('viewtoggle');
@@ -1094,6 +1125,7 @@ window.renderSky = function(opts){
       const on = document.body.classList.toggle('listmode');
       vt.setAttribute('aria-pressed', on?'true':'false');
       vt.textContent = on ? '★ Back to the sky' : 'View as list →';
+      placeLegend();
     });
     // sticky "back to the sky" button (shown on mobile while zoomed in).
     // Appended to <body>, NOT the chart: the intro animation leaves main.chart
