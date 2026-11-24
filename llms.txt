@@ -30,7 +30,6 @@ Not to be confused with other people named Jack Homer: this is the software engi
 - [Clocktower ST](https://jackhomer.com/projects/clocktower/): A Storyteller's control panel for Blood on the Clocktower that runs setup, night order, and voting so you can focus on the table.
 - [Color Analysis](https://jackhomer.com/projects/color-analysis/): Upload a portrait, get a 12-season analysis with palette, hair and makeup direction from Claude vision.
 - [Connections Maker](https://jackhomer.com/projects/connections-maker/): Build your own NYT Connections-style word puzzle and share it with a single link, no account or backend required.
-- [Flight Deals](https://jackhomer.com/projects/flight-deals/): A fare-watch prototype running on simulated prices: watches, a deal feed and 30-day price history. A prototype of the interface, not a booking tool.
 - [Game of Life](https://jackhomer.com/projects/game-of-life/): An interactive Conway's Game of Life that runs at up to 60 generations a second on a wrap-around canvas, with a pattern library and live stats.
 - [Hanabi](https://jackhomer.com/projects/hanabi/): The cooperative fireworks card game for iPhone, built for a private group: invite-only sign-in by email, with Claude bots and post-game coaching.
 - [Holdbreaker](https://jackhomer.com/projects/holdbreaker/): A phone app that waits on hold for you and rings you when a person picks up. In private testing on a simulated line; not public.
@@ -38,7 +37,6 @@ Not to be confused with other people named Jack Homer: this is the software engi
 - [Meme Maker](https://jackhomer.com/projects/meme-maker/): A browser meme editor: pick a template or drop in your own image, caption it, and download a clean PNG. No backend, no uploads, no watermark.
 - [Nuzlocke](https://jackhomer.com/projects/nuzlocke/): A run tracker for Pokémon Nuzlocke challenges: every route encounter, your living team, the graveyard, badges, and boss prep in one place.
 - [Pokémon Agent](https://jackhomer.com/projects/pokemon-agent/): A multi-agent system of local models on his own GPU plays Pokémon FireRed and Emerald unassisted, one button press at a time.
-- [Polygon Stickers](https://jackhomer.com/projects/polygon-stickers/): Polygon Stickers turns a photo into an iOS sticker in the browser with a magic wand, brushes, and on-device background removal. No App Store, no developer account.
 - [Secrets Vault](https://jackhomer.com/projects/secrets-vault/): A personal secrets manager that lets AI coding agents use credentials without printing them, with a Face ID iPhone app. Private, not a product.
 - [Songrank](https://jackhomer.com/projects/songrank/): Rank your most-played Spotify tracks through head-to-head comparisons, then export the result as a real playlist.
 - [Sticker Maker](https://jackhomer.com/projects/sticker-maker/): Cut anything out of a photo and turn it into a sticker, in the browser with no account. Exports sized for Discord, Telegram and WhatsApp.
