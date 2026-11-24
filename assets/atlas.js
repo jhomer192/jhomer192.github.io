@@ -281,14 +281,18 @@ const KIND_LABEL = {
   service: 'Service offering',
 };
 
-// Project filters. Each entry is one pill in the page's filter bar; a star
-// matches when test(star) is true. Rows in a [data-filterable] list are matched
-// to stars at runtime by their links (a star's page or url), so adding a filter
-// is one line here and nothing in the HTML. e.g. a later App Store pill:
-//   appstore: {label:'On the App Store', none:'not on the App Store', test: s => !!s.appStore},
+// Project filters, drawn as the chart's legend: each entry is one sign in the
+// key, and tapping it shows only the stars it matches. Rows in a
+// [data-filterable] list are matched to stars at runtime by their links, so
+// adding a filter is one line here and nothing in the HTML. e.g. later:
+//   appstore: {sign:'app', label:'On the App Store', none:'not on the App Store', test: s => !!s.appStore},
 const FILTERS = {
-  // web: a filled star with a public URL: it opens in a browser (some ask you to sign up)
-  web: {label:'Open in browser', none:'not open in a browser', test: s => s.k==='demo' && !!s.url},
+  // a filled star with a public URL: it opens in a browser (some ask you to sign up)
+  web:  {sign:'filled', label:'Open in browser', none:'not open in a browser', test: s => s.k==='demo' && !!s.url},
+  code: {sign:'code',   label:'Code on GitHub',  none:'no public code',        test: s => !!s.src},
+  // a hollow ring on the chart: the code is public but there is no public demo
+  srconly: {sign:'ring', label:'Code only, no public demo', none:'has a public demo or no public code', test: s => s.k==='src' || s.k==='gated'},
+  priv: {sign:'dotted', label:'Private, write-up only', none:'not private',   test: s => s.k==='priv'},
 };
 const filterKeys = s => Object.keys(FILTERS).filter(k=>FILTERS[k].test(s)).join(' ');
 
@@ -451,7 +455,7 @@ function buildConstellation(c, cam, onStarClick){
     const left = labelLeft[i];
     const sg = document.createElementNS(SVGNS,'g');
     const hollow = (s.k==='src'||s.k==='priv'||s.k==='gated');
-    sg.setAttribute('class','star m'+s.m+(hollow?' src':'')+(left?' right':' left'));
+    sg.setAttribute('class','star m'+s.m+(hollow?' src':'')+(s.k==='priv'?' priv':'')+(left?' right':' left'));
     sg.dataset.f = filterKeys(s);
     // role=button, not link: activating a star opens an in-place card (or, on the
     // overview, zooms its constellation) — it never navigates to a URL.
@@ -766,9 +770,11 @@ function applyFilter(key){
     const off = !!key && !(li.dataset.f||'').split(' ').includes(key);
     li.classList.toggle('off', off);
   });
-  document.querySelectorAll('#filterbar button').forEach(b=>
+  document.querySelectorAll('#filterbar .key-row').forEach(b=>
     b.setAttribute('aria-pressed', (b.dataset.key||'')===(key||'') ? 'true':'false'));
-  if(filterStatus) filterStatus.textContent = key ? `Showing ${document.querySelectorAll('.star[data-f~="'+key+'"]').length} projects: ${f.label.toLowerCase()}` : 'Showing all projects';
+  const state = document.querySelector('#filterbar .key-state');
+  if(state) state.textContent = key ? `Showing ${document.querySelectorAll('#sky-wrap .star[data-f~="'+key+'"]').length} of ${document.querySelectorAll('#sky-wrap .star').length} · tap again to clear` : '';
+  if(filterStatus) filterStatus.textContent = key ? `Showing ${document.querySelectorAll('#sky-wrap .star[data-f~="'+key+'"]').length} of ${document.querySelectorAll('#sky-wrap .star').length}: ${f.label.toLowerCase()}` : 'Showing all';
 }
 function initFilters(){
   if(filterReady) return; filterReady = true;
@@ -776,30 +782,48 @@ function initFilters(){
   if(!bar) return;
   const all = CONSTELLATIONS.flatMap(c=>c.stars);
   // tag list rows from star data: a row matches a star if any of its links
-  // points at that star's write-up page or its live url
+  // points at that star's write-up page, live url or repo
   const byLink = new Map();
-  all.forEach(st=>[st.page, st.url].forEach(h=>{ if(h) byLink.set(linkKey(h), st); }));
+  all.forEach(st=>[st.page, st.url, st.src].forEach(h=>{ if(h) byLink.set(linkKey(h), st); }));
   document.querySelectorAll('[data-filterable] > li').forEach(li=>{
     const st = [...li.querySelectorAll('a[href]')].map(a=>byLink.get(linkKey(a.getAttribute('href')))).find(Boolean);
     li.dataset.f = st ? filterKeys(st) : '';
   });
-  const projects = CONSTELLATIONS.find(c=>c.id==='opera-minora').stars;
-  const mk = (key,label)=>{
+  // an old atlas key: title, then one row per sign with a dotted leader to its count
+  bar.innerHTML = '<div class="key-title"><span aria-hidden="true">❧</span> Legend <span aria-hidden="true" class="flip">❧</span></div>'
+    + '<div class="key-sub">Tap a row to filter the chart</div><div class="key-rows"></div><div class="key-state" aria-hidden="true"></div>';
+  const rows = bar.querySelector('.key-rows');
+  const mk = (key,sign,label,n)=>{
     const b = document.createElement('button');
-    b.type='button'; b.className='viewtoggle'; b.dataset.key=key; b.textContent=label;
+    b.type='button'; b.className='key-row'; b.dataset.key=key;
+    b.innerHTML = '<span class="sign" aria-hidden="true"></span><span class="lbl"></span><span class="lead" aria-hidden="true"></span><span class="n"></span>';
+    b.querySelector('.sign').classList.add('sign-'+sign);
+    b.querySelector('.lbl').textContent = label;
+    b.querySelector('.n').textContent = n;
+    b.setAttribute('aria-label', `${label}, ${n}`);
     b.addEventListener('click', ()=>{
-      applyFilter(key); setParam(key);
-      track('filter', {key: key||'all'});
+      const k = (document.body.dataset.filter===key) ? '' : key;   // tap again to clear
+      applyFilter(k); setParam(k);
+      track('filter', {key: k||'all'});
+      // on a phone the chart sits below the legend: bring it into view so the tap visibly does something
+      const sky = document.getElementById('sky-wrap');
+      if(sky && k && matchMedia('(max-width:720px)').matches && sky.getBoundingClientRect().top > innerHeight*0.45)
+        sky.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start'});
     });
-    bar.appendChild(b);
+    rows.appendChild(b);
   };
   const setParam = key=>{
     const u = new URL(location.href);
     key ? u.searchParams.set('filter',key) : u.searchParams.delete('filter');
     history.replaceState(history.state, '', u);
   };
-  mk('', `All (${projects.length})`);
-  for(const [k,f] of Object.entries(FILTERS)) mk(k, `${f.label} (${projects.filter(f.test).length})`);
+  // counts are the stars actually drawn on this chart, so a count always equals what lights up
+  const drawn = sel => document.querySelectorAll('#sky-wrap .star'+sel).length;
+  mk('', 'all', 'All works', drawn(''));
+  for(const [k,f] of Object.entries(FILTERS)) mk(k, f.sign, f.label, drawn('[data-f~="'+k+'"]'));
+  const note = document.createElement('div'); note.className='key-note';
+  note.innerHTML = '<span class="sign sign-dash" aria-hidden="true"></span>Built by another project';
+  bar.appendChild(note);
   bar.hidden = false;
   const q = new URLSearchParams(location.search).get('filter');
   const ok = q !== null && Object.hasOwn(FILTERS, q);

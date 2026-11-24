@@ -686,11 +686,48 @@ html[data-band="night"]{ --paper:#efe9da; --paper2:#e8e0cd; --ink:#080807; --ink
   .cons .edge,.cons .hull{filter:none}
 }
 
-/* project filters (#filterbar, built by atlas.js) */
-.filterbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+/* project filters: the chart legend (#filterbar, built by atlas.js). An old
+   atlas key: double-ruled box, fleuron title, one row per sign with a dotted
+   leader to its count. Tapping a row filters; the active row is inked in. */
+.filterbar{max-width:440px;margin:18px auto 0;padding:12px 18px 12px;border:3px double var(--ink);background:var(--paper);text-align:left;position:relative}
 .filterbar[hidden]{display:none}
-.filterbar .viewtoggle{margin:0}
-.filterbar .viewtoggle[aria-pressed="true"]{border-color:currentColor;font-weight:500;text-decoration:underline;text-underline-offset:3px}
+.filterbar .key-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;text-align:center;letter-spacing:.04em;line-height:1.1}
+.filterbar .key-title .flip{display:inline-block;transform:scaleX(-1)}
+.filterbar .key-sub{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;text-align:center;color:var(--accent);margin:4px 0 8px;padding-bottom:8px;border-bottom:1px solid var(--ink)}
+.filterbar .key-row{display:flex;align-items:center;width:100%;gap:10px;min-height:36px;padding:4px 8px;background:none;border:0;border-radius:0;cursor:pointer;color:var(--ink);font-family:'Cormorant Garamond',serif;font-size:17px;text-align:left;transition:background .15s,color .15s}
+.filterbar .key-row:hover{background:rgba(10,10,10,.06)}
+.filterbar .key-row:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.filterbar .key-row .lbl{white-space:nowrap}
+.filterbar .key-row .lead{flex:1;border-bottom:1.5px dotted currentColor;opacity:.5;transform:translateY(4px)}
+.filterbar .key-row .n{font-family:'IBM Plex Mono',monospace;font-size:13px}
+.filterbar .key-row[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.filterbar .key-row[aria-pressed="true"] .sign-filled{background:var(--paper)}
+.filterbar .key-row[aria-pressed="true"] .sign-code,.filterbar .key-row[aria-pressed="true"] .sign-ring,.filterbar .key-row[aria-pressed="true"] .sign-dotted,.filterbar .key-row[aria-pressed="true"] .sign-all{border-color:var(--paper);color:var(--paper)}
+.filterbar .sign{flex:none;display:inline-block;width:12px;height:12px;border-radius:50%;box-sizing:border-box}
+.filterbar .sign-filled{background:var(--ink)}
+.filterbar .sign-code{width:auto;height:auto;border-radius:0;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:-.04em}
+.filterbar .sign-code::before{content:'</>'}
+.filterbar .key-state{min-height:0;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--accent)}
+.filterbar .key-state:not(:empty){margin-top:6px}
+.filterbar .sign-dotted{border:2px dotted var(--ink)}
+.filterbar .sign-ring{border:2px solid var(--ink)}
+.filterbar .sign-all{border:0;border-radius:0;width:12px;height:12px;position:relative}
+.filterbar .sign-all::before{content:'✦';position:absolute;inset:-4px 0 0;font-size:14px;line-height:1;text-align:center}
+.filterbar .sign-dash{width:18px;height:0;border-radius:0;border-top:1.5px dashed var(--accent);margin-right:10px;vertical-align:middle}
+.filterbar .key-note{margin-top:6px;padding:6px 8px 0;border-top:1px solid var(--rule);font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.star.priv .ring{stroke-dasharray:1.6 1.6}
+@media (max-width:720px){
+  .filterbar{max-width:none;margin:14px 0 0;padding:10px 12px}
+  .filterbar .key-sub{margin:2px 0 6px;padding-bottom:6px}
+  /* 2x2 on phones so the chart stays near the fold; leaders drop, counts stay */
+  .filterbar .key-rows{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+  .filterbar .key-row[data-key=""]{grid-column:1 / -1}
+  .preface .legend{display:none}
+  .filterbar .key-row{min-height:46px;font-size:16px;gap:8px;padding:4px 8px}
+  .filterbar .key-row .lbl{white-space:normal;line-height:1.1}
+  .filterbar .key-row .lead{flex:1;border:0}
+  .filterbar .key-note{margin-top:4px}
+}
 .star{transition:opacity .25s ease}
 .star.off{opacity:.16}
 .cons.off{opacity:.16;transition:opacity .25s ease}
