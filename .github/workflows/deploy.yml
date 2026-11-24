@@ -27,7 +27,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # gen_sitemap.py reads each page's last commit date for <lastmod>,
+          # gen_sitemap.py walks each page's commits for <lastmod> (skipping ?v= bumps),
           # which needs real history rather than the default single commit.
           fetch-depth: 0
 

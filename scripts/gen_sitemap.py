@@ -6,7 +6,7 @@ enough to get it into the sitemap — there is no second list to keep in step.
 
 Every index.html under the repo root becomes a URL, except pages that opt out
 with <meta name="robots" content="noindex"> (404.html does). lastmod comes from
-the file's own last commit, which is the date Google actually uses; changefreq
+the file's last commit that changed more than the ?v= cache buster; changefreq
 and priority are omitted deliberately, as Google ignores both.
 
     python3 scripts/gen_sitemap.py [--check]
@@ -15,6 +15,7 @@ and priority are omitted deliberately, as Google ignores both.
 """
 from __future__ import annotations
 
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -41,10 +42,37 @@ def loc_for(p: Path) -> str:
     return f"{BASE}/" if rel == "." else f"{BASE}/{rel}/"
 
 
+# Cache busters on the shared stylesheet/script, e.g. /assets/atlas.css?v=39.
+VERSION = re.compile(r"\.(css|js)\?v=\d+")
+
+
+def _git(*args: str) -> subprocess.CompletedProcess:
+    return subprocess.run(["git", "--literal-pathspecs", *args], cwd=ROOT,
+                          capture_output=True, text=True, errors="replace")
+
+
+def _content(rev: str, rel: str) -> str | None:
+    r = _git("show", f"{rev}:{rel}")
+    return VERSION.sub(r".\1", r.stdout) if r.returncode == 0 else None
+
+
 def lastmod(p: Path) -> str:
-    r = subprocess.run(["git", "log", "-1", "--format=%cs", "--", str(p)],
-                       cwd=ROOT, capture_output=True, text=True)
-    return r.stdout.strip()
+    """Date of the last commit that changed what the page says.
+
+    Commits that only bump the ?v=NN cache buster touch every page at once;
+    counting them would stamp the whole site with that day's date and teach
+    Google to ignore lastmod. Each commit is judged by comparing the page with
+    its first parent's copy, so merges and reordered lines are counted too.
+    """
+    rel = p.relative_to(ROOT).as_posix()
+    log = _git("log", "--format=%H %cs", "--", rel)
+    if log.returncode != 0:
+        raise SystemExit(f"git log failed for {rel}: {log.stderr.strip()}")
+    for line in log.stdout.splitlines():
+        sha, date = line.split()
+        if _content(sha, rel) != _content(f"{sha}^", rel):
+            return date
+    return ""
 
 
 def build() -> str:
@@ -59,6 +87,9 @@ def build() -> str:
 
 
 def main() -> int:
+    if _git("rev-parse", "--is-shallow-repository").stdout.strip() != "false":
+        print("needs full git history for lastmod (checkout fetch-depth: 0)")
+        return 1
     xml = build()
     target = ROOT / "sitemap.xml"
     if "--check" in sys.argv:
