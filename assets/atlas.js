@@ -178,16 +178,6 @@ const CONSTELLATIONS = [
           'Private by default: editing happens on the phone, and nothing is uploaded until you choose to publish.',
         ],
         st:'React 19 · TypeScript · Vite · MediaPipe in the browser; Node 24 with node:sqlite behind Caddy for shared packs. A native iPhone version with an iMessage sticker extension is in progress.'},
-      {nm:'Hotel Finder', g:'real hotels on a map, from OpenStreetMap', m:3, k:'demo', cx:650, cy:140, lp:'R', url:D+'/hotel-finder/', src:GH+'/hotel-finder', img:'/screenshots/hotel-finder.webp', page:'/projects/hotel-finder/',
-        d:'Pick one of 49 cities and see its hotels on a map and in a list, pulled live from OpenStreetMap. Filter by star rating, sort by distance, stars or name, then jump to Booking.com or Hotels.com with your dates filled in. It shows where the hotels are, not what they cost.',
-        hi:[
-          'Data: one Overpass API query fetches the hotels OpenStreetMap lists in a box roughly 11 km across the city centre, capped at 200, and keeps the result for a day.',
-          'Star filter: OpenStreetMap records a star rating for only some hotels, so the rest are marked unknown rather than guessed.',
-          'Map and list side by side on Leaflet, with each pin coloured by rating.',
-          'Booking hand-off: every hotel links to a Booking.com or Hotels.com search with your check-in and check-out dates already set.',
-          'No prices. OpenStreetMap has none, and the app does not pretend otherwise.',
-        ],
-        st:'React · TypeScript · Vite · Leaflet. Static on GitHub Pages: no backend and no API key, with hotel data from the OpenStreetMap Overpass API.'},
       {nm:'Holdbreaker', g:'waits on hold so you do not have to', m:2, k:'priv', cx:480, cy:320, lp:'R', page:'/projects/holdbreaker/',
         d:'A phone app that calls a company for you, works through the phone menu, waits on hold, and rings you the moment a person picks up. It is in private testing against a simulated phone line and has not called a real company yet.',
         hi:[
@@ -210,7 +200,7 @@ const CONSTELLATIONS = [
     ],
     // The Builder's Loom: outer frame (top beam, posts, bottom beam) + inner warp threads.
     // WikiGame (13) sits on the top beam between 1 and 2, so the beam still reads straight.
-    edges:[[0,1],[1,13],[13,2],[2,4],[4,8],[8,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12],[13,12],[0,15],[15,10],[15,16],[1,14],[14,15],[17,4],[18,6],[19,14],[20,5],[21,12]],
+    edges:[[0,1],[1,13],[13,2],[2,4],[4,8],[8,7],[7,0],[1,3],[3,6],[6,5],[5,7],[6,8],[3,10],[0,11],[8,12],[13,12],[0,15],[15,10],[15,16],[1,14],[14,15],[17,4],[18,6],[19,5],[20,12]],
     conj:[[9,1]] },
 
   { id:'corona-laboris', name:'Corona Laboris', sub:'Day Work', section:'/career/',

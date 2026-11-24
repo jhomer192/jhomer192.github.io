@@ -33,7 +33,6 @@ Not to be confused with other people named Jack Homer: this is the software engi
 - [Game of Life](https://jackhomer.com/projects/game-of-life/): An interactive Conway's Game of Life that runs at up to 60 generations a second on a wrap-around canvas, with a pattern library and live stats.
 - [Hanabi](https://jackhomer.com/projects/hanabi/): The cooperative fireworks card game for iPhone, built for a private group: invite-only sign-in by email, with Claude bots and post-game coaching.
 - [Holdbreaker](https://jackhomer.com/projects/holdbreaker/): A phone app that waits on hold for you and rings you when a person picks up. In private testing on a simulated line; not public.
-- [Hotel Finder](https://jackhomer.com/projects/hotel-finder/): Hotels from OpenStreetMap in 49 cities, on a map with star filters and booking links. Up to 200 per city, no API key. Shows locations, not prices.
 - [Meme Maker](https://jackhomer.com/projects/meme-maker/): A browser meme editor: pick a template or drop in your own image, caption it, and download a clean PNG. No backend, no uploads, no watermark.
 - [Nuzlocke](https://jackhomer.com/projects/nuzlocke/): A run tracker for Pokémon Nuzlocke challenges: every route encounter, your living team, the graveyard, badges, and boss prep in one place.
 - [Pokémon Agent](https://jackhomer.com/projects/pokemon-agent/): A multi-agent system of local models on his own GPU plays Pokémon FireRed and Emerald unassisted, one button press at a time.
